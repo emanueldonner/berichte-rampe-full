@@ -1,0 +1,15 @@
+{
+  "name": "berichte-backend-new",
+  "version": "0.0.1",
+  "description": "Berichte-Framework Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emanuel Donner",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.15.0"
+  }
+}
