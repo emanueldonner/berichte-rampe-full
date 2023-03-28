@@ -12,7 +12,7 @@ fastify.register(require("@fastify/view"), {
 
 // Declare a route
 fastify.get("/", function (request, reply) {
-  reply.view("src/templates/index.njk", { text: "text" })
+  reply.view("src/templates/index.njk", { text: "you funny bunny" })
 
   // exec(
   //   "./src/office-parser/parse.mjs -n ./public/output ./src/office-parser/samples/frameworkpraesentation_2021.docx",
