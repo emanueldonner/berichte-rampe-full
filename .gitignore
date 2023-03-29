@@ -13,4 +13,4 @@ env
 .vscode/*
 !.vscode/settings.json
 
-public/output/*
+public/*
