@@ -1,5 +1,0 @@
-{
-    "name": "office-parse",
-    "main": "./parse.mjs",
-    "type": "module"
-}

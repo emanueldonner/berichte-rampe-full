@@ -1,5 +1,0 @@
-{
-    "name" : "list-paragraph",
-    "main" : "./list-paragraph.js",
-    "type" : "module"
-}

@@ -1,5 +1,0 @@
-{
-    "name" : "chart",
-    "main" : "./chart.js",
-    "type" : "module"
-}
