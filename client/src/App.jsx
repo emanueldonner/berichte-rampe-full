@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react"
 import { useDropzone } from "react-dropzone"
 import axios from "axios"
+import useWebSocket from "react-use-websocket"
 
 import "./App.css"
 
@@ -8,7 +9,24 @@ function App() {
   const [message, setMessage] = useState("")
   const [path, setPath] = useState("")
   const [filename, setFilename] = useState("")
-  const [ws, setWs] = useState(null) // Add WebSocket state
+  const [handleSend, setHandleSend] = useState(() => {})
+  const { sendJsonMessage } = useWebSocket(
+    `ws://${window.location.hostname}:5000/api/log`,
+    {
+      onMessage: (event) => {
+        console.log("WebSocket message:", event.data)
+        setMessage((prev) => prev + event.data)
+      },
+      onError: (error) => {
+        console.log("WebSocket error:", error)
+      },
+      onOpen: () => {
+        console.log("WebSocket connected")
+        sendJsonMessage({ message: "Hello from client" })
+      },
+    }
+  )
+
   const onDrop = useCallback(async (acceptedFiles) => {
     console.log(acceptedFiles)
     try {
@@ -44,24 +62,20 @@ function App() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
-  useEffect(() => {
-    const ws = new WebSocket(`ws://${window.location.host}/api/log`)
-    console.log(ws)
-    ws.onopen = () => {
-      console.log("WebSocket connected")
-    }
-    ws.onmessage = (event) => {
-      setMessage((prev) => prev + event.data) // Append received log message to state
-    }
-    setWs(ws)
-    // return () => {
-    //   ws.close()
-    // }
-  }, [])
-
   return (
     <div>
       <h2>File Upload</h2>
+      <button
+        onClick={() => {
+          try {
+            sendJsonMessage({ message: "Hello from client" })
+          } catch (error) {
+            console.error("catch: ", error)
+          }
+        }}
+      >
+        send ws msg
+      </button>
       <div {...getRootProps()}>
         <input {...getInputProps()} accept=".docx" />
         {isDragActive ? (

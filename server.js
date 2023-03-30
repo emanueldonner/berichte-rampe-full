@@ -5,7 +5,6 @@ const fastify = require("fastify")({
 const fs = require("fs-extra")
 const path = require("path")
 const sanitize = require("sanitize-filename")
-const websocketPlugin = require("@fastify/websocket")
 
 module.exports = function (fastify, ops, next) {
   next()
@@ -28,15 +27,17 @@ fastify.register(require("@fastify/multipart"), {
     fileSize: 100 * 1024 * 1024, // 100MB
   },
 })
-fastify.register(websocketPlugin)
+fastify.register(require("@fastify/websocket"))
 // Defining websoclket route
-fastify.get("/api/log", { websocket: true }, (connection, req) => {
-  console.log("client connected")
-  connection.socket.on("message", (message) => {
-    console.log(`Received message: ${message}`)
+fastify.register(async function (fastify) {
+  fastify.get("/api/log", { websocket: true }, (connection, req) => {
+    console.log("client connected")
+    connection.socket.send("hi from server")
+    connection.socket.on("message", (message) => {
+      console.log(`Received message: ${message}`)
+    })
   })
 })
-
 fastify.post("/api/upload", async function (request, reply) {
   try {
     const file = await request.file()
