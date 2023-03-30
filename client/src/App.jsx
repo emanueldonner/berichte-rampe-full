@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { useDropzone } from "react-dropzone"
 import axios from "axios"
 
@@ -8,6 +8,7 @@ function App() {
   const [message, setMessage] = useState("")
   const [path, setPath] = useState("")
   const [filename, setFilename] = useState("")
+  const [ws, setWs] = useState(null) // Add WebSocket state
   const onDrop = useCallback(async (acceptedFiles) => {
     console.log(acceptedFiles)
     try {
@@ -42,6 +43,21 @@ function App() {
   }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
+  useEffect(() => {
+    const ws = new WebSocket(`ws://${window.location.host}/api/log`)
+    console.log(ws)
+    ws.onopen = () => {
+      console.log("WebSocket connected")
+    }
+    ws.onmessage = (event) => {
+      setMessage((prev) => prev + event.data) // Append received log message to state
+    }
+    setWs(ws)
+    // return () => {
+    //   ws.close()
+    // }
+  }, [])
 
   return (
     <div>

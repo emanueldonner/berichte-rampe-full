@@ -1,12 +1,11 @@
 const { exec } = require("child_process")
-
 const fastify = require("fastify")({
   logger: true,
 })
 const fs = require("fs-extra")
-
 const path = require("path")
 const sanitize = require("sanitize-filename")
+const websocketPlugin = require("@fastify/websocket")
 
 module.exports = function (fastify, ops, next) {
   next()
@@ -23,13 +22,21 @@ if (!fs.existsSync(PUBLIC_DIR)) {
 //     nunjucks: require("nunjucks"),
 //   },
 // })
-
 fastify.register(require("@fastify/multipart"), {
   // attachFieldsToBody: true,
   limits: {
     fileSize: 100 * 1024 * 1024, // 100MB
   },
 })
+fastify.register(websocketPlugin)
+// Defining websoclket route
+fastify.get("/api/log", { websocket: true }, (connection, req) => {
+  console.log("client connected")
+  connection.socket.on("message", (message) => {
+    console.log(`Received message: ${message}`)
+  })
+})
+
 fastify.post("/api/upload", async function (request, reply) {
   try {
     const file = await request.file()
@@ -81,6 +88,11 @@ fastify.post("/api/parse", async function (request, reply) {
           return
         }
         console.log(`stdout: ${stdout}`)
+        // Send log message to connected clients
+        fastify.websocketServer.clients.forEach((client) => {
+          console.log("sending to client", client)
+          client.send(stdout)
+        })
       }
     )
   } catch (error) {

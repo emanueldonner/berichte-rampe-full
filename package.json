@@ -18,6 +18,7 @@
   "dependencies": {
     "@fastify/multipart": "^7.5.0",
     "@fastify/view": "^7.4.1",
+    "@fastify/websocket": "^7.2.0",
     "adm-zip": "^0.5.4",
     "child_process": "^1.0.2",
     "command-line-args": "^5.1.1",
