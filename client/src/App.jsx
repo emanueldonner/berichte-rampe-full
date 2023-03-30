@@ -9,13 +9,19 @@ function App() {
   const [message, setMessage] = useState("")
   const [path, setPath] = useState("")
   const [filename, setFilename] = useState("")
-  const [handleSend, setHandleSend] = useState(() => {})
+
   const { sendJsonMessage } = useWebSocket(
     `ws://${window.location.hostname}:5000/api/log`,
     {
       onMessage: (event) => {
-        console.log("WebSocket message:", event.data)
-        setMessage((prev) => prev + event.data)
+        // console.log("WebSocket message:", JSON.parse(event.data))
+        const data = JSON.parse(event.data)
+        console.log("data type:", typeof data)
+        console.log("WebSocket message:", data)
+        // data.map((msg) => {
+        //   setMessage((prev) => prev + msg)
+        // })
+        setMessage(data.msg)
       },
       onError: (error) => {
         console.log("WebSocket error:", error)
@@ -39,11 +45,11 @@ function App() {
         },
       })
 
-      setMessage(res.data.message)
+      setMessage((prev) => prev + res.data.message)
       setPath(res.data.path)
       setFilename(res.data.filename)
     } catch (error) {
-      setMessage(error.response.data.message)
+      setMessage((prev) => prev + error.response.data.message)
     }
   }, [])
 
@@ -54,16 +60,19 @@ function App() {
         filename,
       })
 
-      setMessage(res.data.message)
+      setMessage((prev) => prev + res.data.message)
     } catch (error) {
-      setMessage(error.response.data.message)
+      setMessage((prev) => prev + error.response.data.message)
     }
   }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-
+  const dropzoneStyle = isDragActive
+    ? "dropzone-container dropzone-active"
+    : "dropzone-container"
+  // const dropzoneStyleString = JSON.stringify(dropzoneStyle)
   return (
-    <div>
+    <main>
       <h2>File Upload</h2>
       <button
         onClick={() => {
@@ -76,19 +85,19 @@ function App() {
       >
         send ws msg
       </button>
-      <div {...getRootProps()}>
-        <input {...getInputProps()} accept=".docx" />
-        {isDragActive ? (
-          <p>Drop the file here ...</p>
-        ) : (
-          <p>Drag and drop a .docx file here, or click to select file</p>
-        )}
+      <div {...getRootProps()} className={dropzoneStyle}>
+        <input id="dropzone" {...getInputProps()} accept=".docx" />
+        <label for="dropzone" className="dropzone-label">
+          {isDragActive
+            ? "Drop the file here ..."
+            : "Drag and drop a .docx file here, or click to select file"}
+        </label>
       </div>
-      {message && <p>{message}</p>}
+      <div className="log-box">{message && <p>{message}</p>}</div>
       {message?.includes("success") && (
         <button onClick={() => onParseClick()}>Parse!</button>
       )}
-    </div>
+    </main>
   )
 }
 

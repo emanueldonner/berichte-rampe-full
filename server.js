@@ -1,6 +1,6 @@
 const { exec } = require("child_process")
 const fastify = require("fastify")({
-  logger: true,
+  // logger: true,
 })
 const fs = require("fs-extra")
 const path = require("path")
@@ -32,7 +32,7 @@ fastify.register(require("@fastify/websocket"))
 fastify.register(async function (fastify) {
   fastify.get("/api/log", { websocket: true }, (connection, req) => {
     console.log("client connected")
-    connection.socket.send("hi from server")
+    connection.socket.send(JSON.stringify({ msg: "hi from server" }))
     connection.socket.on("message", (message) => {
       console.log(`Received message: ${message}`)
     })
@@ -88,11 +88,12 @@ fastify.post("/api/parse", async function (request, reply) {
           console.log(`stderr: ${stderr}`)
           return
         }
-        console.log(`stdout: ${stdout}`)
+        // console.log(`stdout: ${stdout}`)
+        console.log("data type", typeof stdout)
         // Send log message to connected clients
         fastify.websocketServer.clients.forEach((client) => {
-          console.log("sending to client", client)
-          client.send(stdout)
+          console.log("sending to client")
+          client.send(JSON.stringify(stdout))
         })
       }
     )

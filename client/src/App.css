@@ -1,42 +1,64 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.dropzone-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 600px;
+  background-color: rgb(118, 173, 218);
+  border: dashed 1px rgb(180, 221, 255);
+  border-radius: 4px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.dropzone-container:hover {
+  background-color: rgb(86, 154, 209);
+}
+
+.dropzone-label {
+  font-size: 16px;
+  font-weight: bold;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(255, 255, 255);
+  /* padding: 2rem; */
+  height: 60%;
+  width: 80%;
+  border: 5px dotted rgba(255, 255, 255, 0.5);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+.dropzone-active {
+  background-color: rgb(61, 201, 168);
+  border-color: #078e8e;
+}
+.dropzone-active > .dropzone-label {
+  border-style: solid;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.log-box {
+  width: 80%;
+  height: 22rem;
+  background-color: #f5f5f5;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  padding: 0 1rem;
+  font-family: monospace;
+  background-color: #222;
+  color: #5dfe7c;
+  overflow-y: auto;
 }
