@@ -5,6 +5,7 @@ main {
   justify-content: center;
   height: 100vh;
   width: 100vw;
+  background-color: #eefcfc;
 }
 
 .dropzone-container {
@@ -15,12 +16,13 @@ main {
   height: 200px;
   width: 600px;
   background-color: rgb(118, 173, 218);
-  border: dashed 1px rgb(180, 221, 255);
+  /* border: dashed 1px rgb(180, 221, 255); */
   border-radius: 4px;
   padding: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
   margin-bottom: 1rem;
+  box-shadow: inset 0 0 0.6rem rgba(0, 0, 0, 0.2);
 }
 
 .dropzone-container:hover {

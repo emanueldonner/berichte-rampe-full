@@ -6,9 +6,13 @@ import useWebSocket from "react-use-websocket"
 import "./App.css"
 
 function App() {
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState(new Array())
   const [path, setPath] = useState("")
   const [filename, setFilename] = useState("")
+  const [success, setSuccess] = useState(false)
+  const addToMessage = (msg) => {
+    setMessage((prev) => [...prev, msg])
+  }
 
   const { sendJsonMessage } = useWebSocket(
     `ws://${window.location.hostname}:5000/api/log`,
@@ -21,7 +25,7 @@ function App() {
         // data.map((msg) => {
         //   setMessage((prev) => prev + msg)
         // })
-        setMessage(data.msg)
+        addToMessage(data.msg)
       },
       onError: (error) => {
         console.log("WebSocket error:", error)
@@ -45,11 +49,12 @@ function App() {
         },
       })
 
-      setMessage((prev) => prev + res.data.message)
+      addToMessage(res.data.message)
+      setSuccess(true)
       setPath(res.data.path)
       setFilename(res.data.filename)
     } catch (error) {
-      setMessage((prev) => prev + error.response.data.message)
+      addToMessage(error.response.data.message)
     }
   }, [])
 
@@ -60,9 +65,9 @@ function App() {
         filename,
       })
 
-      setMessage((prev) => prev + res.data.message)
+      addToMessage(res.data.message)
     } catch (error) {
-      setMessage((prev) => prev + error.response.data.message)
+      addToMessage(error.response.data.message)
     }
   }
 
@@ -87,16 +92,22 @@ function App() {
       </button>
       <div {...getRootProps()} className={dropzoneStyle}>
         <input id="dropzone" {...getInputProps()} accept=".docx" />
-        <label for="dropzone" className="dropzone-label">
+        <label htmlFor="dropzone" className="dropzone-label">
           {isDragActive
             ? "Drop the file here ..."
             : "Drag and drop a .docx file here, or click to select file"}
         </label>
       </div>
-      <div className="log-box">{message && <p>{message}</p>}</div>
-      {message?.includes("success") && (
-        <button onClick={() => onParseClick()}>Parse!</button>
-      )}
+      <div className="log-box">
+        {message && (
+          <>
+            {message.map((msg, i) => (
+              <p key={i}>{msg}</p>
+            ))}
+          </>
+        )}
+      </div>
+      {success && <button onClick={() => onParseClick()}>Parse!</button>}
     </main>
   )
 }
