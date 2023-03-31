@@ -1,6 +1,19 @@
 const { exec } = require("child_process")
+const envToLogger = {
+  development: {
+    transport: {
+      target: "pino-pretty",
+      options: {
+        translateTime: "SYS:dd.mm.yyyy HH:MM:ss",
+        ignore: "pid,hostname",
+      },
+    },
+  },
+  production: true,
+  test: false,
+}
 const fastify = require("fastify")({
-  // logger: true,
+  logger: envToLogger["development"] ?? true,
 })
 const fs = require("fs-extra")
 const path = require("path")
@@ -93,7 +106,23 @@ fastify.post("/api/parse", async function (request, reply) {
         // Send log message to connected clients
         fastify.websocketServer.clients.forEach((client) => {
           console.log("sending to client")
-          client.send(JSON.stringify(stdout))
+          const logLines = stdout.split("\n")
+          logLines.forEach((logLine) => {
+            if (logLine.trim() !== "") {
+              try {
+                const logObject = JSON.parse(logLine)
+                client.send(
+                  JSON.stringify({
+                    event: "parselog",
+                    body: logObject,
+                  })
+                )
+              } catch (parseError) {
+                console.error("Error parsing log line:", parseError)
+              }
+            }
+          })
+          // client.send(JSON.stringify(stdout))
         })
       }
     )

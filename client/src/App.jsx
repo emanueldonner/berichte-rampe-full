@@ -3,6 +3,8 @@ import { useDropzone } from "react-dropzone"
 import axios from "axios"
 import useWebSocket from "react-use-websocket"
 
+import { logMsgs } from "./logMsgs"
+
 import "./App.css"
 
 function App() {
@@ -13,19 +15,35 @@ function App() {
   const addToMessage = (msg) => {
     setMessage((prev) => [...prev, msg])
   }
-
   const { sendJsonMessage } = useWebSocket(
     `ws://${window.location.hostname}:5000/api/log`,
     {
       onMessage: (event) => {
         // console.log("WebSocket message:", JSON.parse(event.data))
         const data = JSON.parse(event.data)
-        console.log("data type:", typeof data)
-        console.log("WebSocket message:", data)
+        const e = data.event
         // data.map((msg) => {
         //   setMessage((prev) => prev + msg)
         // })
-        addToMessage(data.msg)
+        if (e == "parselog") {
+          const { body } = data
+          let header = ""
+          let content = ""
+          logMsgs.map((msg) => {
+            if (msg.ref === body.ref) {
+              header = msg.message
+              content = msg.explanation
+              console.log("found match", header)
+            } else {
+              console.log("no match")
+            }
+          })
+          const msg = `${body.level}: ${header} | ${content}`
+          addToMessage(msg)
+        } else {
+          console.log("fire if event !== 'parselog'")
+          addToMessage(data.msg ?? data.message ?? data)
+        }
       },
       onError: (error) => {
         console.log("WebSocket error:", error)
