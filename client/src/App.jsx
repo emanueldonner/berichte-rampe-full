@@ -373,15 +373,15 @@ function App() {
   // const dropzoneStyleString = JSON.stringify(dropzoneStyle)
   return (
     <main>
-      <h2>File Upload</h2>
+      <h2>Berichte Upload</h2>
       <div>
         <div>
           <div {...getRootProps()} className={dropzoneStyle}>
             <input id="dropzone" {...getInputProps()} accept=".docx" />
             <label htmlFor="dropzone" className="dropzone-label">
               {isDragActive
-                ? "Drop the file here ..."
-                : "Drag and drop a .docx file here, or click to select file"}
+                ? "Die Datei hier ablegen ..."
+                : "Ziehen Sie eine .docx-Datei hierher, oder klicken Sie, um eine Datei auszuwählen"}
             </label>
           </div>
           <ReportSettingsForm />

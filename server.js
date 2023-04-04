@@ -46,7 +46,9 @@ fastify.register(require("@fastify/websocket"))
 fastify.register(async function (fastify) {
   fastify.get("/api/log", { websocket: true }, (connection, req) => {
     console.log("client connected")
-    connection.socket.send(JSON.stringify({ msg: "hi from server" }))
+    connection.socket.send(
+      JSON.stringify({ msg: "Verbindung zum Server hergestellt." })
+    )
     connection.socket.on("message", (message) => {
       console.log(`Received message: ${message}`)
     })

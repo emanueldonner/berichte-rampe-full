@@ -4,9 +4,10 @@ main {
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding-bottom: 23rem;
   /* height: 100vh; */
   /* width: 100vw; */
-  background-color: #eefcfc;
+  /* background-color: #eefcfc; */
 }
 
 .dropzone-container {
@@ -38,12 +39,13 @@ main {
   align-items: center;
   justify-content: center;
   color: rgb(255, 255, 255);
-  /* padding: 2rem; */
+  padding: 2rem;
   height: 60%;
-  width: 80%;
-  border: 5px dotted rgba(255, 255, 255, 0.5);
+  min-width: 80%;
+  border: 2px dotted rgba(255, 255, 255, 0.5);
   border-radius: 0.5rem;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 .dropzone-active {
   background-color: rgb(61, 201, 168);
@@ -54,15 +56,18 @@ main {
 }
 
 .log-box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   margin-top: 1rem;
-  width: 800px;
+  width: 100%;
   height: 22rem;
-  background-color: #f5f5f5;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
   font-family: monospace;
-  background-color: #222;
+  background-color: #333;
+  box-shadow: inset 0 0 1rem rgba(0, 0, 0, 1);
   color: #5dfe7c;
   overflow-y: auto;
 }
