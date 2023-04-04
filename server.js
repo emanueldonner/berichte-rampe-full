@@ -1,3 +1,7 @@
+const fs = require("fs-extra")
+const path = require("path")
+const Eleventy = require("@11ty/eleventy")
+const sanitize = require("sanitize-filename")
 const { exec } = require("child_process")
 const envToLogger = {
   development: {
@@ -15,9 +19,6 @@ const envToLogger = {
 const fastify = require("fastify")({
   logger: envToLogger["development"] ?? true,
 })
-const fs = require("fs-extra")
-const path = require("path")
-const sanitize = require("sanitize-filename")
 
 module.exports = function (fastify, ops, next) {
   next()
@@ -90,8 +91,19 @@ fastify.post("/api/upload", async function (request, reply) {
 fastify.post("/api/parse", async function (request, reply) {
   try {
     const { filename, path } = request.body
+    if (!fs.existsSync(`${path}/build`)) {
+      fs.mkdirSync(`${path}/build`, { recursive: true })
+      fs.chmod(`${path}/build`, 0o775, (err) => {
+        if (err) {
+          console.error(err)
+        }
+      })
+    }
+    await exec(`cp -r ./public/template/* ${path}/build`)
+    await exec(`npm install --prefix ${path}/build`)
+    console.log("copied template")
     exec(
-      `./server/office-parser/parse.mjs -n ${path}/build ${path}/${filename}`,
+      `./server/office-parser/parse.mjs -n ${path}/build/src ${path}/${filename}`,
       (error, stdout, stderr) => {
         if (error) {
           console.log(`error: ${error.message}`)
@@ -124,12 +136,49 @@ fastify.post("/api/parse", async function (request, reply) {
           })
           // client.send(JSON.stringify(stdout))
         })
+        try {
+          console.log("pre build")
+          buildSite(path)
+        } catch (error) {
+          console.log("error building site", error)
+        }
       }
     )
   } catch (error) {
     reply.status(500).send({ message: error.message })
   }
 })
+
+const rewritePaths = async (folder) => {
+  fs.readFile(`${folder}/.eleventy.js`, "utf8", function (err, data) {
+    if (err) {
+      return console.log(err)
+    }
+
+    var result = data.replace(/REPLACEME/g, `"${folder}"`)
+
+    fs.writeFile(`${folder}/.eleventy.js`, result, "utf8", function (err) {
+      if (err) return console.log(err)
+    })
+  })
+}
+
+const buildSite = async (dirPath) => {
+  try {
+    const buildPath = path.join(dirPath, "build")
+    await rewritePaths(buildPath)
+    const eleventyConfigPath = path.join(buildPath, ".eleventy.js")
+    console.log("dir: ", eleventyConfigPath)
+    const elev = new Eleventy(`${buildPath}/src`, "_site", {
+      configPath: eleventyConfigPath,
+    })
+    await elev.write()
+    console.log("Eleventy build completed successfully.")
+  } catch (error) {
+    return "Failed to build Eleventy site: " + error.message
+  }
+}
+
 // Run the server!
 fastify.listen({ port: process.env.PORT || 5000 }, function (err, address) {
   if (err) {

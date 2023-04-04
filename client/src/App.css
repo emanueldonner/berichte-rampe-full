@@ -3,8 +3,9 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
+  /* height: 100vh; */
+  /* width: 100vw; */
   background-color: #eefcfc;
 }
 
@@ -14,7 +15,7 @@ main {
   align-items: center;
   justify-content: center;
   height: 200px;
-  width: 600px;
+  width: 800px;
   background-color: rgb(118, 173, 218);
   /* border: dashed 1px rgb(180, 221, 255); */
   border-radius: 4px;
@@ -53,7 +54,8 @@ main {
 }
 
 .log-box {
-  width: 80%;
+  margin-top: 1rem;
+  width: 800px;
   height: 22rem;
   background-color: #f5f5f5;
   border: 1px solid #e5e5e5;

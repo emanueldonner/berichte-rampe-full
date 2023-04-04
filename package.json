@@ -16,6 +16,7 @@
   "author": "Emanuel Donner",
   "license": "ISC",
   "dependencies": {
+    "@11ty/eleventy": "^2.0.1",
     "@fastify/multipart": "^7.5.0",
     "@fastify/view": "^7.4.1",
     "@fastify/websocket": "^7.2.0",
