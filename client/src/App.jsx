@@ -376,17 +376,6 @@ function App() {
       <h2>File Upload</h2>
       <div>
         <div>
-          <button
-            onClick={() => {
-              try {
-                sendJsonMessage({ message: "Hello from client" })
-              } catch (error) {
-                console.error("catch: ", error)
-              }
-            }}
-          >
-            send ws msg
-          </button>
           <div {...getRootProps()} className={dropzoneStyle}>
             <input id="dropzone" {...getInputProps()} accept=".docx" />
             <label htmlFor="dropzone" className="dropzone-label">
