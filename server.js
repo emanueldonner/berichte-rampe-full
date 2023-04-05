@@ -20,6 +20,8 @@ const fastify = require("fastify")({
   logger: envToLogger["development"] ?? true,
 })
 
+const connectionStore = require("./server/connectionStore.js")
+
 module.exports = function (fastify, ops, next) {
   next()
 }
@@ -30,11 +32,6 @@ if (!fs.existsSync(PUBLIC_DIR)) {
   fs.mkdirSync(PUBLIC_DIR, { recursive: true })
 }
 
-// fastify.register(require("@fastify/view"), {
-//   engine: {
-//     nunjucks: require("nunjucks"),
-//   },
-// })
 fastify.register(require("@fastify/multipart"), {
   // attachFieldsToBody: true,
   limits: {
@@ -44,18 +41,33 @@ fastify.register(require("@fastify/multipart"), {
 fastify.register(require("@fastify/websocket"))
 // Defining websoclket route
 fastify.register(async function (fastify) {
-  fastify.get("/api/log", { websocket: true }, (connection, req) => {
-    console.log("client connected")
-    connection.socket.send(
-      JSON.stringify({ msg: "Verbindung zum Server hergestellt." })
-    )
-    connection.socket.on("message", (message) => {
-      console.log(`Received message: ${message}`)
-    })
+  fastify.route({
+    method: "GET",
+    url: "/log",
+    handler: (request, reply) => {
+      reply.send("This is a WebSocket route")
+    },
+    wsHandler: (connection, request) => {
+      console.log("client connected")
+      connection.socket.send(
+        JSON.stringify({ msg: "Verbindung zum Server hergestellt." })
+      )
+      connection.socket.on("message", (message) => {
+        console.log(`Received message: ${message}`)
+      })
+
+      connectionStore.addConnection(connection.socket)
+      connection.socket.on("close", () => {
+        connectionStore.removeConnection(connection.socket)
+      })
+    },
   })
 })
-fastify.post("/api/upload", async function (request, reply) {
+fastify.post("/upload", async function (request, reply) {
   try {
+    connectionStore.broadcastMessage({
+      msg: "Dokument wird hochgeladen...",
+    })
     const file = await request.file()
     console.log("file", file.file)
     if (!file) {
@@ -81,7 +93,7 @@ fastify.post("/api/upload", async function (request, reply) {
     await fs.promises.writeFile(savePath, file.file)
 
     reply.status(200).send({
-      message: "File uploaded successfully",
+      message: "Dokument erfolgreich uploadet.",
       path: uploadDir,
       filename: file.filename,
     })
@@ -90,9 +102,12 @@ fastify.post("/api/upload", async function (request, reply) {
   }
 })
 
-fastify.post("/api/parse", async function (request, reply) {
+fastify.post("/parse", async function (request, reply) {
   try {
     console.log("parse body", request.body)
+    connectionStore.broadcastMessage({
+      msg: "Dokument wird verarbeitet...",
+    })
     const { filename, path } = request.body
     if (!fs.existsSync(`${path}/build`)) {
       fs.mkdirSync(`${path}/build`, { recursive: true })
@@ -105,6 +120,9 @@ fastify.post("/api/parse", async function (request, reply) {
     await exec(`cp -r ./public/template/. ${path}/build`)
     await exec(`npm install --prefix ${path}/build`)
     console.log("copied template")
+    connectionStore.broadcastMessage({
+      msg: "Files aus dem Template kopiert...",
+    })
     exec(
       `./server/office-parser/parse.mjs -n ${path}/build/src ${path}/${filename}`,
       (error, stdout, stderr) => {
@@ -229,6 +247,9 @@ const rewritePaths = async (folder) => {
 const buildSite = async (dirPath, settingsToReplace) => {
   try {
     const buildPath = path.join(dirPath, "build")
+    connectionStore.broadcastMessage({
+      msg: "Starte Eleventy Build...",
+    })
     await replaceSettings(settingsToReplace)
     console.log("between replaced settings", buildPath)
     await rewritePaths(buildPath)
@@ -247,6 +268,9 @@ const buildSite = async (dirPath, settingsToReplace) => {
     console.log("Eleventy build started...")
     // await elev.write()
     console.log("Eleventy build completed successfully.")
+    connectionStore.broadcastMessage({
+      msg: "Eleventy Build erfolgreich beendet.",
+    })
   } catch (error) {
     return "Failed to build Eleventy site: " + error.message
   }

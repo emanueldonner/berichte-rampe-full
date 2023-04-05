@@ -5,10 +5,6 @@ import useWebSocket from "react-use-websocket"
 
 import { logMsgs } from "./logMsgs"
 
-import "./assets/css/critical.min.css"
-import "./assets/css/main.min.css"
-import "./App.css"
-
 function ReportSettingsForm({ path, filename, onParseClick }) {
   const [siteLang, setSiteLang] = useState("de")
   const [siteTitle, setSiteTitle] = useState("")
@@ -328,6 +324,7 @@ function ReportSettingsForm({ path, filename, onParseClick }) {
 }
 
 function App() {
+  const [socketUrl, setSocketUrl] = useState(null)
   const [message, setMessage] = useState(new Array())
   const [path, setPath] = useState("")
   const [filename, setFilename] = useState("")
@@ -343,45 +340,49 @@ function App() {
     }
   }, [message])
 
-  const { sendJsonMessage } = useWebSocket(
-    `ws://${window.location.hostname}:5000/api/log`,
-    {
-      onMessage: (event) => {
-        // console.log("WebSocket message:", JSON.parse(event.data))
-        const data = JSON.parse(event.data)
-        const e = data.event
-        // data.map((msg) => {
-        //   setMessage((prev) => prev + msg)
-        // })
-        if (e == "parselog") {
-          const { body } = data
-          let header = ""
-          let content = ""
-          logMsgs.map((msg) => {
-            if (msg.ref === body.ref) {
-              header = msg.message
-              content = msg.explanation
-              console.log("found match", header)
-            } else {
-              console.log("no match")
-            }
-          })
-          const msg = `${body.level}: ${header} | ${content}`
-          addToMessage(msg)
-        } else {
-          console.log("fire if event !== 'parselog'")
-          addToMessage(data.msg ?? data.message ?? data)
-        }
-      },
-      onError: (error) => {
-        console.log("WebSocket error:", error)
-      },
-      onOpen: () => {
-        console.log("WebSocket connected")
-        sendJsonMessage({ message: "Hello from client" })
-      },
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setSocketUrl(`ws://${window.location.hostname}:5000/log`)
     }
-  )
+  }, [])
+
+  const { sendJsonMessage } = useWebSocket(socketUrl, {
+    onMessage: (event) => {
+      // console.log("WebSocket message:", JSON.parse(event.data))
+      console.log("message incoming")
+      const data = JSON.parse(event.data)
+      const e = data.event
+      // data.map((msg) => {
+      //   setMessage((prev) => prev + msg)
+      // })
+      if (e == "parselog") {
+        const { body } = data
+        let header = ""
+        let content = ""
+        logMsgs.map((msg) => {
+          if (msg.ref === body.ref) {
+            header = msg.message
+            content = msg.explanation
+            console.log("found match", header)
+          } else {
+            console.log("no match")
+          }
+        })
+        const msg = `${body.level}: ${header} | ${content}`
+        addToMessage(msg)
+      } else {
+        console.log("fire if event !== 'parselog'")
+        addToMessage(data.msg ?? data.message ?? data)
+      }
+    },
+    onError: (error) => {
+      console.log("WebSocket error:", error)
+    },
+    onOpen: () => {
+      console.log("WebSocket connected")
+      sendJsonMessage({ message: "Hello from client" })
+    },
+  })
 
   const onDrop = useCallback(async (acceptedFiles) => {
     console.log(acceptedFiles)
