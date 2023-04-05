@@ -102,7 +102,7 @@ fastify.post("/api/parse", async function (request, reply) {
         }
       })
     }
-    await exec(`cp -r ./public/template/* ${path}/build`)
+    await exec(`cp -r ./public/template/. ${path}/build`)
     await exec(`npm install --prefix ${path}/build`)
     console.log("copied template")
     exec(
@@ -154,7 +154,6 @@ fastify.post("/api/parse", async function (request, reply) {
 
 const replaceSettings = async (body) => {
   try {
-    console.log("body", body)
     const folder = body.path
     fs.readFile(
       `${folder}/build/src/_data/project.js`,
@@ -196,7 +195,6 @@ const replaceSettings = async (body) => {
         } else {
           result = result.replace(/SITE_PATH/g, "'/'")
         }
-        console.log("result", result)
         // Die Datei project.js wird mit den nun ersetzten Daten, kommend aus dem Frontend, beschrieben.
         fs.writeFile(
           `${folder}/build/src/_data/project.js`,
@@ -208,10 +206,9 @@ const replaceSettings = async (body) => {
         )
       }
     )
-  } catch {
-    ;(err) => {
-      console.log(err)
-    }
+    return
+  } catch (err) {
+    console.log(err)
   }
 }
 
@@ -233,13 +230,22 @@ const buildSite = async (dirPath, settingsToReplace) => {
   try {
     const buildPath = path.join(dirPath, "build")
     await replaceSettings(settingsToReplace)
+    console.log("between replaced settings", buildPath)
     await rewritePaths(buildPath)
+    console.log("after replaced settings")
     const eleventyConfigPath = path.join(buildPath, ".eleventy.js")
-    console.log("dir: ", eleventyConfigPath)
-    const elev = new Eleventy(`${buildPath}/src`, "_site", {
-      configPath: eleventyConfigPath,
-    })
-    await elev.write()
+    console.log("Eleventy config path:", eleventyConfigPath)
+    const srcFolder = path.join(buildPath, "src")
+    const siteFolder = path.join(buildPath, "_site")
+    // const elev = new Eleventy(srcFolder, siteFolder, {
+    //   quietMode: false,
+    //   configPath: eleventyConfigPath,
+    // })
+    exec(
+      `npx @11ty/eleventy --input=${srcFolder} --output=${siteFolder} --config=${eleventyConfigPath}`
+    )
+    console.log("Eleventy build started...")
+    // await elev.write()
     console.log("Eleventy build completed successfully.")
   } catch (error) {
     return "Failed to build Eleventy site: " + error.message

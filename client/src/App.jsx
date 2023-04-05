@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 import { useDropzone } from "react-dropzone"
 import axios from "axios"
 import useWebSocket from "react-use-websocket"
@@ -332,9 +332,17 @@ function App() {
   const [path, setPath] = useState("")
   const [filename, setFilename] = useState("")
   const [success, setSuccess] = useState(false)
+  const scroller = useRef(null)
   const addToMessage = (msg) => {
     setMessage((prev) => [...prev, msg])
   }
+
+  useEffect(() => {
+    if (scroller.current) {
+      scroller.current.scrollTop = scroller.current.scrollHeight
+    }
+  }, [message])
+
   const { sendJsonMessage } = useWebSocket(
     `ws://${window.location.hostname}:5000/api/log`,
     {
@@ -435,13 +443,14 @@ function App() {
           {success && <button onClick={onParseClick}>Parse!</button>}
         </div>
 
-        <div className="log-box">
+        <div className="log-box" ref={scroller}>
           {message && (
-            <>
+            <div className="log-box--container">
               {message.map((msg, i) => (
                 <p key={i}>{msg}</p>
               ))}
-            </>
+              <div className="log-box--anchor" />
+            </div>
           )}
         </div>
       </div>
