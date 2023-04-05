@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone"
 import axios from "axios"
 import useWebSocket from "react-use-websocket"
 
-import { logMsgs } from "./logMsgs"
+import { logMsgs } from "../assets/logMsgs"
 
 function ReportSettingsForm({ path, filename, onParseClick }) {
   const [siteLang, setSiteLang] = useState("de")

@@ -3,6 +3,7 @@ const path = require("path")
 const Eleventy = require("@11ty/eleventy")
 const sanitize = require("sanitize-filename")
 const { exec } = require("child_process")
+const serveHandler = require("serve-handler")
 const envToLogger = {
   development: {
     transport: {
@@ -275,7 +276,16 @@ const buildSite = async (dirPath, settingsToReplace) => {
     return "Failed to build Eleventy site: " + error.message
   }
 }
-
+fastify.all("/*", async (request, reply) => {
+  const folder = path.join(__dirname, ".next")
+  if (process.env.NODE_ENV === "production") {
+    await serveHandler(reply.raw, request.raw, {
+      public: folder,
+    })
+  } else {
+    reply.status(404).send("Not found")
+  }
+})
 // Run the server!
 fastify.listen({ port: process.env.PORT || 5000 }, function (err, address) {
   if (err) {
