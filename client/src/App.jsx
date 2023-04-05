@@ -9,7 +9,7 @@ import "./assets/css/critical.min.css"
 import "./assets/css/main.min.css"
 import "./App.css"
 
-function ReportSettingsForm() {
+function ReportSettingsForm({ path, filename, onParseClick }) {
   const [siteLang, setSiteLang] = useState("de")
   const [siteTitle, setSiteTitle] = useState("")
   const [siteDescription, setSiteDescription] = useState("")
@@ -20,10 +20,49 @@ function ReportSettingsForm() {
   const [stageTitle, setStageTitle] = useState("")
   const [stageDescription, setStageDescription] = useState("")
   const [sitePath, setSitePath] = useState("")
+  const [isValid, setIsValid] = useState(false)
+
+  useEffect(() => {
+    // Validate form whenever any state value changes
+    const isValidForm = () => {
+      if (!siteTitle.trim() || !siteDescription.trim() || !stageTitle.trim()) {
+        setIsValid(false)
+        return
+      }
+
+      setIsValid(true)
+    }
+
+    isValidForm()
+  }, [siteTitle, siteDescription, stageTitle])
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // Add code to handle form submission
+    const reportSettings = {
+      site_lang: siteLang,
+      site_title: siteTitle,
+      site_description: siteDescription,
+      site_color: siteColor,
+      header_menu: headerMenu,
+      site_search: siteSearch,
+      skip_first_chapter: skipFirstChapter,
+      stage_title: stageTitle,
+      stage_description: stageDescription,
+      site_path: sitePath,
+      path: path,
+      filename: filename,
+    }
+    console.log("reportSettings: ", reportSettings)
+    onParseClick(reportSettings)
+
+    // axios
+    //   .post("/api/report-settings", reportSettings)
+    //   .then((response) => {
+    //     console.log(response.data)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
   }
 
   return (
@@ -275,7 +314,11 @@ function ReportSettingsForm() {
       </fieldset>
       <div className="wm-form__grid-md">
         <div className="wm-u-mtm">
-          <button className="js-generate wm-btn--block" disabled>
+          <button
+            className="js-generate wm-btn--block"
+            disabled={!isValid}
+            onClick={handleSubmit}
+          >
             Bericht generieren
           </button>
         </div>
@@ -353,11 +396,11 @@ function App() {
     }
   }, [])
 
-  const onParseClick = async () => {
+  const onParseClick = async (data) => {
     try {
+      console.log("data", data)
       const res = await axios.post("/api/parse", {
-        path,
-        filename,
+        ...data,
       })
 
       addToMessage(res.data.message)
@@ -384,8 +427,12 @@ function App() {
                 : "Ziehen Sie eine .docx-Datei hierher, oder klicken Sie, um eine Datei auszuwählen"}
             </label>
           </div>
-          <ReportSettingsForm />
-          {success && <button onClick={() => onParseClick()}>Parse!</button>}
+          <ReportSettingsForm
+            path={path}
+            filename={filename}
+            onParseClick={onParseClick}
+          />
+          {success && <button onClick={onParseClick}>Parse!</button>}
         </div>
 
         <div className="log-box">

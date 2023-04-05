@@ -92,6 +92,7 @@ fastify.post("/api/upload", async function (request, reply) {
 
 fastify.post("/api/parse", async function (request, reply) {
   try {
+    console.log("parse body", request.body)
     const { filename, path } = request.body
     if (!fs.existsSync(`${path}/build`)) {
       fs.mkdirSync(`${path}/build`, { recursive: true })
@@ -140,7 +141,7 @@ fastify.post("/api/parse", async function (request, reply) {
         })
         try {
           console.log("pre build")
-          buildSite(path)
+          buildSite(path, request.body)
         } catch (error) {
           console.log("error building site", error)
         }
@@ -150,6 +151,69 @@ fastify.post("/api/parse", async function (request, reply) {
     reply.status(500).send({ message: error.message })
   }
 })
+
+const replaceSettings = async (body) => {
+  try {
+    console.log("body", body)
+    const folder = body.path
+    fs.readFile(
+      `${folder}/build/src/_data/project.js`,
+      "utf8",
+      function (err, data) {
+        if (err) {
+          return console.log("settings error: ", err)
+        }
+        /* 
+      Überschreibe optionale und erforderliche Felder aus dem Frontend.
+      Falls Felder erweitert werden: 
+      - innerhalb des Formulars (im Frontend) erweitern und
+      - project.js (Pfad: /raw/src/_data/project.js) muss ebenfalls erweitert werden und
+      - var result = result.replace(/XXX_XXX/g, `"${body.xxx_xxx}"`); muss ebenfalls erweitert werden!
+      -- ACHTUNG: result kann "string" oder boolean Werte haben
+      */
+        let result = data.replace(/SITE_TITLE/g, `"${body.site_title}"`)
+        result = result.replace(/STAGE_TITLE/g, `"${body.stage_title}"`)
+        result = result.replace(/STAGE_DESC/g, `"${body.stage_description}"`)
+        result = result.replace(/SITE_COLOR/g, `"${body.site_color}"`)
+        result = result.replace(/SITE_DESC/g, `"${body.site_description}"`)
+        // HEADER_MENU option has to be Boolean
+        result = result.replace(/HEADER_MENU/g, `${body.header_menu}`)
+        // SKIP_FIRST_CHAPTER option has to be Boolean
+        result = result.replace(
+          /SKIP_FIRST_CHAPTER/g,
+          `${body.skip_first_chapter}`
+        )
+        result = result.replace(/SITE_LANG/g, `"${body.site_lang}"`)
+
+        if (body.site_search == "hidden") {
+          result = result.replace(/SITE_SEARCH/g, `"${body.site_search}"`)
+        } else {
+          result = result.replace(/SITE_SEARCH/g, `${body.site_search}`)
+        }
+
+        if (body.site_path) {
+          result = result.replace(/SITE_PATH/g, `"${body.site_path}"`)
+        } else {
+          result = result.replace(/SITE_PATH/g, "'/'")
+        }
+        console.log("result", result)
+        // Die Datei project.js wird mit den nun ersetzten Daten, kommend aus dem Frontend, beschrieben.
+        fs.writeFile(
+          `${folder}/build/src/_data/project.js`,
+          result,
+          "utf8",
+          function (err) {
+            if (err) return console.log(err)
+          }
+        )
+      }
+    )
+  } catch {
+    ;(err) => {
+      console.log(err)
+    }
+  }
+}
 
 const rewritePaths = async (folder) => {
   fs.readFile(`${folder}/.eleventy.js`, "utf8", function (err, data) {
@@ -165,9 +229,10 @@ const rewritePaths = async (folder) => {
   })
 }
 
-const buildSite = async (dirPath) => {
+const buildSite = async (dirPath, settingsToReplace) => {
   try {
     const buildPath = path.join(dirPath, "build")
+    await replaceSettings(settingsToReplace)
     await rewritePaths(buildPath)
     const eleventyConfigPath = path.join(buildPath, ".eleventy.js")
     console.log("dir: ", eleventyConfigPath)
