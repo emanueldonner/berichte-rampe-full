@@ -71,14 +71,3 @@ main {
   color: #5dfe7c;
   overflow-y: auto;
 }
-
-.log-box--container {
-  /* min-height: 100.5%; */
-  width: 100%;
-  background: red;
-  overflow-anchor: none;
-}
-.log-box--anchor {
-  height: 1px;
-  overflow-anchor: auto;
-}

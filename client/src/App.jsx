@@ -449,7 +449,6 @@ function App() {
               {message.map((msg, i) => (
                 <p key={i}>{msg}</p>
               ))}
-              <div className="log-box--anchor" />
             </div>
           )}
         </div>
