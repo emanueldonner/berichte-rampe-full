@@ -94,7 +94,8 @@ fastify.post("/upload", async function (request, reply) {
     await fs.promises.writeFile(savePath, file.file)
 
     reply.status(200).send({
-      message: "Dokument erfolgreich uploadet.",
+      message: "Dokument erfolgreich upgeloadet.",
+      status: "success",
       path: uploadDir,
       filename: file.filename,
     })
@@ -270,7 +271,7 @@ const buildSite = async (dirPath, settingsToReplace) => {
     // await elev.write()
     console.log("Eleventy build completed successfully.")
     connectionStore.broadcastMessage({
-      msg: "Eleventy Build erfolgreich beendet.",
+      msg: "Eleventy Build erfolgreich abgeschlossen.",
     })
   } catch (error) {
     return "Failed to build Eleventy site: " + error.message

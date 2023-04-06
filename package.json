@@ -8,8 +8,9 @@
   "main": "server.js",
   "scripts": {
     "start": "NODE_OPTIONS=--max-old-space-size=2048 node server.js",
+    "client": "npm start --prefix client",
     "dev": "NODE_OPTIONS=--max-old-space-size=2048 fastify start -l info --watch --pretty-logs server.js",
-    "prod": "NODE_ENV=production NODE_OPTIONS=--max-old-space-size=2048 node server.js",
+    "prod": "concurrently \"NODE_ENV=production npm start\" \"npm run client\"",
     "debug": "fastify start -l info --watch -V --debug --pretty-logs server.js",
     "stop": "pm2 stop server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,6 +25,7 @@
     "adm-zip": "^0.5.4",
     "child_process": "^1.0.2",
     "command-line-args": "^5.1.1",
+    "concurrently": "^8.0.1",
     "detect-file-type": "^0.2.8",
     "exceljs": "^4.3.0",
     "fastify": "^4.15.0",
