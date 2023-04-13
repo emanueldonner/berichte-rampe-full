@@ -1,7 +1,7 @@
-import { SignIn } from "@clerk/nextjs"
+import { SignIn } from "@clerk/nextjs/app-beta"
 import { deDE } from "@clerk/localizations"
 
-import styles from "./sign-in.module.sass"
+import styles from "./sign-in.module.css"
 
 const SignInPage = () => (
   <div className={styles["sign-in-page"]}>

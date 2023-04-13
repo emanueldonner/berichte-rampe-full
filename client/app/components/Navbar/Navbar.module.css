@@ -1,0 +1,6 @@
+.navbar {
+  width: 500px;
+  height: 100dvh;
+  flex-grow: 1;
+  background-color: green;
+}

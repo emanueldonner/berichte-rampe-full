@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useCallback, useEffect, useRef } from "react"
 import { useDropzone } from "react-dropzone"
 import axios from "axios"
@@ -445,6 +447,45 @@ function UploadPage() {
         </div>
 
         <div className="log-box" ref={scroller}>
+          <div className="log-box--buttons">
+            {/* button that controls size of log-box */}
+            <button
+              className="log-box--button"
+              onClick={() => {
+                scroller.current.classList.toggle("log-box--small")
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+                  fill="#fafafa"
+                />
+              </svg>
+            </button>
+            {/* button that clears log-box */}
+            <button
+              className="log-box--button"
+              onClick={() => {
+                setMessage([])
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M19 13H5v-2h14v2z" fill="#fafafa" />
+              </svg>
+            </button>
+          </div>
           {message && (
             <div className="log-box--container">
               {message.map((msg, i) => (
