@@ -1,0 +1,7 @@
+:root {
+  --_accordion-background: var(--wm-color-nebelgrau-light);
+  --_accordion-padding-inline: 0.9375rem;
+  --_accordion-padding-block: 0.375rem 0.3125rem;
+  --_accordion-icon: url('/public/wiener-melange/icons/chevron-down.svg');
+  --_accordion-icon-size: 1.5rem;
+}

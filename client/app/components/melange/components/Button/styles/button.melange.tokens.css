@@ -1,0 +1,6 @@
+:root {
+  --_button-background: var(--wm-color-ui-interactive);
+  --_button-border: var(--wm-color-ui-interactive);
+  --_button-color: var(--wm-color-weiss);
+  --_button-text-transform: uppercase;
+}

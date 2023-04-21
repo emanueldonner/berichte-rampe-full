@@ -1,0 +1,7 @@
+:root {
+  --_stage-background-color: var(--wm-color-weiss);
+  --_stage-content-padding: var(--wm-spacing-s) var(--wm-spacing-l);
+  --_stage-heading-small: 1.5rem;
+  --_stage-margin: var(--wm-spacing-m);
+  --_stage-margin-large: var(--wm-spacing-l);
+}

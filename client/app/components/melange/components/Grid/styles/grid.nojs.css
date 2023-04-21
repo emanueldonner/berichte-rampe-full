@@ -1,0 +1,63 @@
+.wm-grid * {
+	box-sizing: border-box;
+}
+.wm-grid {
+	--_grid-template-columns-s: 4;
+	--_grid-template-columns-m: 3;
+	--_grid-template-columns-l: 2;
+	--_grid-template-columns-full: 1;
+}
+.wm-grid {
+	--gap: var(--_grid-spacing);
+	--cols: none;
+	display: grid;
+	flex-grow: unset !important;
+	grid-gap: var(--gap);
+	grid-template-columns: var(--cols);
+}
+.wm-grid--size-s {
+	--cols: repeat(auto-fill,minmax(15rem, 1fr));
+}
+.wm-grid--size-full {
+	--cols: repeat(var(--_grid-template-columns-full), 1fr);
+}
+@media (min-width: 48em) {
+.wm-grid--size-m {
+	--cols: repeat(auto-fill,minmax(19rem, 1fr));
+}
+}
+@media (min-width: 48em) {
+.wm-grid--size-l {
+	--cols: repeat(auto-fill,minmax(25rem, 1fr));
+}
+}
+@media (min-width: 64em) {
+.wm-grid--size-s {
+	--cols: repeat(var(--_grid-template-columns-s), 1fr);
+}
+}
+@media (min-width: 64em) {
+.wm-grid--size-m {
+	--cols: repeat(var(--_grid-template-columns-m), 1fr);
+}
+}
+@media (min-width: 64em) {
+.wm-grid--size-l {
+	--cols: repeat(var(--_grid-template-columns-l), 1fr);
+}
+}
+.wm-grid--gap-xs {
+	--gap: var(--_grid-spacing-xs);
+}
+.wm-grid--gap-s {
+	--gap: var(--_grid-spacing-s);
+}
+.wm-grid--gap-m {
+	--gap: var(--_grid-spacing-m);
+}
+.wm-grid--gap-l {
+	--gap: var(--_grid-spacing-l);
+}
+.wm-grid > * {
+	max-width: 100%;
+}

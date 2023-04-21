@@ -1,0 +1,25 @@
+{
+	"highlight": {
+    "background": {
+      "name": "Hintergrundfarbe",
+      "default": "gray",
+      "$value": "var(--wm-color-nebelgrau-light)"
+    },
+    "color": {
+      "name": "Textfarbe",
+      "default": "#000000",
+      "$value": "var(--wm-color-fastschwarz)"
+    },
+    "padding": {
+      "name": "Innenabstand",
+      "default": "1rem",
+      "$value": "var(--wm-spacing-s)"
+    },
+    "padding-large": {
+      "name": "Innenabstand für Large-Variante",
+      "default": "1rem 3rem",
+      "$value": "var(--wm-spacing-m) var(--wm-spacing-xl)"
+    }
+    
+  }
+}

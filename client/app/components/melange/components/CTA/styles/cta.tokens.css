@@ -1,0 +1,10 @@
+:root {
+  --_cta-icon: none;
+  --_cta-icon-start: none;
+  --_cta-color-link: var(--site-color);
+  --_cta-color-visited: var(--site-color);
+  --_cta-font-variation-settings: none;
+  --_cta-font-weight: bold;
+  --_cta-padding: .5rem .5rem .5rem 0;
+  --_cta-padding-start: .5rem 0 .5rem .5rem .5rem;
+}

@@ -1,0 +1,34 @@
+/* Add a transition to the first header row so that it animates on scroll on larger viewports */
+:is(body > header, #root > header, [role="banner"]) > div:first-child > :first-child {
+  transition: transform 0.3s;
+  transform-origin: center left;
+}
+
+/* On non-microsites set the header-nav-height to zero so that things like the in page nav
+ * can obtain their correct position.
+ */
+.wien {
+  --header-nav-height: 0rem;
+}
+
+/* On larger screen add some transform magic to the header so that it can animate smoothly
+ * on scroll
+ */
+@media (min-width: 64em) {
+  .wm-window-was-scrolled wm-header {
+    transform: translateY(-2.5rem);
+  }
+
+  .wm-window-was-scrolled :is(body > header, [role="banner"]) > div:first-child > :first-child {
+    transform: scale(.7145);
+  }
+
+  wm-header > div:first-child {
+    transition: transform 0.3s;
+    transform: translateY(-1.25rem);
+  }
+  
+  .wm-window-was-scrolled wm-header > div:first-child {
+    transform: translateY(0);
+  }
+}

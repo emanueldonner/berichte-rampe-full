@@ -1,0 +1,44 @@
+{
+  "cta": {
+    "icon": {
+      "name": "Ausrichtung der Tabs in der tablist",
+      "default": "none",
+      "$value": "url('/public/wiener-melange/icons/chevron-right.svg')"
+    },
+    "icon-start": {
+      "name": "Ausrichtung der Tabs in der tablist",
+      "default": "none",
+      "$value": "url('/public/wiener-melange/icons/chevron-left.svg')"
+    },
+    "color-link": {
+      "name": "Standard :link Farbe",
+      "default": "var(--site-color)",
+      "$value": "var(--wm-color-fastschwarz)"
+    },
+    "color-visited": {
+      "name": "Standard :visited Farbe",
+      "default": "var(--site-color)",
+      "$value": "var(--wm-color-fastschwarz)"
+    },
+    "font-variation-settings": {
+      "name": "Schriftstärke für WM Variablefont",
+      "default": "none",
+      "$value": "var(--wm-font-weight-bold)"
+    },
+    "font-weight": {
+      "name": "Standard-Schriftstärke",
+      "default": "bold",
+      "$value": "normal"
+    },
+    "padding": {
+      "name": "Innenabstand",
+      "default": ".5rem .5rem .5rem 0",
+      "$value": ".5rem 1.5625rem .5rem 0"
+    },
+    "padding-start": {
+      "name": "Innenabstand",
+      "default": ".5rem 0 .5rem .5rem .5rem",
+      "$value": ".5rem 0 .5rem 1.5625rem"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+wm-fetch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fetch-gap);
+}

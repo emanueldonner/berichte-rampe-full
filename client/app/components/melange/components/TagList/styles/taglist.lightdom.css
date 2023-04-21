@@ -1,0 +1,3 @@
+wm-tag-list li + li {
+  margin-block-start: 0;
+}

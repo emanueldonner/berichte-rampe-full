@@ -1,0 +1,14 @@
+:root {
+  --_tag-background: #FFF;
+  --_tag-background-hover: var(--site-color-secondary);
+  --_tag-border: var(--site-color-secondary);
+  --_tag-padding-inline: 0.8125rem;
+  --_tag-padding-block: 0.15625rem;
+  --_tag-padding-inline-large: 0.9375rem;
+  --_tag-padding-block-large: 0.28125rem;
+  --_tag-gap: 1rem;
+  --_tag-min-height: 2.1375rem;
+  --_tag-min-height-large: 2.5rem;
+  --_tag-link-color: #000;
+  --_tag-font-size: 0.8rem;
+}

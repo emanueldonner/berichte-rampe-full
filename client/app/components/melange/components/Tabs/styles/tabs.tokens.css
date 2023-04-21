@@ -1,0 +1,18 @@
+:root {
+  --_tabs-alignment: start;
+  --_tabs-border: none;
+  --_tabs-gap: 0;
+  --_tabs-padding: 1rem;
+  --_tabs-spacing: 0;
+}:root {
+  --_tab-background-color: var(--site-color-secondary);
+  --_tab-background-color-selected: transparent;
+  --_tab-border-width: 1px 1px 0 1px;
+  --_tab-border-color: transparent;
+  --_tab-border-color-selected: var(--site-color);
+  --_tab-padding: 0.4rem 0.8rem;
+}:root {
+  --_tabpanel-padding: 0.4rem 0.8rem;
+  --_tabpanel-border-width: 1px;
+  --_tabpanel-border-color: var(--site-color);
+}

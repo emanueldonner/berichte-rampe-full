@@ -1,0 +1,55 @@
+{
+	"card": {
+    "background": {
+      "name": "Hintergrundfarbe der Card",
+      "default": "#FFFFFF",
+      "$value": "var(--wm-color-weiss)"
+    },
+    "border": {
+      "name": "Rahmen der Card",
+      "default": "1px solid var(--site-color)",
+      "$value": "none"
+    },
+    "eyecatcher-spacing": {
+      "name": "Abstand des Störers zum Rand",
+      "default": "1rem",
+      "$value": "var(--wm-spacing-s)"
+    },
+    "eyecatcher-padding": {
+      "name": "Innenabstand im Störer",
+      "default": "0.5rem",
+      "$value": "var(--wm-spacing-xs)"
+    },
+    "eyecatcher-fontsize": {
+      "name": "Schriftgröße im Störer",
+      "default": "1.5rem",
+      "$value": "var(--wm-font-size-l)"
+    },
+    "media-background": {
+      "name": "Hintergrundfarbe",
+      "default": "hsl(0 0% 0%)",
+      "$value": "var(--wm-color-frischgruen)"
+    },
+    "media-color": {
+      "name": "Textfarbe",
+      "default": "hsl(0 0% 100%)",
+      "$value": "var(--wm-color-fastschwarz)"
+    },
+    "spacing": {
+      "name": "Innenabstand in der Card",
+      "default": "1rem",
+      "$value": "var(--wm-spacing-s)"
+    },
+    "spacing-large": {
+      "name": "Innenabstand in der Card auf großen Bildschirmen",
+      "default": "1.5rem",
+      "$value": "var(--wm-spacing-l)"
+    },
+    "shadow": {
+      "name": "Schatten um die Card",
+      "default": "none",
+      "$value": "0 4px 8px 0 var(--wm-color-fastschwarz-light)"
+    }
+  }
+}
+

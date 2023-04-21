@@ -1,0 +1,29 @@
+{
+	"accordion": {
+    "background": {
+      "name": "Hintergrundfarbe des Buttons",
+      "default": "transparent",
+      "$value": "var(--wm-color-nebelgrau-light)"
+    },
+    "padding-inline": {
+      "name": "Innenabstand links und rechts",
+      "default": "0",
+      "$value": "0.9375rem"
+    },
+    "padding-block": {
+      "name": "Innenabstand oben und unten",
+      "default": "0",
+      "$value": "0.375rem 0.3125rem"
+    },
+    "icon": {
+      "name": "Symbol",
+      "default": "none",
+      "$value": "url('/public/wiener-melange/icons/chevron-down.svg')"
+    },
+    "icon-size": {
+      "name": "Größe des Symbols",
+      "default": "0",
+      "$value": "1.5rem"
+    }
+  }
+}

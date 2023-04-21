@@ -1,0 +1,98 @@
+.wm-button > :is(button, a) {
+	--_button-background: var(--_button-primary);
+	--_button-background-hover: var(--_button-secondary);
+	--_button-border-color: var(--_button-primary);
+	--_button-color: var(--_button-secondary);
+	--_button-color-hover: var(--_button-primary);
+}
+.wm-button > :is(button, a) {
+	display: flex;
+	justify-content: center;
+	gap: var(--wm-spacing-xxs) !important;
+}
+.wm-button > button:is([aria-disabled="true"], [disabled]) {
+	opacity: 0.5;
+	pointer-events: none;
+}
+.wm-button--kind-secondary > :is(button, a) {
+	--_button-background: var(--_button-secondary);
+	--_button-color: var(--_button-primary);
+	--_button-background-hover: var(--_button-primary);
+	--_button-color-hover: var(--_button-secondary);
+}
+.wm-button--kind-tertiary > :is(button, a) {
+	--_button-background: none;
+	--_button-color: var(--_button-primary);
+	--_button-background-hover: none;
+	--_button-color-hover: var(--_button-primary);
+	--_button-border-color: transparent;
+	text-transform: none !important;
+	text-decoration: underline !important;
+	font-variation-settings: var(--wm-font-weight-normal) !important;
+	font-weight: normal !important;
+}
+.wm-button--kind-tertiary > button:is(:hover, :focus-visible) {
+	text-decoration: none !important;
+}
+.wm-button--kind-clean > :is(button, a) {
+	all: unset !important;
+	display: inline-flex !important;
+	gap: var(--wm-spacing-xxs) !important;
+	line-height: 1.45 !important;
+	outline: revert !important;
+	box-sizing: border-box !important;
+}
+.wm-button--kind-clean > button:focus-visible {
+	outline-offset: var(--site-focus-outline-offset) !important;
+	outline: var(--site-focus-outline) !important;
+}
+.wm-button--full > :is(button, a) {
+	width: 100% !important;
+}
+.wm-button--alignment-center > :is(button, a) {
+	justify-content: center !important;
+}
+.wm-button--alignment-space-between > :is(button, a) {
+	justify-content: space-between !important;
+}
+.wm-button--color > :is(button, a) {
+	--_button-color: var(--wm-color-fastschwarz);
+	--_button-color-hover: var(--wm-color-fastschwarz);
+}
+.wm-button--kind-secondary > :is(button, a) {
+	--_button-color: var(--wm-color-fastschwarz);
+	--_button-color-hover: var(--wm-color-weiss);
+}
+.wm-button--kind-tag > :is(button, a) {
+	border-radius: 30px;
+	--_button-text-transform: none;
+}
+.wm-button--color-frischgruen > :is(button, a) {
+	--_button-primary: var(--wm-color-frischgruen);
+	--_button-secondary: var(--wm-color-weiss);
+}
+.wm-button--color-morgenrot > :is(button, a) {
+	--_button-primary: var(--wm-color-morgenrot);
+	--_button-secondary: var(--wm-color-weiss);
+}
+.wm-button--color-abendstimmung > :is(button, a) {
+	--_button-primary: var(--wm-color-abendstimmung);
+	--_button-secondary: var(--wm-color-weiss);
+	--_button-color: var(--wm-color-weiss);
+	--_button-color-hover: var(--wm-color-abendstimmung);
+}
+.wm-button--color-abendstimmung.wm-button--kind-secondary > :is(button, a) {
+	--_button-color: var(--wm-color-abendstimmung);
+	--_button-color-hover: var(--wm-color-weiss);
+}
+.wm-button--color-abendstimmung.wm-button--kind-tertiary > :is(button, a) {
+	--_button-color: var(--_button-primary);
+}
+.wm-button--color-goldgelb > :is(button, a) {
+	--_button-primary: var(--wm-color-goldgelb);
+	--_button-secondary: var(--wm-color-weiss);
+}
+.wm-button--color-flieder > :is(button, a) {
+	--_button-primary: var(--wm-color-flieder);
+	--_button-secondary: var(--wm-color-weiss);
+}

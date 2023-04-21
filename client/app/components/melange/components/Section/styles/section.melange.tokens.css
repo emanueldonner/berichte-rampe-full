@@ -1,0 +1,15 @@
+:root {
+  --_section-background: transparent;
+  --_section-border-color: none;
+  --_section-border-width: none;
+  --_section-padding: 0;
+  --_section-padding-highlight: var(--wm-spacing-m);
+  --_section-padding-highlight-large: var(--wm-spacing-l);
+  --_section-background-highlight: var(--wm-color-nebelgrau-light);
+  --_section-nav-shadow: 0 4px 8px rgb(41 41 41 / 16%);
+  --_section-nav-link-padding: 0.8rem 1.875rem;
+  --_section-nav-link-highlight: var(--wm-color-nebelgrau);
+  --_section-nav-link-highlight-large: var(--wm-color-nebelgrau-light);
+  --_section-nav-background: var(--wm-color-nebelgrau-light);
+  --_section-nav-background-large: var(--wm-color-weiss);
+}

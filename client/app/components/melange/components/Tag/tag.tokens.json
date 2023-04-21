@@ -1,0 +1,64 @@
+{
+	"tag": {
+		"background": {
+			"name": "Hintergrundfarbe",
+			"default": "#FFF",
+			"$value": "var(--wm-color-weiss)"
+		},
+		"background-hover": {
+			"name": "Hintergrundfarbe aktiv",
+			"default": "var(--site-color-secondary)",
+			"$value": "var(--wm-color-nebelgrau-light)"
+		},
+		"border": {
+			"name": "Rahmenfarbe",
+			"default": "var(--site-color-secondary)",
+			"$value": "var(--wm-color-nebelgrau)"
+		},
+		"padding-inline": {
+			"name": "Padding vertikal",
+			"default": "0.8125rem",
+			"$value": "0.8125rem"
+		},
+		"padding-block": {
+			"name": "Padding horizontal",
+			"default": "0.15625rem",
+			"$value": "0.15625rem"
+		},
+		"padding-inline-large": {
+			"name": "Padding vertikal (groß)",
+			"default": "0.9375rem",
+			"$value": "0.9375rem"
+		},
+		"padding-block-large": {
+			"name": "Padding horizontal (groß)",
+			"default": "0.28125rem",
+			"$value": "0.28125rem"
+		},
+		"gap": {
+			"name": "Gap im Button oder Link",
+			"default": "1rem",
+			"$value": "var(--wm-spacing-xs)"
+		},
+		"min-height": {
+			"name": "Mindesthöhe",
+			"default": "2.1375rem",
+			"$value": "2.1375rem"
+		},
+		"min-height-large": {
+			"name": "Mindesthöhe (groß)",
+			"default": "2.5rem",
+			"$value": "2.5rem"
+		},
+		"link-color": {
+			"name": "Linkfarbe",
+			"default": "#000",
+			"$value": "var(--wm-color-fastschwarz)"
+		},
+		"font-size": {
+			"name": "Schriftgröße",
+			"default": "0.8rem",
+			"$value": "var(--wm-font-size-s)"
+		}
+	}
+}

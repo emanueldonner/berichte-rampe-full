@@ -1,0 +1,69 @@
+{
+	"section": {
+		"background": {
+			"name": "Hintergrundfarbe",
+			"default": "transparent",
+			"$value": "transparent"
+		},
+		"border-color": {
+			"name": "Rahmenfarbe",
+			"default": "var(--site-color-secondary)",
+			"$value": "none"
+		},
+		"border-width": {
+			"name": "Rahmenstärke",
+			"default": "12px 0",
+			"$value": "none"
+		},
+		"padding": {
+			"name": "Innenabstand",
+			"default": "0",
+			"$value": "0"
+		},
+		"padding-highlight": {
+			"name": "Innenabstand hervorgehoben",
+			"default": "1rem",
+			"$value": "var(--wm-spacing-m)"
+		},
+		"padding-highlight-large": {
+			"name": "Innenabstand hervorgehoben groß",
+			"default": "2rem",
+			"$value": "var(--wm-spacing-l)"
+		},
+		"background-highlight": {
+			"name": "Hintergrundfarbe hervorgehoben",
+			"default": "transparent",
+			"$value": "var(--wm-color-nebelgrau-light)"
+		},
+		"nav-shadow":  {
+			"name": "Schatten der Navigation",
+			"default": "none",
+			"$value": "0 4px 8px rgb(41 41 41 / 16%)"
+		},
+		"nav-link-padding":  {
+			"name": "Schatten der Navigation",
+			"default": "0.8rem 1.875rem",
+			"$value": "0.8rem 1.875rem"
+		},
+		"nav-link-highlight":  {
+			"name": "Link Hintergrundfarbe in der Navigation mobil",
+			"default": "gray",
+			"$value": "var(--wm-color-nebelgrau)"
+		},
+		"nav-link-highlight-large":  {
+			"name": "Link Hintergrundfarbe in der Navigation",
+			"default": "gray",
+			"$value": "var(--wm-color-nebelgrau-light)"
+		},
+		"nav-background":  {
+			"name": "Hintergrundfarbe der Navigation mobil",
+			"default": "gray",
+			"$value": "var(--wm-color-nebelgrau-light)"
+		},
+		"nav-background-large":  {
+			"name": "Hintergrundfarbe der Navigation",
+			"default": "#fff",
+			"$value": "var(--wm-color-weiss)"
+		}
+	}
+}

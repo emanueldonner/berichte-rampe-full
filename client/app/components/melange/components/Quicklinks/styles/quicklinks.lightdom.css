@@ -1,0 +1,7 @@
+wm-quicklinks li  {
+	border-bottom: 1px solid var(--site-color);
+}
+
+wm-quicklinks li + li {
+	margin-block-start: 0;
+}

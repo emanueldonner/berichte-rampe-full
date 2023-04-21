@@ -1,0 +1,9 @@
+:root {
+  --_carousel-ratio: 16 / 9;
+  --_carousel-item-inner-padding: 0;
+  --_carousel-shadow-offset: 0;
+  --_carousel-gap: 1rem;
+  --_carousel-control-bg: #fff;
+  --_carousel-control-bg-start: none;
+  --_carousel-control-bg-end: none;
+}

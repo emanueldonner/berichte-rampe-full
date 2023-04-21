@@ -1,0 +1,15 @@
+:root {
+  --_section-background: transparent;
+  --_section-border-color: var(--site-color-secondary);
+  --_section-border-width: 12px 0;
+  --_section-padding: 0;
+  --_section-padding-highlight: 1rem;
+  --_section-padding-highlight-large: 2rem;
+  --_section-background-highlight: transparent;
+  --_section-nav-shadow: none;
+  --_section-nav-link-padding: 0.8rem 1.875rem;
+  --_section-nav-link-highlight: gray;
+  --_section-nav-link-highlight-large: gray;
+  --_section-nav-background: gray;
+  --_section-nav-background-large: #fff;
+}

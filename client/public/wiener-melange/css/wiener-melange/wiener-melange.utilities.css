@@ -1,0 +1,17 @@
+.wm-u-fg1 {
+    flex-grow: 1;
+  }.wm-u-tar {
+    text-align: right;
+  }.wm-u-df {
+    display:flex;
+  }.wm-u-jce {
+    justify-content: end;
+  }.wm-h-row {
+    max-width: 66ch;
+  }.wm-h-btn-clean {
+    all: unset; font: inherit;
+  }.wm-h-btn-clean:focus {     outline-offset: 2px;    outline: 3px solid var(--wm-color-ui-interactive);  }.wm-h-link-clean:is(:link, :visited) {
+    color: var(--wm-color-fastschwarz);   text-decoration: none;
+  }.wm-h-vh {
+    position: absolute; 	white-space: nowrap; 	width: 1px; 	height: 1px; 	overflow: hidden; 	border: 0; 	padding: 0; 	clip: rect(0 0 0 0); 	clip-path: inset(50%); 	margin: -1px;
+  }

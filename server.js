@@ -1,6 +1,7 @@
 const fs = require("fs-extra")
 const path = require("path")
 const Eleventy = require("@11ty/eleventy")
+const archiver = require("archiver")
 const sanitize = require("sanitize-filename")
 const { exec } = require("child_process")
 const serveHandler = require("serve-handler")
@@ -121,11 +122,10 @@ fastify.post("/parse", async function (request, reply) {
     }
     await exec(`cp -r ./public/template/. ${path}/build`)
     await exec(`npm install --prefix ${path}/build`)
-    console.log("copied template")
     connectionStore.broadcastMessage({
       msg: "Files aus dem Template kopiert...",
     })
-    exec(
+    await exec(
       `./server/office-parser/parse.mjs -n ${path}/build/src ${path}/${filename}`,
       (error, stdout, stderr) => {
         if (error) {
@@ -159,14 +159,14 @@ fastify.post("/parse", async function (request, reply) {
           })
           // client.send(JSON.stringify(stdout))
         })
-        try {
-          console.log("pre build")
-          buildSite(path, request.body)
-        } catch (error) {
-          console.log("error building site", error)
-        }
+        buildSite(path, request.body)
       }
     )
+    reply.status(200).send({
+      message: "Dokument erfolgreich verarbeitet.",
+      status: "success",
+      path: path,
+    })
   } catch (error) {
     reply.status(500).send({ message: error.message })
   }
@@ -273,10 +273,81 @@ const buildSite = async (dirPath, settingsToReplace) => {
     connectionStore.broadcastMessage({
       msg: "Eleventy Build erfolgreich abgeschlossen.",
     })
+    // const currentDirectoryName = path.basename(dirPath)
+    // const currentDirectoryPath = path.dirname(dirPath)
+    // const zipFileName = `${currentDirectoryName}.zip`
+    // const zipPath = path.join(currentDirectoryPath, zipFileName)
+    // compressDirectory(dirPath, zipPath)
+    // connectionStore.broadcastMessage({
+    //   msg: `Zip-Datei erfolgreich erstellt: ${zipPath}`,
+    //   fileUrl: zipPath,
+    // })
   } catch (error) {
     return "Failed to build Eleventy site: " + error.message
   }
 }
+
+fastify.post("/compress", async (request, reply) => {
+  try {
+    const fullPath = request.body.path
+    console.log("fullpath:", fullPath)
+    const currentDirectoryName = path.basename(fullPath)
+    const fileName = `${currentDirectoryName}.zip`
+    const outputPath = path.join(fullPath, fileName)
+
+    await compressDirectory(fullPath, outputPath)
+    console.log("zip: ", outputPath)
+    reply.code(200).send({
+      msg: "Zip-Datei erfolgreich erstellt.",
+      zipBaseDir: currentDirectoryName,
+    })
+    // reply
+    //   .header("Content-Type", "application/zip")
+    //   .header("Content-Disposition", `attachment; filename=${fileName}`)
+    //   .send(fs.createReadStream(outputPath))
+  } catch (error) {
+    reply.code(500).send({ error: "Failed to compress the directory." })
+  }
+})
+
+const compressDirectory = async (directoryPath, outputPath) => {
+  return new Promise((resolve, reject) => {
+    const output = fs.createWriteStream(outputPath)
+    const archive = archiver("zip")
+
+    // output.on("finish", () => resolve())
+    // output.on("end", () => resolve())
+    output.on("close", () => resolve())
+    archive.on("error", (err) => reject(err))
+
+    archive.pipe(output)
+    archive.directory(directoryPath, false)
+    archive.finalize()
+    console.log("compression finished")
+  })
+}
+
+fastify.get("/download/:zipBaseDir", async (request, reply) => {
+  try {
+    const zipBaseDir = request.params.zipBaseDir
+    const fileName = `${zipBaseDir}.zip`
+    const dirPath = path.join(__dirname, "public", "output")
+    const filePath = path.join(dirPath, zipBaseDir, fileName)
+
+    if (!fs.existsSync(filePath)) {
+      reply.code(404).send({ error: "File not found." })
+      return
+    }
+
+    reply
+      .header("Content-Type", "application/zip")
+      .header("Content-Disposition", `attachment; filename=${fileName}`)
+      .send(fs.createReadStream(filePath))
+  } catch (error) {
+    reply.code(500).send({ error: "Failed to download the file." })
+  }
+})
+
 fastify.all("/*", async (request, reply) => {
   const folder = path.join(__dirname, ".next")
   if (process.env.NODE_ENV === "production") {

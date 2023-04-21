@@ -1,0 +1,39 @@
+{
+    "carousel": {
+        "ratio": {
+            "name": "Seitenverhältnis der einzelnen Slides",
+            "default": "16 / 9",
+            "$value": "16 / 9"
+        },
+        "item-inner-padding": {
+            "name": "Innenabstand in einzelnen Slides",
+            "default": "0",
+            "$value": "0"
+        },
+        "shadow-offset": {
+            "name": "Platz um das Karussell für Schatten",
+            "default": "0",
+            "$value": "8px"    
+        },
+        "gap": {
+            "name": "Abstand zwischen Elementen",
+            "default": "1rem",
+            "$value": "1.5625rem"    
+        },
+        "control-bg": {
+            "name": "Hintergrundfarbe der Controls",
+            "default": "#fff",
+            "$value": "var(--wm-color-weiss)"
+        },
+        "control-bg-start": {
+            "name": "Hintergrundbild des ersten Buttons",
+            "default": "none",
+            "$value": "url('/public/wiener-melange/icons/chevron-left.svg')"    
+        },
+        "control-bg-end": {
+            "name": "Hintergrundbild des zweiten Buttons",
+            "default": "none",
+            "$value": "url('/public/wiener-melange/icons/chevron-right.svg')"    
+        }
+    }
+}

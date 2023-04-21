@@ -2,8 +2,9 @@ import { ClerkProvider } from "@clerk/nextjs/app-beta"
 import { deDe } from "@clerk/localizations"
 
 import "@/styles/globals.css"
-import "../assets/css/critical.min.css"
-import "../assets/css/main.min.css"
+import "../public/wiener-melange/css/critical.min.css"
+import "../public/wiener-melange/css/main.min.css"
+import "../public/wiener-melange/css/main.scss"
 
 import Header from "./components/Header/Header"
 

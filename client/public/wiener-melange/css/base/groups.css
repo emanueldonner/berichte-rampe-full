@@ -1,0 +1,120 @@
+/**
+ ** Styles for the page and sectioning content
+ **/
+
+/**
+ ** ☕️☕️☕️ Paragraph <p> ☕️☕️☕️
+ **/
+
+/* html {
+
+} */
+
+p,
+address,
+wm-highlight,
+wm-accordion,
+wm-quicklinks,
+:not(p, li, td) > code:not([class]) {
+	margin-block-end: 1.5em;
+}
+
+p {
+	max-width: var(--content-text-max-width);
+}
+
+/**
+ ** ☕️☕️☕️ Horizontal rule <h3> ☕️☕️☕️
+ **/
+
+hr {
+	border: var(--content-hr);
+}
+
+/**
+ ** ☕️☕️☕️ Preformatted Text <pre> ☕️☕️☕️
+ **/
+
+pre {
+	font-family: var(--site-font-monospace);
+}
+
+/**
+ ** ☕️☕️☕️ Lists ☕️☕️☕️
+ **/
+
+ul {
+	padding-inline-start: var(--content-list-padding);
+}
+
+ul li::marker {
+	font-size: var(--content-list-marker-size);
+}
+
+li ol,
+li ul,
+li + li {
+	margin-block-start: var(--content-list-margin);
+}
+
+dt {
+	font-weight: var(--content-font-weight);
+  font-variation-settings: var(--content-font-variation-settings);
+}
+
+dd {
+	margin-inline-start: 0;
+	margin-block-end: var(--content-list-margin);
+}
+
+/**
+ ** ☕️☕️☕️ Code ☕️☕️☕️
+ **/
+
+:not(p, li, td) > code:not([class]) {
+	background-color: var(--content-code-background);
+	border: var(--content-code-border);
+	border-radius: var(--content-code-border-radius);
+	display: block;
+	font-size: var(--content-code-font-size);
+	padding: var(--content-code-padding);
+	tab-size: 1em;
+	white-space: pre;
+}
+
+/**
+ ** ☕️☕️☕️ Address ☕️☕️☕️
+ **/
+
+address {
+	font-style: normal;
+}
+
+/**
+ ** ☕️☕️☕️ Zitate ☕️☕️☕️
+ **/
+
+blockquote {
+	font-size: 1.15rem;
+	margin-inline: 0;
+	margin-block: 2rem;
+	max-width: var(--content-text-max-width);
+	padding-left: 1.5em;
+	position: relative;
+}
+
+blockquote::before {
+	color: var(--content-quote-color);
+	content: open-quote;
+	display: block;
+	font-size: 3.5rem;
+	inset-inline-start: 0;
+	inset-block-start: 0;
+	line-height: 1;
+	position: absolute;
+	transform: translateY(-85%);
+}
+
+:is(:lang(en), :lang(tr), :lang(bs)) blockquote::before {
+	transform: translateY(-25%);
+}

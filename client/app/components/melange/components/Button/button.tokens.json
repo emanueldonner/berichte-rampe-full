@@ -1,0 +1,24 @@
+{
+	"button": {
+    "background": {
+      "name": "Hintergrundfarbe des Buttons",
+      "default": "gray",
+      "$value": "var(--wm-color-ui-interactive)"
+    },
+    "border": {
+      "name": "Rahmenfarbe des Buttons",
+      "default": "gray",
+      "$value": "var(--wm-color-ui-interactive)"
+    },
+    "color": {
+      "name": "Textfarbe des Buttons",
+      "default": "#000000",
+      "$value": "var(--wm-color-weiss)"
+    },
+    "text-transform": {
+      "name": "Groß-/Kleinschreibung",
+      "default": "none",
+      "$value": "uppercase"
+    }
+  }
+}

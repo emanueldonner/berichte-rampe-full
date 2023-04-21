@@ -1,0 +1,173 @@
+/* .wm-button > button {
+  --button-background: var(--button-primary);
+  --button-background-hover: var(--button-secondary);
+  --button-border-color: var(--button-primary);
+  --button-color: var(--button-secondary);
+  --button-color-hover: var(--button-primary)
+}
+.wm-button--color-frischgruen > button {
+  --button-primary: var(--wm-color-frischgruen);
+  --button-secondary: var(--wm-color-weiss);
+  --button-color: var(--wm-color-fastschwarz);
+  --button-color-hover: var(--wm-color-fastschwarz)
+}
+.wm-button--invert-true > button {
+  --button-background: var(--button-secondary);
+  --button-color: var(--button-primary);
+  --button-background-hover: var(--button-primary);
+  --button-color-hover: var(--button-secondary)
+}
+.wm-button--color-frischgruen.wm-button--invert-true > button {
+  --button-color: var(--wm-color-fastschwarz);
+  --button-color-hover: var(--wm-color-fastschwarz)
+}
+.wm-button--clean-true > button {
+  all: unset!important;
+  display: inline-flex!important;
+  line-height: 1.45!important;
+  outline: revert!important;
+  box-sizing: border-box!important
+}
+.wm-button--full-true > button {
+  justify-content: center!important;
+  width: 100%!important
+}
+.wm-button > button,
+.wm-button--clean-true > button {
+  gap: var(--wm-spacing-xxs)!important
+}
+.wm-button > button {
+  display: flex;
+  justify-content: center
+}
+.wm-link * {
+  box-sizing: border-box
+}
+.wm-link {
+  display: inline-flex
+}
+.wm-link > a {
+  background: var(--link-icon) no-repeat center right .5rem;
+  display: inline-block;
+  font-weight: var(--link-font-weight);
+  font-variation-settings: var(--link-font-variation-settings);
+  padding: var(--link-padding);
+  text-decoration: none;
+  transition: background .3s;
+  width: 100%
+}
+.wm-link > a:where(:hover,:focus-visible) {
+  background-position: 100%
+}
+.wm-link--full {
+  width: 100%
+}
+.wm-link--start > a {
+  background-image: var(--link-icon-start);
+  background-position: center left;
+  padding: var(--link-padding-start);
+  text-align: right
+}
+.wm-link--start > a:where(:hover,:focus-visible) {
+  background-position: center left -.5rem
+}
+.wm-section * {
+  box-sizing: border-box
+}
+.wm-section {
+  --background: var(--section-background);
+  --padding: var(--section-padding);
+  background: var(--background);
+  display: block;
+  padding-block: var(--padding);
+  width: 100%
+}
+.wm-section--highlight-true {
+  --background: var(--section-background-highlight);
+  --padding: var(--section-padding-highlight);
+  border-image: var(--section-border-image);
+  border-width: var(--section-border-width);
+  border-color: var(--section-border-color);
+  border-style: solid
+}
+@media (min-width:1024px) {
+  .wm-section--highlight-true {
+    --padding: var(--section-padding-highlight-large)
+  }
+}
+.wm-section--type-full {
+  display: grid;
+  grid-template-columns: 5rem 1fr 5rem;
+  margin-inline: calc(var(--site-wrapper-paddin) * -1);
+  width: calc(100% + (var(--site-wrapper-paddin) * 2))
+}
+.wm-section > * {
+  grid-column: 2
+}
+.wm-section > :last-child {
+  grid-column: 1/-1
+}
+.wm-stack {
+  display: flex;
+  flex-direction: column
+}
+@media (min-width:48em) {
+  .wm-stack {
+    flex-direction: row
+  }
+}
+.wm-stack--vertical-true {
+  flex-direction: column
+}
+.wm-stack--grow-false.wm-stack--vertical-true {
+  align-items: start
+}
+.wm-stack--wrap-false {
+  overflow: auto
+}
+.wm-stack--wrap-true {
+  flex-wrap: wrap
+}
+.wm-stack--grow-true > * {
+  flex-grow: 1
+}
+.wm-stack--equal-true.wm-stack--grow-true > * {
+  flex-shrink: 0;
+  min-width: 0
+}
+.wm-stack--equal-true.wm-stack--grow-true.wm-stack--wrap-false > * {
+  flex-basis: 0px
+}
+.wm-stack--gap-s {
+  gap: var(--stack-spacing-s)
+}
+.wm-stack--gap-m {
+  gap: var(--stack-spacing-m)
+}
+.wm-stack--gap-l {
+  gap: var(--stack-spacing-l)
+}
+.wm-stack--gap-x-s {
+  column-gap: var(--stack-spacing-s)
+}
+.wm-stack--gap-x-m {
+  column-gap: var(--stack-spacing-m)
+}
+.wm-stack--gap-x-l {
+  column-gap: var(--stack-spacing-l)
+}
+.wm-stack--gap-y-xs {
+  row-gap: var(--stack-spacing-xs)
+}
+.wm-stack--gap-y-s {
+  row-gap: var(--stack-spacing-s)
+}
+.wm-stack--gap-y-m {
+  row-gap: var(--stack-spacing-m)
+}
+.wm-stack--gap-y-l {
+  row-gap: var(--stack-spacing-l)
+}
+.wm-stack > img {
+  align-self: start
+} */

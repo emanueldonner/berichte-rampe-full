@@ -1,0 +1,6 @@
+:root {
+  --_highlight-background: gray;
+  --_highlight-color: #000000;
+  --_highlight-padding: 1rem;
+  --_highlight-padding-large: 1rem 3rem;
+}

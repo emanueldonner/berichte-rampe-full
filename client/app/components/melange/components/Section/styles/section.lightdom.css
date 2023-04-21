@@ -1,0 +1,30 @@
+.wm-section-toggle wm-icon {
+  transition: 0.2s all ease-in-out;
+}
+
+.wm-section-toggle [aria-expanded="true"] wm-icon {
+  transform: rotate(-180deg);
+}
+
+@media (min-width: 64em) {
+  .wm-section-toggle {
+    display: none;
+    background-color: red;
+  } 
+}
+
+/* Remove stacking context when the page is locked */
+.wm-is-locked wm-section {
+  container-type: normal;
+}
+
+wm-section[nav="scroll"] :target {
+  --_scroll-margin: calc(var(--site-scroll-margin-top) + var(--header-height));
+  scroll-margin-top: var(--_scroll-margin);
+}
+
+@media (min-width: 64em) {
+  wm-section[nav="scroll"] :target {
+    --_scroll-margin: var(--site-scroll-margin-top);
+  }
+}

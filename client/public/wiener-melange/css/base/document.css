@@ -1,0 +1,67 @@
+/**
+ ** Styles for the whole document
+ **/
+
+/* Easier box model */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+/* Document wrapper */
+html {
+  font-size: 100%;
+  height: 100%;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  /* Details: https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
+  scrollbar-gutter: stable;
+}
+
+html:has(dialog[open]),
+.wm-is-locked {
+  scrollbar-gutter: auto;
+  overflow: clip;
+}
+
+@media(prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Remove start margin on all elements */
+* {
+  margin-block-start: 0;
+}
+
+/* Remove end margin on all last children */
+*:last-child {
+  margin-block-end: 0;
+}
+
+/* Make sure that empty elements have no margin */
+:empty {
+  margin: 0;
+}
+
+/* Focus styling */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline-offset: var(--site-focus-outline-offset);
+  outline: var(--site-focus-outline);
+}
+
+:target {
+  scroll-margin-top: var(--site-scroll-margin-top);
+}
+
+:not(:defined) {
+	/* visibility: hidden !important; */
+}
+
+

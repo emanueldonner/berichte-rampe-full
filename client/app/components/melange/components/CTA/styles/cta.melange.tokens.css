@@ -1,0 +1,10 @@
+:root {
+  --_cta-icon: url('/public/wiener-melange/icons/chevron-right.svg');
+  --_cta-icon-start: url('/public/wiener-melange/icons/chevron-left.svg');
+  --_cta-color-link: var(--wm-color-fastschwarz);
+  --_cta-color-visited: var(--wm-color-fastschwarz);
+  --_cta-font-variation-settings: var(--wm-font-weight-bold);
+  --_cta-font-weight: normal;
+  --_cta-padding: .5rem 1.5625rem .5rem 0;
+  --_cta-padding-start: .5rem 0 .5rem 1.5625rem;
+}

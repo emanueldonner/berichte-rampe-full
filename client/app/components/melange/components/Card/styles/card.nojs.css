@@ -1,0 +1,116 @@
+.wm-card {
+	--spacing: var(--_card-spacing);
+	align-content: start;
+	background-color: var(--_card-background);
+	border: var(--_card-border);
+	box-shadow: var(--_card-shadow);
+	display: grid;
+	grid-template-columns: var(--spacing) 1fr var(--spacing);
+	grid-template-rows: repeat(3, min-content) 1fr;
+	padding-block: var(--spacing);
+	position: relative;
+	width: 100%;
+}
+@media (min-width: 1024px) {
+.wm-card {
+	--spacing: var(--_card-spacing-large);
+}
+}
+.wm-card--size-s {
+	max-width: 16.25rem;
+}
+.wm-card--size-m {
+	max-width: 21.875rem;
+}
+.wm-card--size-l {
+	max-width: 33.125rem;
+}
+.wm-card > img {
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+.wm-card > * {
+	grid-column: 2;
+	min-width: 0;
+}
+.wm-card > img,
+.wm-card > div[slot] {
+	margin: 0 !important;
+}
+.wm-card .media {
+	aspect-ratio: 16 / 9;
+	grid-column: 1 / -1;
+	margin-block-end: var(--spacing);
+	margin-block-start: calc(var(--spacing) * -1);
+	order: -2;
+	position: relative;
+}
+.wm-card .content > *:not(:last-of-type) {
+	margin-block-end: var(--spacing) !important;
+}
+.wm-card .content {
+	grid-column: 2;
+	z-index: 1;
+}
+.wm-card .postcontent {
+	grid-column: 2;
+	grid-row: -1;
+	z-index: 1;
+}
+.wm-card .eyecatcher {
+	background: var(--_card-media-background);
+	color: var(--_card-media-color);
+	font-size: var(--_card-eyecatcher-fontsize);
+	font-weight: normal;
+	padding: 0 var(--_card-eyecatcher-padding);
+	position: absolute;
+}
+.wm-card--color-goldgelb {
+	--_card-media-background: var(--wm-color-goldgelb) !important;
+}
+.wm-card--color-wasserblau {
+	--_card-media-background: var(--wm-color-wasserblau) !important;
+}
+.wm-card--color-morgenrot {
+	--_card-media-background: var(--wm-color-morgenrot) !important;
+}
+.wm-card--color-flieder {
+	--_card-media-background: var(--wm-color-flieder) !important;
+}
+.wm-card--color-nebelgrau {
+	--_card-media-background: var(--wm-color-nebelgrau) !important;
+}
+.wm-card--color-abendstimmung {
+	--_card-media-background: var(--wm-color-abendstimmung) !important;
+	--_card-media-color: var(--wm-color-weiss) !important;
+}
+.wm-card--position*-bottom .eyecatcher {
+	inset-block-end: var(--_card-eyecatcher-spacing);
+}
+.wm-card--position*-top .eyecatcher {
+	inset-block-start: var(--_card-eyecatcher-spacing);
+}
+.wm-card--position*-left .eyecatcher {
+	inset-inline-start: 0;
+}
+.wm-card--position*-right .eyecatcher {
+	inset-inline-end: 0;
+}
+.wm-card--position*-left.wm-card--type-eyecatcher-round .eyecatcher {
+	inset-inline-start: var(--_card-eyecatcher-spacing);
+}
+.wm-card--position*-right.wm-card--type-eyecatcher-round .eyecatcher {
+	inset-inline-end: var(--_card-eyecatcher-spacing);
+}
+.wm-card--type-eyecatcher-round .eyecatcher {
+	align-items: center;
+	border-radius: 50%;
+	display: flex;
+	height: 3.5em;
+	justify-content: center;
+	padding: 0;
+	transform: rotate(-20deg);
+	width: 3.5em;
+}

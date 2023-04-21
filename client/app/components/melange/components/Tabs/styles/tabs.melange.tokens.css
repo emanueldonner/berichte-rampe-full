@@ -1,0 +1,18 @@
+:root {
+  --_tabs-alignment: start;
+  --_tabs-border: none;
+  --_tabs-gap: 0;
+  --_tabs-padding: 0;
+  --_tabs-spacing: -1px;
+}:root {
+  --_tab-background-color: var(--wm-color-nebelgrau-light);
+  --_tab-background-color-selected: var(--wm-color-weiss);
+  --_tab-border-width: 1px 1px 0 1px;
+  --_tab-border-color: var(--wm-color-nebelgrau-light);
+  --_tab-border-color-selected: var(--wm-color-nebelgrau-light);
+  --_tab-padding: 0.6rem 1rem;
+}:root {
+  --_tabpanel-padding: 0.6rem 1rem;
+  --_tabpanel-border-width: 1px;
+  --_tabpanel-border-color: var(--wm-color-nebelgrau-light);
+}

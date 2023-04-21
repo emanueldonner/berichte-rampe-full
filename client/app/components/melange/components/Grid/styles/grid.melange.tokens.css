@@ -1,0 +1,7 @@
+:root {
+  --_grid-spacing: var(--wm-spacing);
+  --_grid-spacing-xs: var(--wm-spacing-xs);
+  --_grid-spacing-s: var(--wm-spacing-s);
+  --_grid-spacing-m: var(--wm-spacing-m);
+  --_grid-spacing-l: var(--wm-spacing-l);
+}

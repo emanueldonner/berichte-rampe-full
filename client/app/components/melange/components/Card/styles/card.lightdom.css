@@ -1,0 +1,14 @@
+wm-card[blocklink="true"] a::before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+wm-card [slot="heading"] a:is(:link, :visited) {
+  color: var(--site-color);
+  text-decoration: none;
+}

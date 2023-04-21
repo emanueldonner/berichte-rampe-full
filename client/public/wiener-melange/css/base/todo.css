@@ -1,0 +1,26 @@
+
+/* 
+
+section,
+wm-section {
+  --wm-section-margin: var(--wm-spacing-xl);
+}
+
+:is(section, wm-section) + :is(section, wm-section) {
+  margin-top: var(--wm-section-margin);
+}
+
+wm-section[highlight] + wm-section[highlight] {
+  margin-top: 0;
+}
+
+article {
+  margin-bottom: var(--wm-s-l);
+}
+
+@media(min-width: 1024px) {
+  main {
+    --wm-section-margin: var(--wm-spacing-xl);
+  }
+}
+ */

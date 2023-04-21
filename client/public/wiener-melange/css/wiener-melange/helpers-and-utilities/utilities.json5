@@ -1,0 +1,22 @@
+[
+{
+  selector: ".wm-u-fg1",
+  description: "flex-grow: 1;",
+  rule: "flex-grow: 1;"
+},
+{
+  selector: ".wm-u-tar",
+  description: "text-align: right;",
+  rule: "text-align: right;"
+},
+{
+  selector: ".wm-u-df",
+  description: "display:flex;",
+  rule: "display:flex;"
+},
+{
+  selector: ".wm-u-jce",
+  description: "justify-content: end;",
+  rule: "justify-content: end;"
+}
+]

@@ -1,0 +1,7 @@
+:root {
+  --_stack-spacing: var(--wm-spacing);
+  --_stack-spacing-xs: var(--wm-spacing-xs);
+  --_stack-spacing-s: var(--wm-spacing-s);
+  --_stack-spacing-m: var(--wm-spacing-m);
+  --_stack-spacing-l: var(--wm-spacing-l);
+}

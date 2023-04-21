@@ -1,0 +1,19 @@
+{
+  "list": {
+    "border": {
+      "name": "Rahmen zwischen Listelementen",
+      "default": "1px solid",
+      "$value": "1px solid"
+    },
+    "border-color": {
+      "name": "Rahmenfarbe",
+      "default": "var(--site-color)",
+      "$value": "var(--wm-color-fastschwarz)"
+    },
+    "gap": {
+      "name": "Abstand zwischen Elementen",
+      "default": "0.5rem",
+      "$value": "var(--wm-spacing-xs)"
+    }
+  }
+}

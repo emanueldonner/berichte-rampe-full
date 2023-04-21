@@ -1,0 +1,66 @@
+html {
+  --header-shadow: 0 4px 8px var(--header-shadow-color);
+  --header-padding: 0;
+  --header-position: sticky;
+}
+
+:is(body > header, #root > header, [role="banner"]) {
+  overflow: hidden;
+}
+
+/**
+ ** Wrapper div in header
+ ** Items within the header should be wrapped in a div for more flexible layouting
+ **/
+:is(body > header, #root > header, [role="banner"])
+  > div:not([slot="actions"]) {
+  margin-inline: var(--site-wrapper-margin-inline);
+  max-width: var(--site-wrapper-width);
+}
+
+/* First wrapper div in <header> */
+:is(body > header, #root > header, [role="banner"]) > div:first-child {
+  align-items: center;
+  display: flex;
+  gap: var(--header-gap);
+  justify-content: space-between;
+  min-height: var(--header-height);
+}
+
+/* Second wrapper div in <header> */
+:is(body > header, #root > header, [role="banner"])
+  > div:nth-child(2):not(:only-child):not([slot]) {
+  align-items: center;
+  border-image: conic-gradient(var(--header-nav-wrapper-background) 0 0) fill 1/0
+    50vw;
+  display: flex;
+  justify-content: space-between;
+  min-height: var(--header-nav-height);
+}
+
+/* Site Title in Header */
+:is(body > header, #root > header, [role="banner"])
+  > div:first-child
+  > :first-child {
+  font-size: var(--header-title-font-size);
+  font-weight: var(--header-title-font-weight);
+  font-variation-settings: var(--header-title-font-variation-settings);
+}
+
+:is(body > header, #root > header, [role="banner"]) a:is(:link, :visited) {
+  color: var(--site-color);
+  text-decoration: none;
+}
+
+:is(body > header, #root > header, [role="banner"]) a:is(:visited) {
+  color: var(--site-color);
+  text-decoration: none;
+}
+
+:is(wm-section, section) + :is(wm-section, section) {
+  margin-top: var(--section-margin);
+}
+
+wm-section[highlight] + wm-section[highlight] {
+  margin-top: var(--section-margin-small);
+}

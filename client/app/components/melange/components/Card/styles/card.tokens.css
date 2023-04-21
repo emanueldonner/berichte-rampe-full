@@ -1,0 +1,12 @@
+:root {
+  --_card-background: #FFFFFF;
+  --_card-border: 1px solid var(--site-color);
+  --_card-eyecatcher-spacing: 1rem;
+  --_card-eyecatcher-padding: 0.5rem;
+  --_card-eyecatcher-fontsize: 1.5rem;
+  --_card-media-background: hsl(0 0% 0%);
+  --_card-media-color: hsl(0 0% 100%);
+  --_card-spacing: 1rem;
+  --_card-spacing-large: 1.5rem;
+  --_card-shadow: none;
+}

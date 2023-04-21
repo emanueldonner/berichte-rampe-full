@@ -331,6 +331,9 @@ function UploadPage() {
   const [path, setPath] = useState("")
   const [filename, setFilename] = useState("")
   const [success, setSuccess] = useState(false)
+  const [readyForZip, setReadyForZip] = useState(false)
+  const [zipFilePath, setZipFilePath] = useState("")
+  const [zipDownloadUrl, setZipDownloadUrl] = useState("")
   const scroller = useRef(null)
   const addToMessage = (msg) => {
     setMessage((prev) => [...prev, msg])
@@ -414,6 +417,20 @@ function UploadPage() {
       })
 
       addToMessage(res.data.message)
+      res.data.status === "success" && setReadyForZip(true)
+      setZipFilePath(res.data.path)
+    } catch (error) {
+      addToMessage(error.response.data.message)
+    }
+  }
+
+  const handleZip = async () => {
+    try {
+      const res = await axios.post("/api/compress", {
+        path: zipFilePath,
+      })
+      addToMessage(res.data.message)
+      setZipDownloadUrl(res.data.zipUrl)
     } catch (error) {
       addToMessage(error.response.data.message)
     }
@@ -444,9 +461,28 @@ function UploadPage() {
               onParseClick={onParseClick}
             />
           )}
+          {readyForZip && (
+            <div className="wm-form__grid-md">
+              <div className="wm-u-mtm">
+                <button
+                  className="js-generate wm-btn--block"
+                  onClick={handleZip}
+                >
+                  Bericht als ZIP-Datei generieren
+                </button>
+              </div>
+              {zipDownloadUrl !== "" && (
+                <div className="wm-u-mtm">
+                  <a href={`/api/download/${zipDownloadUrl}`} download>
+                    ZIP-Datei herunterladen
+                  </a>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
-        <div className="log-box" ref={scroller}>
+        <div className="log-box log-box--small" ref={scroller}>
           <div className="log-box--buttons">
             {/* button that controls size of log-box */}
             <button
@@ -455,7 +491,8 @@ function UploadPage() {
                 scroller.current.classList.toggle("log-box--small")
               }}
             >
-              <svg
+              minmax
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -466,16 +503,17 @@ function UploadPage() {
                   d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
                   fill="#fafafa"
                 />
-              </svg>
+              </svg> */}
             </button>
             {/* button that clears log-box */}
             <button
               className="log-box--button"
               onClick={() => {
-                setMessage([])
+                setMessage([""])
               }}
             >
-              <svg
+              clear
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -483,7 +521,7 @@ function UploadPage() {
               >
                 <path d="M0 0h24v24H0z" fill="none" />
                 <path d="M19 13H5v-2h14v2z" fill="#fafafa" />
-              </svg>
+              </svg> */}
             </button>
           </div>
           {message && (

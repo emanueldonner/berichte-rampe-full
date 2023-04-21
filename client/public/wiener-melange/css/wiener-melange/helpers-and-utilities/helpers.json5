@@ -1,0 +1,36 @@
+[
+{
+  selector: ".wm-h-row",
+  description: "Legt eine Maximalbreite für Content-Blöcke fest.",
+  rule: "max-width: 66ch;"
+},
+{
+  selector: ".wm-h-btn-clean",
+  description: "Legt eine Maximalbreite für Content-Blöcke fest.",
+  rule: "all: unset; font: inherit;",
+  additional_rules: ".wm-h-btn-clean:focus { \
+    outline-offset: 2px;\
+    outline: 3px solid var(--wm-color-ui-interactive);\
+  }"
+},
+{
+  selector: ".wm-h-link-clean:is(:link, :visited)",
+  description: "Legt eine Maximalbreite für Content-Blöcke fest.",
+  rule: "color: var(--wm-color-fastschwarz); \
+  text-decoration: none;"
+},
+{
+  selector: ".wm-h-vh",
+  description: "Legt eine Maximalbreite für Content-Blöcke fest.",
+  rule: "position: absolute; \
+	white-space: nowrap; \
+	width: 1px; \
+	height: 1px; \
+	overflow: hidden; \
+	border: 0; \
+	padding: 0; \
+	clip: rect(0 0 0 0); \
+	clip-path: inset(50%); \
+	margin: -1px;"
+},
+]

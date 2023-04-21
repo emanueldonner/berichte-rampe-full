@@ -1,0 +1,6 @@
+:root {
+  --_highlight-background: var(--wm-color-nebelgrau-light);
+  --_highlight-color: var(--wm-color-fastschwarz);
+  --_highlight-padding: var(--wm-spacing-s);
+  --_highlight-padding-large: var(--wm-spacing-m) var(--wm-spacing-xl);
+}

@@ -1,0 +1,5 @@
+:root {
+  --_list-border: 1px solid;
+  --_list-border-color: var(--wm-color-fastschwarz);
+  --_list-gap: var(--wm-spacing-xs);
+}

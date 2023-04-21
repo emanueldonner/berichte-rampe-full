@@ -1,0 +1,31 @@
+{
+	"stage": {
+		"background-color": {
+			"name": "Hintergrundfarbe",
+			"default": "rgb(255 255 255)",
+			"$value": "var(--wm-color-weiss)"
+		},
+		"content-padding": {
+			"name": "Padding für den Inhalt",
+			"default": "2rem",
+			"$value": "var(--wm-spacing-s) var(--wm-spacing-l)"
+		},
+		"heading-small": {
+			"name": "Schriftgröße Klein",
+			"default": "2rem",
+			"$value": "1.5rem"
+		},
+		"margin": {
+			"name": "Außebastand nach unten mobil",
+			"default": "1rem",
+			"$value": "var(--wm-spacing-m)"
+		},
+		"margin-large": {
+			"name": "Außebastand nach unten",
+			"default": "1.25rem",
+			"$value": "var(--wm-spacing-l)"
+		}
+	}
+}
+
+

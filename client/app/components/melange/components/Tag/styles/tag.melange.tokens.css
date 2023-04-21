@@ -1,0 +1,14 @@
+:root {
+  --_tag-background: var(--wm-color-weiss);
+  --_tag-background-hover: var(--wm-color-nebelgrau-light);
+  --_tag-border: var(--wm-color-nebelgrau);
+  --_tag-padding-inline: 0.8125rem;
+  --_tag-padding-block: 0.15625rem;
+  --_tag-padding-inline-large: 0.9375rem;
+  --_tag-padding-block-large: 0.28125rem;
+  --_tag-gap: var(--wm-spacing-xs);
+  --_tag-min-height: 2.1375rem;
+  --_tag-min-height-large: 2.5rem;
+  --_tag-link-color: var(--wm-color-fastschwarz);
+  --_tag-font-size: var(--wm-font-size-s);
+}

@@ -1,0 +1,276 @@
+import { LitElement, html } from 'lit';
+import { meta, properties } from './fetch.meta.js';
+import { styles } from './styles/fetch.styles';
+
+export class Fetch extends LitElement {
+	get _dropdown() {
+		return this.querySelector('wm-filter-dropdown') ?? null
+	}
+
+	get _resultsContainer() {
+		return this.shadowRoot?.querySelector('slot[name="results"]').assignedNodes()[0] ?? null
+	}
+
+	get _form() {
+		return this.shadowRoot?.querySelector('slot[name="form"]').assignedNodes()[0] ?? null
+	}
+
+	get _template() {
+		return this.querySelector('template') ?? null
+	}
+
+	get _content() {
+		return this._resultsContainer?.querySelector('wm-list')?.shadowRoot.querySelector('[data-fetch-content]') ??  this._resultsContainer?.querySelector('[data-filter-content]') ?? null;
+	}
+
+	get _map() {
+		return this.querySelector('wm-map');
+	}
+	
+	static properties = properties
+	static styles = [ styles ]
+
+	constructor() {
+		super();
+
+		this.url = ''
+		this.dataset = ''
+		this.pagination = 'none'
+		this._addEvents()
+		this._results = []
+		this.itemsPerPage = 5;
+		this.itemsPerSet = this.itemsPerPage
+		this.skeleton = "false"
+		this.fetchSource = ''
+		this.fetchTarget = ''
+	}
+
+	_addEvents() {
+		this._dropdown.addEventListener('filter-submit', e => {
+			this.itemsPerSet = this.itemsPerPage
+
+			if (e.detail.url) {
+				this._injectData(e.detail.url)
+			} else if (e.detail.filter) {
+				this._filterData(e.detail.filter);
+				this._displayData()
+				this._updateMap();
+			}
+		})
+	}
+
+	_updateMap() {
+		if (this._map) {
+			if (this._map.map_loaded) {
+				this._addMarkers()
+			} else {
+				this._map.addEventListener('map-ready', this._addMarkers.bind(this))
+			}
+		}
+	}
+
+	_addMarkers() {
+		this._map.deleteAll()
+		for (let i = 0; i < this._results.length; i++) {
+			const result = this._results[i];
+			console.log('add')
+			this._map.addMarker(`brunnens_${i}`, result.geometry.coordinates[0], result.geometry.coordinates[1], this._stringToObject(this._template.content.querySelector('[data-filter-field]').dataset.filterField, result), false)
+		}
+		console.log('end')
+
+		setTimeout(() => {
+			this._map.resetBounds();
+		}, 0);
+	}
+
+	_stringToObject(string, object) {
+		return string.split('.').reduce((o,i)=> o[i], object)
+	}
+
+	_loadMore() {
+		this.itemsPerSet = this.itemsPerSet + this.itemsPerPage
+		this._displayData()
+	}
+
+	_injectData(url, limit) {
+		let content
+
+		const target = document.querySelector(this.fetchTarget);
+		
+		if (this.fetchType === 'append') {
+			content = target.innerHTML
+		}
+
+		if (this.fetchLoading) {
+			target.innerHTML = document.querySelector(this.fetchLoading).innerHTML;
+		}
+
+		var formData = new FormData(this._form);
+
+		if (limit) {
+			formData.set('limit', limit)
+		}
+	
+		for (var [key, value] of formData.entries()) { 
+			url += `${key}=${value}&`
+		}
+
+		fetch(url)
+		.then(response => {
+			return response.text()
+		})
+		.then(data => {
+			const container = document.createElement('div');
+			container.innerHTML = data;
+			console.log(container.querySelector(this.fetchSource))
+			console.log( container.querySelector(this.fetchSource).querySelector('[data-filter-loadmore]'))
+
+			let newContent = container.querySelector(this.fetchSource).innerHTML;
+			
+			if (this.fetchType === 'append') {
+				content = content + newContent
+			} else {
+				content = newContent
+			}
+
+			target.innerHTML = content;
+			const button = target.querySelector('[data-filter-loadmore]')
+			
+			button.addEventListener('click', e => {
+				e.preventDefault()
+
+				const p = new URL(url)
+				const p1 = new URLSearchParams(p.search)
+
+				p1.set('limit', e.target.dataset.filterLoadmore)
+				this._injectData(url, e.target.dataset.filterLoadmore)
+			})
+		});
+	}
+
+	_displayData(initial = false) {
+		if (this._content) {
+			console.log('show content')
+			this._content.innerHTML = ''
+
+			for (let i = 0; i < this.itemsPerSet; i++) {
+				const result = this._results[i];
+				if (result) {
+					const template = this._template.content.cloneNode(true).children[0]
+					
+					const fields = template.querySelectorAll('[data-filter-field]');
+					for (let i = 0; i < fields.length; i++) {
+						const field = fields[i];
+						field.textContent = this._stringToObject(field.dataset.filterField, result)
+					}		
+					const attributes = template.querySelectorAll('[data-filter-attribute]');
+					for (let i = 0; i < attributes.length; i++) {
+						const element = attributes[i];
+						console.log(this._stringToObject(element.dataset.filterAttribute, result))
+						element.setAttribute('href', this._stringToObject(element.dataset.filterAttribute, result))
+					}
+
+					if (this.skeleton === "true" && initial) {
+						template.style.transition = 'opacity 0.3s'
+						template.style.opacity = '0'
+					}
+					
+					this._content.appendChild(template)
+
+					setTimeout(() => {
+						template.style.opacity = '1'
+					}, 0);
+				}
+			}
+		}
+	}
+
+	_filterData(filters) {
+		this._results = this._data.filter(result => {
+			for (const filter in filters) {
+				// console.log(filters[filter])
+				// console.log(this._stringToObject(filter, result).toString())
+				if (filters[filter].indexOf(this._stringToObject(filter, result).toString()) === -1) {
+					return false
+				}
+			}
+			return true
+		})
+	}
+
+	_fetchData() {
+		fetch(this.url)
+		.then(response => {
+			return response.json()
+		})
+		.then(data => {
+			this._data = data[this.dataset]
+			this._results = this._data
+			this._displayData(true);
+			this._updateMap();
+		});
+	}
+
+	connectedCallback() {
+		super.connectedCallback()
+
+		this._fetchData();
+	}
+
+	firstUpdated() {
+		if (this._content) {
+			this._content.innerHTML = '';
+
+			if (this.skeleton === "true") {
+				for (let i = 0; i < this.itemsPerPage; i++) {
+					const template = this._template.content.cloneNode(true).children[0]
+					const fields = template.querySelectorAll('[data-filter-field]');
+					for (let i = 0; i < fields.length; i++) {
+						fields[i].innerHTML = "&nbsp;"
+					}
+
+					this._content.appendChild(template)
+				}
+			}
+		} else {
+
+			console.log(this._resultsContainer)
+			console.log(this._resultsContainer.querySelector('[data-filter-loadmore]'))
+			console.log(this._resultsContainer.querySelectorAll('*'))
+
+		this._resultsContainer.querySelector('[data-filter-loadmore]').addEventListener('click', e => {
+			e.preventDefault()
+
+			// const p = new URL()
+			// const p1 = new URLSearchParams(p.search)
+
+
+			// p1.set('limit', e.target.dataset.filterLoadmore)
+			
+
+			// this._injectData(`${url.split('?')[0]}?${p1.toString()}`)
+			this._injectData(location.href, e.target.dataset.filterLoadmore)
+		})
+		}
+	}
+
+	updated(changedProperties) {
+		if (changedProperties.has('itemsPerPage')) {
+			this.itemsPerSet = this.itemsPerPage
+ 		}
+	}
+
+	render() {
+		return html`
+			<slot name="form"></slot>
+			${this._results.length ? `<p>Zeige ${this.itemsPerSet < this._results.length ? this.itemsPerSet : this._results.length} von ${this._results.length}</p>` : ``}
+			<slot name="results"></slot>
+			<slot name="content"></slot>
+			<slot name="template"></slot>
+
+			${this.pagination === 'button' && (this.itemsPerSet < this._results.length) ? html`<wm-button @click="${this._loadMore}"><button>Load more</button></wm-button>` : ``}
+		`;
+	}
+}
+
+customElements.define('wm-filter', Fetch);

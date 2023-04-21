@@ -1,0 +1,11 @@
+{
+	"quicklinks": {
+		"gap": {
+			"name": "Abstand zwischen Spalten",
+			"default": "2rem",
+			"$value": "var(--wm-spacing-l)"
+		}
+	}
+}
+
+

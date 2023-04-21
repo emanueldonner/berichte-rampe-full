@@ -1,0 +1,9 @@
+:root {
+  --_carousel-ratio: 16 / 9;
+  --_carousel-item-inner-padding: 0;
+  --_carousel-shadow-offset: 8px;
+  --_carousel-gap: 1.5625rem;
+  --_carousel-control-bg: var(--wm-color-weiss);
+  --_carousel-control-bg-start: url('/public/wiener-melange/icons/chevron-left.svg');
+  --_carousel-control-bg-end: url('/public/wiener-melange/icons/chevron-right.svg');
+}

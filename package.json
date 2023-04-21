@@ -9,7 +9,7 @@
   "scripts": {
     "start": "NODE_OPTIONS=--max-old-space-size=2048 node server.js",
     "client": "npm start --prefix client",
-    "dev": "NODE_OPTIONS=--max-old-space-size=2048 fastify start -l info --watch --pretty-logs server.js",
+    "dev": "fastify start -w -l info -c \"config.json\" --pretty-logs server.js",
     "prod": "concurrently \"NODE_ENV=production npm start\" \"npm run client\"",
     "debug": "fastify start -l info --watch -V --debug --pretty-logs server.js",
     "stop": "pm2 stop server.js",
@@ -23,6 +23,7 @@
     "@fastify/view": "^7.4.1",
     "@fastify/websocket": "^7.2.0",
     "adm-zip": "^0.5.4",
+    "archiver": "^5.3.1",
     "child_process": "^1.0.2",
     "command-line-args": "^5.1.1",
     "concurrently": "^8.0.1",
@@ -49,8 +50,5 @@
     "xml-formatter": "^2.4.0",
     "xml-js": "^1.6.11",
     "yaml": "^1.10.2"
-  },
-  "devDependencies": {
-    "fastify-cli": "^5.7.1"
   }
 }

@@ -1,10 +1,14 @@
+body {
+  height: 100dvh;
+}
 main {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   width: 100%;
-  padding-bottom: 23rem;
+  height: 100%;
+  padding-bottom: 20rem;
   /* height: 100vh; */
   /* width: 100vw; */
   /* background-color: #eefcfc; */
@@ -16,11 +20,11 @@ main {
   align-items: center;
   justify-content: center;
   height: 200px;
-  width: 800px;
+  max-width: 800px;
   background-color: rgb(118, 173, 218);
   /* border: dashed 1px rgb(180, 221, 255); */
   border-radius: 4px;
-  padding: 16px;
+  padding: 1rem 2rem;
   cursor: pointer;
   transition: all 0.2s ease;
   margin-bottom: 1rem;
@@ -78,16 +82,17 @@ main {
 
 .log-box--buttons {
   position: fixed;
-  right: 0;
-  top: 0;
+  right: 1.2rem;
+  /* top: 0; */
 }
 .log-box--button {
   background: none;
   border: none;
   color: rgba(255, 255, 255, 1);
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding: 0.5rem;
   cursor: pointer;
+  margin: 2px;
 }
 
 .log-box--button svg path {

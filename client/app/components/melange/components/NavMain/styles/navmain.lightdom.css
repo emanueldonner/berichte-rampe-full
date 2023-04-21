@@ -1,0 +1,6 @@
+/* Prevent FOUC while nav is still loadiung */
+wm-nav-main:not(:defined) {
+  display: block;
+  height: 3.5rem;
+  overflow: hidden;
+}

@@ -1,0 +1,42 @@
+.wm-cta * {
+	box-sizing: border-box;
+}
+.wm-cta {
+	display: inline-flex;
+}
+.wm-cta > a:link {
+	--link-color: var(--_cta-color-link) !important;
+	--link-color-visited: var(--_cta-color-visited) !important;
+}
+.wm-cta > :is(a, button) {
+	background: var(--_cta-icon) no-repeat center right 0.5rem !important;
+	display: inline-block !important;
+	font-weight: var(--_cta-font-weight)!important;
+	font-variation-settings: var(--_cta-font-variation-settings) !important;
+	padding: var(--_cta-padding) !important;
+	text-decoration: none !important;
+	transition: background 0.3s !important;
+	width: 100% !important;
+}
+.wm-cta > :is(a, button):is(:hover, :focus-visible) {
+	background-position: 100% !important;
+}
+.wm-cta > button {
+	border: none !important;
+	color: currentColor !important;
+	text-transform: none !important;
+	cursor: pointer;
+	text-align: left !important;
+}
+.wm-cta--full-true {
+	width: 100%;
+}
+.wm-cta--start-true > :is(a, button) {
+	background-image: var(--_cta-icon-start) !important;
+	background-position: center left !important;
+	padding: var(--_cta-padding-start) !important;
+	text-align: right !important;
+}
+.wm-cta--start-true > :is(a, button):is(:hover, :focus-visible) {
+	background-position: center left -0.5rem !important;
+}

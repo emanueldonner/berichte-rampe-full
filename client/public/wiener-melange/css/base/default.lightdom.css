@@ -1,0 +1,54 @@
+/* wm-card[blocklink=true] a::before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1
+}
+wm-list[type=row] > :is(ol,ul) > li {
+  align-items: start;
+  display: flex;
+  gap: var(--list-gap);
+  margin: 0;
+  padding-bottom: var(--list-gap)
+}
+wm-list[type=row] > :is(ol,ul) > li + li {
+  border-top: var(--list-border);
+  padding-top: var(--list-gap)
+}
+wm-list[type=row] > :is(ol,ul) > li > wm-icon {
+  position: relative;
+  top: 2px
+}
+wm-list[clean] > :is(ol,ul) > li {
+  align-items: center;
+  display: flex;
+  gap: var(--list-gap);
+  margin: 0
+}
+wm-list[type=horizontal] > :is(ol,ul) > li {
+  margin: 0
+}
+wm-list[type=horizontal][separator=pipe] {
+  line-height: 1
+}
+wm-list[type=horizontal][separator=pipe] > :is(ol,ul) > li + li {
+  border-inline-start: 2px solid var(--wm-color-fastschwarz);
+  padding-inline-start: var(--list-gap)
+}
+wm-nav-main:not(:defined) {
+  display: block;
+  height: 3.5rem;
+  overflow: hidden
+}
+wm-quicklinks li {
+  border-bottom: 1px solid var(--site-color)
+}
+wm-quicklinks li + li {
+  margin-block-start: 0
+}
+wm-tag-list li + li {
+  margin-block-start: 0
+} */

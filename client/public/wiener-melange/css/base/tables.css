@@ -1,0 +1,56 @@
+/**
+ ** ☕️☕️☕️ Tables ☕️☕️☕️
+ **/
+
+ table {
+  border-collapse: collapse;
+	margin-block-end: 2em;
+	width: 100%;
+}
+
+tr {
+	background: var(--table-tr-background);
+	border-width: var(--table-tr-border-width);
+	border-style: var(--table-tr-border-style);
+	border-color: var(--table-tr-border-color);
+	color: var(--table-tr-color);
+}
+
+th, td {
+	vertical-align: top;
+}
+
+td {
+	background: var(--table-td-background);
+	border-width: var(--table-td-border-width);
+	border-style: var(--table-td-border-style);
+	border-color: var(--table-td-border-color);
+	color: var(--table-td-color);
+	padding: var(--table-th-padding);
+}
+
+th {
+	background: var(--table-th-background);
+	border-width: var(--table-th-border-width);
+	border-style: var(--table-th-border-style);
+	border-color: var(--table-th-border-color);
+	color: var(--table-th-color);
+	font-weight: var(--content-font-weight);
+	font-variation-settings: var(--content-font-variation-settings);
+	padding: var(--table-td-padding);
+	text-align: left;
+}
+
+caption {
+  background: var(--table-caption-background);
+	font-weight: var(--content-font-weight);
+	font-variation-settings: var(--content-font-variation-settings);
+  padding: 0.2rem 0.5rem;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+tfoot td {
+	font-weight: var(--content-font-weight);
+	font-variation-settings: var(--content-font-variation-settings);
+}

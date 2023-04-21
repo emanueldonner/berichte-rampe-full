@@ -1,0 +1,9 @@
+{
+  "anchor": {
+    "gap": {
+      "name": "Abstand zwischen Text und Link",
+      "default": "1rem",
+      "$value": "var(--wm-spacing-xs)"
+    }
+  }
+}

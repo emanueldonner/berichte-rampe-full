@@ -1,0 +1,167 @@
+/* Font declarations */
+@font-face {
+  font-family: "WienerMelange";
+  font-display: swap;
+  src: url(/public/wiener-melange/fonts/WienerMelangeVF.woff2)
+    format("woff2-variations");
+}
+
+html {
+  --site-background: var(--wm-color-weiss);
+  --site-color: var(--wm-color-fastschwarz);
+  --site-focus-outline: 3px solid var(--wm-color-ui-interactive);
+
+  --site-font-family: var(--wm-font-stack-default, sans-serif);
+  --site-font-monospace: var(--wm-font-stack-monospace);
+  --site-font-size: var(--wm-font-size-default);
+
+  --site-gap: 0;
+  --site-scroll-margin-top: calc(
+    var(--header-height) + var(--header-nav-height) + 1.6rem
+  );
+  --site-wrapper-padding: var(--wm-size-wrapper-padding-default);
+  --site-wrapper-margin-inline: auto;
+
+  --header-height: 3.75rem;
+  --header-height-large: 6.25rem;
+  --header-nav-height: 3.5rem;
+  --header-background: var(--wm-color-weiss);
+  --header-gap: var(--wm-spacing-xl);
+  --header-margin-block-end: var(--wm-spacing-l);
+  --header-nav-wrapper-background: var(--wm-color-nebelgrau-light);
+  --header-padding: 0;
+  --header-position: sticky;
+  --header-shadow-color: var(--wm-color-fastschwarz-light);
+  --header-shadow: 0 4px 8px var(--header-shadow-color);
+  --header-title-font-variation-settings: var(--wm-font-weight-extra-bold);
+  --header-title-font-weight: normal;
+  --header-z-index: 1230;
+  --header-width: 100%;
+
+  --main-padding: 0 var(--site-wrapper-padding);
+
+  --footer-alignment: center;
+  --footer-padding-block: var(--wm-spacing-xxl) var(--wm-spacing-l);
+  --footer-text-align: center;
+
+  --section-margin: var(--wm-spacing-xl);
+  --section-margin-small: var(--wm-spacing-xs);
+
+  --headings-font-weight: unset;
+  --headings-font-variation-settings: var(--wm-font-weight-bold);
+
+  --content-code-background: var(--wm-color-nebelgrau-light);
+  --content-code-border: 1px solid var(--wm-color-nebelgrau);
+  --content-code-border-radius: 4px;
+  --content-code-font-size: var(--wm-font-size-s);
+  --content-code-padding: 0.7rem 1rem 0.6rem;
+
+  --content-text-max-width: 66ch;
+  --content-quote-color: var(--wm-color-nebelgrau);
+  --content-hr: 1px solid var(--wm-color-nebelgrau);
+
+  --table-tr-border-width: 0 0 1px 0;
+  --table-td-border-width: 0;
+  --table-th-border-width: 0;
+
+  --table-tr-border-color: var(--wm-color-fastschwarz);
+
+  --text-abbr-border: 0.1em dotted var(--wm-color-fastschwarz);
+  --text-em-font-style: normal;
+  --text-mark-background: var(--wm-color-wasserblau-light);
+  --text-code-font-size: 0.9em;
+
+  --link-color-link: var(--wm-color-ui-link);
+  --link-color-visited: var(--wm-color-ui-link-visited);
+
+  --media-figcaption-background: var(--wm-color-nebelgrau-light);
+  --media-figcaption-padding: var(--wm-spacing-xxs) var(--wm-spacing-xs);
+
+  --input-background: var(--wm-color-nebelgrau-light);
+  --input-border-color: var(--wm-color-nebelgrau);
+  --input-min-height: 2.75rem;
+  --input-padding: 0.5rem 0.9375rem;
+  --input-accent-color: var(--wm-color-ui-interactive);
+  --input-checkbox-icon: url("/public/wiener-melange/icons/check-light.svg");
+
+  --select-appearance: none;
+  --select-icon: url("/public/wiener-melange/icons/chevron-down.svg");
+  --select-padding: 0.4rem 2.5rem 0.4rem 0.9375rem;
+
+  --summary-icon: url("/public/wiener-melange/chevron-down.svg");
+  --table-caption-background: var(--wm-color-nebelgrau-light);
+
+  --button-primary: var(--wm-color-ui-interactive);
+  --button-secondary: var(--wm-color-weiss);
+
+  --button-background: var(--button-primary);
+  --button-background-hover: var(--button-secondary);
+  --button-border-color: var(--button-primary);
+  --button-color: var(--button-secondary);
+  --button-color-hover: var(--button-primary);
+}
+
+h1 {
+  --headings-font-variation-settings: var(--wm-font-weight-extra-bold);
+}
+
+h2 {
+  --headings-font-variation-settings: var(--wm-font-weight-normal);
+}
+
+.wm-e-h3 {
+  --headings-font-variation-settings: var(--wm-font-weight-bold);
+}
+
+thead {
+  --table-tr-background: transparent;
+}
+
+tfoot {
+  --table-tr-border-width: 3px 0 0 0;
+}
+
+:is(dt, th, strong, label, button, .wm-e-button, tfoot td) {
+  --content-font-weight: unset;
+  --content-font-variation-settings: var(--wm-font-weight-bold);
+}
+
+/* Farsi, Arabisch, Bulgarisch, Russisch, Serbisch */
+:is(:lang(fa), :lang(ar), :lang(bg), :lang(ru), :lang(sr)) > * {
+  --wm-body-font-family: var(--wm-font-stack-fallback);
+}
+
+/* Panjabi, Hindi, Chinesisch */
+:is(:lang(pa), :lang(hi), :lang(zh)) > * {
+  --wm-body-font-family: var(--wm-font-stack-sans-serif);
+}
+
+iframe[src*="wien.gv.at/video/embed"] {
+  aspect-ratio: 648 / 425;
+}
+
+iframe[src*="wien.gv.at/viennaviz"] {
+  aspect-ratio: 648 / 499;
+}
+
+:is(wm-highlight, wm-section[highlight]) :is(select, input, textarea) {
+  --select-background: var(--wm-color-weiss);
+  --input-background: var(--wm-color-weiss);
+}
+
+.wm-has-stage :is(body > header, [role="banner"]) {
+  margin-block-end: 0;
+}
+:is(body > header, #root > header, [role="banner"])
+  > div:not([slot="actions"]) {
+  padding-inline: var(--site-wrapper-padding);
+  width: 100%;
+}
+
+@media (min-width: 64em) {
+  html {
+    --site-wrapper-padding: 3.125rem;
+    --header-margin-block-end: var(--wm-spacing-xl);
+    --header-title-font-size: 1.5625rem;
+  }
+}

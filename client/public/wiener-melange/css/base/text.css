@@ -1,0 +1,38 @@
+/**
+ ** Text Semantik
+ **/
+
+strong {
+	font-weight: var(--content-font-weight);
+  font-variation-settings: var(--content-font-variation-settings);
+}
+
+em {
+  font-style: var(--text-em-font-style);
+}
+
+small {
+  font-size: inherit;
+}
+
+abbr[title] {
+  border-bottom: var(--text-abbr-border);
+  text-decoration: none;
+}
+
+mark {
+  background-color: var(--text-mark-background);
+  padding: 0 0.2em;
+}
+
+code {
+  background-color: var(--content-code-background);
+	font-family: var(--site-font-monospace);
+  font-size: var(--text-code-font-size);
+  padding: 0 0.3em;
+  display: inline-block;;
+}
+
+code strong {
+  font-weight: bold;
+}

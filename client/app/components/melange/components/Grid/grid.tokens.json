@@ -1,0 +1,29 @@
+{
+	"grid": {
+		"spacing": {
+			"name": "Abstand Standard",
+			"default": "1rem",
+			"$value": "var(--wm-spacing)"
+		},
+		"spacing-xs": {
+			"name": "Abstand XS",
+			"default": "0.625rem",
+			"$value": "var(--wm-spacing-xs)"
+		},
+		"spacing-s": {
+			"name": "Abstand S",
+			"default": "0.9375rem",
+			"$value": "var(--wm-spacing-s)"
+		},
+		"spacing-m": {
+			"name": "Abstand M",
+			"default": "1.25rem",
+			"$value": "var(--wm-spacing-m)"
+		},
+		"spacing-l": {
+			"name": "Abstand L",
+			"default": "1.875rem",
+			"$value": "var(--wm-spacing-l)"
+		}
+	}
+}

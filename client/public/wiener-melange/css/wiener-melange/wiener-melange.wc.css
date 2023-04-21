@@ -1,0 +1,22 @@
+
+
+/* Set custom margins
+h1, h2, h3, h4, h5, h6, wm-anchor {
+	margin-block-end: 0.5em;
+}
+
+:is(h1, h2, h3, h4, h5, h6, wm-anchor):not(:where(:first-child)) {
+	margin-block-start: 1.5em;
+}
+
+:is(h1, h2, h3, h4, h5, h6, wm-anchor) + :is(h1, h2, h3, h4, h5, h6) {
+	margin-block-start: 0;
+}
+
+:is(h1, h2, h3, h4, h5, h6, wm-anchor):last-child {
+	margin-block-end: 0;
+}
+
+wm-highlight :is(select, input[type]) {
+  background-color: var(--wm-color-weiss);
+} */

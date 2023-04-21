@@ -1,0 +1,78 @@
+{
+	"tabs": {
+		"alignment": {
+			"name": "Ausrichtung der Tabs in der tablist",
+			"default": "start",
+			"$value": "start"
+		},
+		"border": {
+			"name": "Rahmen der gesamten Komponente",
+			"default": "none",
+			"$value": "none"
+		},
+		"gap": {
+			"name": "Abstand zwischen den Tabs",
+			"default": "0",
+			"$value": "0"
+		},
+		"padding": {
+			"name": "Innenabstand für die gesamten Komponente",
+			"default": "1rem",
+			"$value": "0"
+		},
+		"spacing": {
+			"name": "Abstand zwischen Tablist und Panel",
+			"default": "0",
+			"$value": "-1px"
+		}
+	},
+	"tab": {
+		"background-color": {
+			"name": "Hintergrundfarbe eines einzelnen Tabs",
+			"default": "var(--site-color-secondary)",
+			"$value": "var(--wm-color-nebelgrau-light)"
+		},
+		"background-color-selected": {
+			"name": "Hintergrundfarbe eines einzelnen ausgewählten Tabs",
+			"default": "transparent",
+			"$value": "var(--wm-color-weiss)"
+		},
+		"border-width": {
+			"name": "Rahmestärke um einen einzelnen Tab",
+			"default": "1px 1px 0 1px",
+			"$value": "1px 1px 0 1px"
+		},
+		"border-color": {
+			"name": "Rahmenfarbe um einen einzelnen Tab",
+			"default": "transparent",
+			"$value": "var(--wm-color-nebelgrau-light)"
+		},
+		"border-color-selected": {
+			"name": "Rahmenfarbe um einen einzelnen Tab",
+			"default": "var(--site-color)",
+			"$value": "var(--wm-color-nebelgrau-light)"
+		},
+		"padding": {
+			"name": "Innenabstand in einem einzelnen Tab",
+			"default": "0.4rem 0.8rem",
+			"$value": "0.6rem 1rem"
+		}
+	},
+	"tabpanel": {
+		"padding": {
+			"name": "Innenabstand im Tabpanel",
+			"default": "0.4rem 0.8rem",
+			"$value": "0.6rem 1rem"
+		},
+		"border-width": {
+			"name": "Rahmestärke um den Tabpanel",
+			"default": "1px",
+			"$value": "1px"
+		},
+		"border-color": {
+			"name": "Rahmenfarbe um den Tabpanel",
+			"default": "var(--site-color)",
+			"$value": "var(--wm-color-nebelgrau-light)"
+		}
+	}
+}

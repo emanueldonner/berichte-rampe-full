@@ -1,0 +1,9 @@
+{
+    "fetch": {
+        "gap": {
+            "name": "Abstand zwischen Komponenten",
+            "default": "1rem",
+            "$value": "var(--wm-spacing-m)"
+        }
+    }
+}

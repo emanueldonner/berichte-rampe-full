@@ -1,0 +1,5 @@
+:root {
+  --_list-border: 1px solid;
+  --_list-border-color: var(--site-color);
+  --_list-gap: 0.5rem;
+}

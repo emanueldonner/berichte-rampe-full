@@ -1,0 +1,12 @@
+:root {
+  --_card-background: var(--wm-color-weiss);
+  --_card-border: none;
+  --_card-eyecatcher-spacing: var(--wm-spacing-s);
+  --_card-eyecatcher-padding: var(--wm-spacing-xs);
+  --_card-eyecatcher-fontsize: var(--wm-font-size-l);
+  --_card-media-background: var(--wm-color-frischgruen);
+  --_card-media-color: var(--wm-color-fastschwarz);
+  --_card-spacing: var(--wm-spacing-s);
+  --_card-spacing-large: var(--wm-spacing-l);
+  --_card-shadow: 0 4px 8px 0 var(--wm-color-fastschwarz-light);
+}
