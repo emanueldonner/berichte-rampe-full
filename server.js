@@ -313,7 +313,9 @@ fastify.post("/compress", async (request, reply) => {
 const compressDirectory = async (directoryPath, outputPath) => {
   return new Promise((resolve, reject) => {
     const output = fs.createWriteStream(outputPath)
-    const archive = archiver("zip")
+    const archive = archiver("zip", {
+      zlib: { level: 9 }, // Sets the compression level.
+    })
 
     // output.on("finish", () => resolve())
     // output.on("end", () => resolve())
