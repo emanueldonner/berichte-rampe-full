@@ -1,4 +1,5 @@
 const WebSocket = require("ws")
+const fp = require("fastify-plugin")
 
 // connectionStore.js
 let connections = new Set()
@@ -20,8 +21,11 @@ function broadcastMessage(message) {
   })
 }
 
-module.exports = {
-  addConnection,
-  removeConnection,
-  broadcastMessage,
+async function connectionStorePlugin(fastify, options) {
+  fastify.decorate("connectionStore", {
+    addConnection,
+    removeConnection,
+    broadcastMessage,
+  })
 }
+module.exports = fp(connectionStorePlugin)
