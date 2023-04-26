@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       {/* <ClerkProvider> */}
       <body>
-        <Header />
+        {/* <Header /> */}
         {children}
       </body>
       {/* </ClerkProvider> */}

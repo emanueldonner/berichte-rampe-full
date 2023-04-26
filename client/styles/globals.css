@@ -95,9 +95,6 @@ main {
   margin: 2px;
 }
 
-.log-box--button svg path {
-}
-
 .log-box p:before {
   content: "$ ";
 }
@@ -105,6 +102,27 @@ main {
   content: "";
   border-left: 8px solid #fafafa;
   animation: blink 1s infinite;
+}
+
+.log-box.loading p:last-child::after {
+  content: "-";
+  border-left: none;
+  animation: loading 1s infinite;
+}
+
+@keyframes loading {
+  0% {
+    content: "-";
+  }
+  25% {
+    content: "\\";
+  }
+  50% {
+    content: "|";
+  }
+  75% {
+    content: "/";
+  }
 }
 
 @keyframes blink {

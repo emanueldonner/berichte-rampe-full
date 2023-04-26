@@ -1,5 +1,7 @@
 const fs = require("fs-extra")
 const path = require("path")
+const contentDisposition = require("content-disposition")
+const pump = require("pump")
 const Eleventy = require("@11ty/eleventy")
 const archiver = require("archiver")
 const sanitize = require("sanitize-filename")
@@ -288,25 +290,29 @@ const buildSite = async (dirPath, settingsToReplace) => {
 }
 
 fastify.post("/compress", async (request, reply) => {
+  connectionStore.broadcastMessage({
+    msg: "Starte ZIP-Komprimierung...",
+  })
   try {
     const fullPath = request.body.path
     console.log("fullpath:", fullPath)
     const currentDirectoryName = path.basename(fullPath)
     const fileName = `${currentDirectoryName}.zip`
-    const outputPath = path.join(fullPath, fileName)
+    // Store the output zip file outside of the directory being compressed
+    const outputPath = path.join(fullPath, "..", fileName)
 
     await compressDirectory(fullPath, outputPath)
     console.log("zip: ", outputPath)
     reply.code(200).send({
-      msg: "Zip-Datei erfolgreich erstellt.",
-      zipBaseDir: currentDirectoryName,
+      message: "Zip-Datei erfolgreich erstellt.",
+      zipUrl: outputPath,
     })
     // reply
     //   .header("Content-Type", "application/zip")
     //   .header("Content-Disposition", `attachment; filename=${fileName}`)
     //   .send(fs.createReadStream(outputPath))
   } catch (error) {
-    reply.code(500).send({ error: "Failed to compress the directory." })
+    reply.code(500).send({ error: "ZIP-Komprimierung fehlgeschlagen." })
   }
 })
 
@@ -317,34 +323,51 @@ const compressDirectory = async (directoryPath, outputPath) => {
       zlib: { level: 9 }, // Sets the compression level.
     })
 
-    // output.on("finish", () => resolve())
-    // output.on("end", () => resolve())
-    output.on("close", () => resolve())
+    output.on("close", () => {
+      console.log("output closed")
+      resolve()
+    })
+
     archive.on("error", (err) => reject(err))
+
+    archive.on("finish", () => {
+      console.log("compression finished")
+    })
 
     archive.pipe(output)
     archive.directory(directoryPath, false)
     archive.finalize()
-    console.log("compression finished")
   })
 }
 
-fastify.get("/download/:zipBaseDir", async (request, reply) => {
+fastify.get("/download", async (request, reply) => {
   try {
-    const zipBaseDir = request.params.zipBaseDir
-    const fileName = `${zipBaseDir}.zip`
-    const dirPath = path.join(__dirname, "public", "output")
-    const filePath = path.join(dirPath, zipBaseDir, fileName)
+    const zipLocation = Buffer.from(
+      request.query.zipLocation,
+      "base64"
+    ).toString("utf-8")
+    console.log("zipLocation:", zipLocation)
 
-    if (!fs.existsSync(filePath)) {
+    if (!fs.existsSync(zipLocation)) {
+      console.log("file not found")
       reply.code(404).send({ error: "File not found." })
       return
     }
 
+    const fileName = path.basename(zipLocation)
+    console.log("fileName:", fileName)
     reply
       .header("Content-Type", "application/zip")
-      .header("Content-Disposition", `attachment; filename=${fileName}`)
-      .send(fs.createReadStream(filePath))
+      .header("Content-Disposition", contentDisposition(encodeURI(fileName)))
+
+    const stream = fs.createReadStream(zipLocation)
+    reply.hijack()
+    pump(stream, reply.raw, (err) => {
+      if (err) {
+        console.error("Error while sending the stream:", err)
+        reply.raw.destroy()
+      }
+    })
   } catch (error) {
     reply.code(500).send({ error: "Failed to download the file." })
   }
@@ -361,10 +384,13 @@ fastify.all("/*", async (request, reply) => {
   }
 })
 // Run the server!
-fastify.listen({ port: process.env.PORT || 5000 }, function (err, address) {
-  if (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
-  // Server is now listening on ${address}
-})
+
+if (process.env.NODE_ENV === "production") {
+  fastify.listen({ port: process.env.PORT || 5000 }, function (err, address) {
+    if (err) {
+      fastify.log.error(err)
+      process.exit(1)
+    }
+    // Server is now listening on ${address}
+  })
+}

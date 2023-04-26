@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit'
-import { styles } from './styles/navmain.styles'
+import { LitElement, html } from "lit"
+import { styles } from "./styles/navmain.styles"
 
 /**
  * Hauptmenü
@@ -9,44 +9,44 @@ import { styles } from './styles/navmain.styles'
  */
 
 export class NavMain extends LitElement {
-  get _dialog () {
-    return this.renderRoot?.querySelector('dialog') ?? null
+  get _dialog() {
+    return this.renderRoot?.querySelector("dialog") ?? null
   }
 
-  get _content () {
-    return this.renderRoot?.querySelector('.wrapper') ?? null
+  get _content() {
+    return this.renderRoot?.querySelector(".wrapper") ?? null
   }
 
-  get _lists () {
-    return this.renderRoot?.querySelector('.lists') ?? null
+  get _lists() {
+    return this.renderRoot?.querySelector(".lists") ?? null
   }
 
   static properties = {
     labelOpen: { type: String },
     showLabelOpen: { type: String },
-    labelClose: { type: String }
+    labelClose: { type: String },
   }
 
   static styles = [styles]
 
-  constructor () {
+  constructor() {
     super()
 
     /** @type {String} - Label Menü geschlossen */
-    this.labelOpen = 'Menü'
+    this.labelOpen = "Menü"
 
     /** @type {String} - Label Menü offen */
-    this.labelClose = 'Schließen'
+    this.labelClose = "Schließen"
 
     /** @type {String} - Soll das Label angezeigt werden */
-    this.showLabelOpen = 'true'
+    this.showLabelOpen = "true"
   }
 
-  connectedCallback () {
+  connectedCallback() {
     super.connectedCallback()
   }
 
-  firstUpdated () {
+  firstUpdated() {
     this._lists.append(...this.childNodes)
 
     this._addEvents()
@@ -56,17 +56,17 @@ export class NavMain extends LitElement {
    * @summary Events hinzufügen
    * @private
    */
-  _addEvents () {
-    this._dialog.addEventListener('close', e => {
-      if (!e.target.classList.contains('content--hidden')) {
-        this._content.classList.remove('transition')
+  _addEvents() {
+    this._dialog.addEventListener("close", (e) => {
+      if (!e.target.classList.contains("content--hidden")) {
+        this._content.classList.remove("transition")
       }
     })
 
-    this._content.addEventListener('transitionend', (e) => {
-      if (e.target.classList.contains('content--hidden')) {
+    this._content.addEventListener("transitionend", (e) => {
+      if (e.target.classList.contains("content--hidden")) {
         this._dialog.close()
-        this._content.classList.remove('content--hidden')
+        this._content.classList.remove("content--hidden")
       }
     })
   }
@@ -74,33 +74,32 @@ export class NavMain extends LitElement {
   /**
    * @summary Menü offnen
    */
-  open () {
+  open() {
     this._dialog.showModal()
-    this._content.classList.add('content--hidden')
+    this._content.classList.add("content--hidden")
 
     setTimeout(() => {
-      this._content.classList.add('transition')
-      this._content.classList.remove('content--hidden')
+      this._content.classList.add("transition")
+      this._content.classList.remove("content--hidden")
     }, 0)
   }
 
   /**
    * @summary Menü schließen
    */
-  close () {
-    this._content.classList.add('content--hidden')
+  close() {
+    this._content.classList.add("content--hidden")
   }
 
-  render () {
+  render() {
     return html`
       <nav>
         <wm-button kind="clean" @click="${this.open}">
           <button>
-            ${this.showLabelOpen === 'false'
-            ? html`<span class="wm-h-vh">${this.labelOpen}</span>`
-            : `${this.labelOpen}`
-            }
-            
+            ${this.showLabelOpen === "false"
+              ? html`<span class="wm-h-vh">${this.labelOpen}</span>`
+              : `${this.labelOpen}`}
+
             <wm-icon iconid="burger"></wm-icon>
           </button>
         </wm-button>
@@ -128,4 +127,5 @@ export class NavMain extends LitElement {
   }
 }
 
-customElements.define('wm-nav-main', NavMain)
+customElements.get("wm-nav-main") ||
+  customElements.define("wm-nav-main", NavMain)

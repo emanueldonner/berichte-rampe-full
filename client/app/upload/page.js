@@ -334,6 +334,7 @@ function UploadPage() {
   const [readyForZip, setReadyForZip] = useState(false)
   const [zipFilePath, setZipFilePath] = useState("")
   const [zipDownloadUrl, setZipDownloadUrl] = useState("")
+  const [logStatus, setLogStatus] = useState("")
   const scroller = useRef(null)
   const addToMessage = (msg) => {
     setMessage((prev) => [...prev, msg])
@@ -392,6 +393,7 @@ function UploadPage() {
   const onDrop = useCallback(async (acceptedFiles) => {
     console.log(acceptedFiles)
     try {
+      setLogStatus("loading")
       const formData = new FormData()
       formData.append("file", acceptedFiles[0])
 
@@ -405,13 +407,15 @@ function UploadPage() {
       res.data.status === "success" && setSuccess(true)
       setPath(res.data.path)
       setFilename(res.data.filename)
+      setLogStatus("")
     } catch (error) {
-      addToMessage(error.response.data.message)
+      addToMessage(error)
     }
   }, [])
 
   const onParseClick = async (data) => {
     try {
+      setLogStatus("loading")
       const res = await axios.post("/api/parse", {
         ...data,
       })
@@ -419,20 +423,23 @@ function UploadPage() {
       addToMessage(res.data.message)
       res.data.status === "success" && setReadyForZip(true)
       setZipFilePath(res.data.path)
+      setLogStatus("")
     } catch (error) {
-      addToMessage(error.response.data.message)
+      addToMessage(error)
     }
   }
 
   const handleZip = async () => {
     try {
+      setLogStatus("loading")
       const res = await axios.post("/api/compress", {
         path: zipFilePath,
       })
       addToMessage(res.data.message)
       setZipDownloadUrl(res.data.zipUrl)
+      setLogStatus("")
     } catch (error) {
-      addToMessage(error.response.data.message)
+      addToMessage(error)
     }
   }
 
@@ -473,7 +480,12 @@ function UploadPage() {
               </div>
               {zipDownloadUrl !== "" && (
                 <div className="wm-u-mtm">
-                  <a href={`/api/download/${zipDownloadUrl}`} download>
+                  <a
+                    href={`/api/download?zipLocation=${window.btoa(
+                      zipDownloadUrl
+                    )}`}
+                    download
+                  >
                     ZIP-Datei herunterladen
                   </a>
                 </div>
@@ -482,7 +494,7 @@ function UploadPage() {
           )}
         </div>
 
-        <div className="log-box log-box--small" ref={scroller}>
+        <div className={`log-box log-box--small ${logStatus}`} ref={scroller}>
           <div className="log-box--buttons">
             {/* button that controls size of log-box */}
             <button
