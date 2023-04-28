@@ -1,7 +1,8 @@
 const fp = require("fastify-plugin")
 const fs = require("fs-extra")
 const path = require("path")
-
+const contentDisposition = require("content-disposition")
+const pump = require("pump")
 const archiver = require("archiver")
 
 async function compressRoute(fastify, options) {

@@ -21,18 +21,35 @@ const fastify = require("fastify")({
 const PUBLIC_DIR = path.join(__dirname, "public")
 fastify.decorateRequest("PUBLIC_DIR", PUBLIC_DIR)
 
+const PROJECT_DIR = path.join(PUBLIC_DIR, "output")
+
 if (!fs.existsSync(PUBLIC_DIR)) {
   fs.mkdirSync(PUBLIC_DIR, { recursive: true })
 }
-
+// fastify.addHook("preHandler", (request, reply, done) => {
+//   if (!request.headers.accept) {
+//     request.headers.accept = "text/html; charset=utf-8"
+//   }
+//   done()
+// })
 fastify.register(require("./server/connectionStore"))
 fastify.register(require("./routes/upload"), { PUBLIC_DIR })
-fastify.register(require("./routes/parse"))
+fastify.register(require("./routes/parse"), { PUBLIC_DIR })
 fastify.register(require("./routes/compress"))
+fastify.register(require("./routes/preview"), {
+  PROJECT_DIR,
+  PUBLIC_DIR,
+})
 
 module.exports = function (fastify, ops, next) {
   next()
 }
+
+// fastify.register(require("@fastify/http-proxy"), {
+//   upstream: "http://127.0.0.1:8081",
+//   prefix: "/preview",
+//   http2: false,
+// })
 
 fastify.register(require("@fastify/multipart"), {
   // attachFieldsToBody: true,
@@ -78,12 +95,12 @@ fastify.all("/*", async (request, reply) => {
 })
 // Run the server!
 
-if (process.env.NODE_ENV === "production") {
-  fastify.listen({ port: process.env.PORT || 5000 }, function (err, address) {
-    if (err) {
-      fastify.log.error(err)
-      process.exit(1)
-    }
-    // Server is now listening on ${address}
-  })
-}
+// if (process.env.NODE_ENV === "production") {
+fastify.listen({ port: process.env.PORT || 5000 }, function (err, address) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+  // Server is now listening on ${address}
+})
+// }

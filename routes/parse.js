@@ -10,22 +10,23 @@ async function parseRoute(fastify, options) {
       fastify.connectionStore.broadcastMessage({
         msg: "Dokument wird verarbeitet...",
       })
+      const buildDir = request.body.mode === "preview" ? "preview" : "build"
       const { filename, path } = request.body
-      if (!fs.existsSync(`${path}/build`)) {
-        fs.mkdirSync(`${path}/build`, { recursive: true })
-        fs.chmod(`${path}/build`, 0o775, (err) => {
+      if (!fs.existsSync(`${path}/${buildDir}`)) {
+        fs.mkdirSync(`${path}/${buildDir}`, { recursive: true })
+        fs.chmod(`${path}/${buildDir}`, 0o775, (err) => {
           if (err) {
             console.error(err)
           }
         })
       }
-      await exec(`cp -r ./public/template/. ${path}/build`)
-      await exec(`npm install --prefix ${path}/build`)
+      await exec(`cp -r ./public/template/. ${path}/${buildDir}`)
+      await exec(`npm install --prefix ${path}/${buildDir}`) // Check if needed
       fastify.connectionStore.broadcastMessage({
         msg: "Files aus dem Template kopiert...",
       })
       await exec(
-        `./server/office-parser/parse.mjs -n ${path}/build/src ${path}/${filename}`,
+        `./server/office-parser/parse.mjs -n ${path}/${buildDir}/src ${path}/${filename}`,
         (error, stdout, stderr) => {
           if (error) {
             console.log(`error: ${error.message}`)
@@ -58,7 +59,7 @@ async function parseRoute(fastify, options) {
             })
             // client.send(JSON.stringify(stdout))
           })
-          buildSite(path, request.body)
+          buildSite(path, request.body, buildDir)
         }
       )
       reply.status(200).send({
@@ -71,11 +72,11 @@ async function parseRoute(fastify, options) {
     }
   })
 
-  const replaceSettings = async (body) => {
+  const replaceSettings = async (body, buildDir, buildName) => {
     try {
       const folder = body.path
       fs.readFile(
-        `${folder}/build/src/_data/project.js`,
+        `${folder}/${buildDir}/src/_data/project.js`,
         "utf8",
         function (err, data) {
           if (err) {
@@ -108,15 +109,18 @@ async function parseRoute(fastify, options) {
           } else {
             result = result.replace(/SITE_SEARCH/g, `${body.site_search}`)
           }
-
-          if (body.site_path) {
-            result = result.replace(/SITE_PATH/g, `"${body.site_path}"`)
+          if (buildDir === "preview") {
+            result = result.replace(/SITE_PATH/g, `"preview/${buildName}/"`)
           } else {
-            result = result.replace(/SITE_PATH/g, "'/'")
+            if (body.site_path) {
+              result = result.replace(/SITE_PATH/g, `"${body.site_path}"`)
+            } else {
+              result = result.replace(/SITE_PATH/g, "'/'")
+            }
           }
           // Die Datei project.js wird mit den nun ersetzten Daten, kommend aus dem Frontend, beschrieben.
           fs.writeFile(
-            `${folder}/build/src/_data/project.js`,
+            `${folder}/${buildDir}/src/_data/project.js`,
             result,
             "utf8",
             function (err) {
@@ -145,13 +149,14 @@ async function parseRoute(fastify, options) {
     })
   }
 
-  const buildSite = async (dirPath, settingsToReplace) => {
+  const buildSite = async (dirPath, settingsToReplace, buildDir) => {
     try {
-      const buildPath = path.join(dirPath, "build")
+      const buildPath = path.join(dirPath, buildDir)
+      const buildName = path.basename(dirPath)
       fastify.connectionStore.broadcastMessage({
         msg: "Starte Eleventy Build...",
       })
-      await replaceSettings(settingsToReplace)
+      await replaceSettings(settingsToReplace, buildDir, buildName)
       console.log("between replaced settings", buildPath)
       await rewritePaths(buildPath)
       console.log("after replaced settings")

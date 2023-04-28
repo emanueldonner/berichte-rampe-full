@@ -1,0 +1,381 @@
+:root {
+  --_accordion-background: var(--wm-color-nebelgrau-light);
+  --_accordion-contrast: var(--wm-color-weiss);
+  --_accordion-padding-inline: 0.9375rem;
+  --_accordion-padding-block: 0.375rem 0.3125rem;
+  --_accordion-icon: url(../icons/chevron-down.svg);
+  --_accordion-icon-size: 1.5rem;
+}
+:root {
+  --_anchor-gap: var(--wm-spacing-xs);
+}
+:root {
+  --_badge-color-success: var(--wm-color-ui-success);
+  --_badge-color-error: var(--wm-color-ui-error);
+  --_badge-font-variation-settings: var(--wm-font-weight-extra-bold);
+  --_badge-font-weight: normal;
+}
+:root {
+  --_button-background: var(--wm-color-ui-interactive);
+  --_button-border: var(--wm-color-ui-interactive);
+  --_button-color: var(--wm-color-weiss);
+  --_button-text-transform: uppercase;
+}
+:root {
+  --_card-background: var(--wm-color-weiss);
+  --_card-border: none;
+  --_card-eyecatcher-spacing: var(--wm-spacing-s);
+  --_card-eyecatcher-padding: var(--wm-spacing-xs);
+  --_card-eyecatcher-fontsize: var(--wm-font-size-l);
+  --_card-media-background: var(--wm-color-frischgruen);
+  --_card-media-color: var(--wm-color-fastschwarz);
+  --_card-spacing: var(--wm-spacing-s);
+  --_card-spacing-large: var(--wm-spacing-l);
+  --_card-shadow: 0 4px 8px 0 var(--wm-color-fastschwarz-light);
+}
+:root {
+  --_carousel-ratio: 16/9;
+  --_carousel-item-inner-padding: 0;
+  --_carousel-shadow-offset: 8px;
+  --_carousel-gap: 1.5625rem;
+  --_carousel-control-bg: var(--wm-color-weiss);
+  --_carousel-control-bg-start: url(../icons/chevron-left.svg);
+  --_carousel-control-bg-end: url(../icons/chevron-right.svg);
+}
+:root {
+  --_cta-icon: url(../icons/chevron-right.svg);
+  --_cta-icon-start: url(../icons/chevron-left.svg);
+  --_cta-color-link: var(--wm-color-fastschwarz);
+  --_cta-color-visited: var(--wm-color-fastschwarz);
+  --_cta-font-variation-settings: var(--wm-font-weight-bold);
+  --_cta-font-weight: normal;
+  --_cta-padding: 0.5rem 1.5625rem 0.5rem 0;
+  --_cta-padding-start: 0.5rem 0 0.5rem 1.5625rem;
+}
+:root {
+  --_fetch-gap: var(--wm-spacing-m);
+}
+:root {
+  --_grid-spacing: var(--wm-spacing);
+  --_grid-spacing-xs: var(--wm-spacing-xs);
+  --_grid-spacing-s: var(--wm-spacing-s);
+  --_grid-spacing-m: var(--wm-spacing-m);
+  --_grid-spacing-l: var(--wm-spacing-l);
+}
+:root {
+  --_highlight-background: var(--wm-color-nebelgrau-light);
+  --_highlight-color: var(--wm-color-fastschwarz);
+  --_highlight-padding: var(--wm-spacing-s);
+  --_highlight-padding-large: var(--wm-spacing-m) var(--wm-spacing-xl);
+}
+:root {
+  --_list-border: 1px solid;
+  --_list-border-color: var(--wm-color-fastschwarz);
+  --_list-gap: var(--wm-spacing-xs);
+}
+:root {
+  --_navmain-wrapperwidth: var(--wm-size-wrapper-width);
+  --_navmain-gap: var(--wm-spacing-xl);
+}
+:root {
+  --_quicklinks-gap: var(--wm-spacing-l);
+}
+:root {
+  --_section-background: transparent;
+  --_section-border-color: none;
+  --_section-border-width: none;
+  --_section-padding: 0;
+  --_section-padding-highlight: var(--wm-spacing-m);
+  --_section-padding-highlight-large: var(--wm-spacing-l);
+  --_section-background-highlight: var(--wm-color-nebelgrau-light);
+  --_section-nav-shadow: 0 4px 8px rgba(41, 41, 41, 0.16);
+  --_section-nav-link-padding: 0.8rem var(--site-wrapper-padding);
+  --_section-nav-link-highlight: var(--wm-color-nebelgrau);
+  --_section-nav-link-highlight-large: var(--wm-color-nebelgrau-light);
+  --_section-nav-background: var(--wm-color-nebelgrau-light);
+  --_section-nav-background-large: var(--wm-color-weiss);
+}
+:root {
+  --_stack-spacing-xs: var(--wm-spacing-xs);
+  --_stack-spacing-s: var(--wm-spacing-s);
+  --_stack-spacing-m: var(--wm-spacing-m);
+  --_stack-spacing-l: var(--wm-spacing-l);
+}
+:root {
+  --_stage-background-color: var(--wm-color-weiss);
+  --_stage-content-padding: var(--wm-spacing-s) var(--wm-spacing-l);
+  --_stage-heading-small: 1.5rem;
+  --_stage-margin: var(--wm-spacing-m);
+  --_stage-margin-large: var(--wm-spacing-l);
+}
+:root {
+  --_tabs-alignment: start;
+  --_tabs-border: none;
+  --_tabs-gap: 0;
+  --_tabs-padding: 0;
+  --_tabs-spacing: -1px;
+  --_tab-background-color: var(--wm-color-nebelgrau-light);
+  --_tab-background-color-selected: var(--wm-color-weiss);
+  --_tab-border-width: 1px;
+  --_tab-border-color: var(--wm-color-nebelgrau-light)
+    var(--wm-color-nebelgrau-light) var(--wm-color-nebelgrau);
+  --_tab-border-color-selected: var(--wm-color-nebelgrau)
+    var(--wm-color-nebelgrau) var(--wm-color-weiss);
+  --_tab-font-variation-settings: var(--wm-font-weight-bold);
+  --_tab-font-weight: normal;
+  --_tab-padding: 0.6rem 1rem;
+  --_tabpanel-padding: 0.6rem 1rem;
+  --_tabpanel-border-width: 1px;
+  --_tabpanel-border-color: var(--wm-color-nebelgrau);
+}
+:root {
+  --_tag-background: var(--wm-color-weiss);
+  --_tag-background-hover: var(--wm-color-nebelgrau-light);
+  --_tag-border: var(--wm-color-nebelgrau);
+  --_tag-padding-inline: 0.8125rem;
+  --_tag-padding-block: 0.15625rem;
+  --_tag-padding-inline-large: 0.9375rem;
+  --_tag-padding-block-large: 0.28125rem;
+  --_tag-gap: var(--wm-spacing-xs);
+  --_tag-min-height: 2.1375rem;
+  --_tag-min-height-large: 2.5rem;
+  --_tag-link-color: var(--wm-color-fastschwarz);
+  --_tag-font-size: var(--wm-font-size-s);
+}
+:root {
+  --_toggle-border: none;
+  --_toggle-icon: url(../icons/chevron-down.svg);
+  --_toggle-padding: 0;
+}
+@font-face {
+  font-display: swap;
+  font-family: WienerMelange;
+  src: url(../fonts/WienerMelangeVF.woff2) format("woff2-variations");
+}
+html {
+  --site-background: var(--wm-color-weiss);
+  --site-color: var(--wm-color-fastschwarz);
+  --site-focus-outline-width: 3px;
+  --site-focus-outline: var(--site-focus-outline-width) solid
+    var(--wm-color-ui-interactive);
+  --site-font-family: var(--wm-font-stack-default, sans-serif);
+  --site-font-monospace: var(--wm-font-stack-monospace);
+  --site-font-size: var(--wm-font-size-default);
+  --site-gap: 0;
+  --site-scroll-margin-top: calc(
+    var(--header-height) + var(--header-nav-height) + 1.6rem
+  );
+  --site-wrapper-padding: var(--wm-size-wrapper-padding-default);
+  --site-wrapper-margin-inline: auto;
+  --header-height: 3.75rem;
+  --header-height-large: 6.25rem;
+  --header-height-dynamic: var(--header-height);
+  --header-nav-height: 3.5rem;
+  --header-nav-sec-height: auto;
+  --header-background: var(--wm-color-weiss);
+  --header-gap: var(--wm-spacing-xl);
+  --header-margin-block-end: var(--wm-spacing-l);
+  --header-nav-wrapper-background: var(--wm-color-nebelgrau-light);
+  --header-padding: 0;
+  --header-position: sticky;
+  --header-shadow-color: var(--wm-color-fastschwarz-light);
+  --header-shadow: 0 4px 8px var(--header-shadow-color);
+  --header-title-font-variation-settings: var(--wm-font-weight-extra-bold);
+  --header-title-font-weight: normal;
+  --header-z-index: 1230;
+  --header-width: 100%;
+  --main-padding: 0 var(--site-wrapper-padding);
+  --footer-alignment: center;
+  --footer-padding-block: var(--wm-spacing-xxl) var(--wm-spacing-l);
+  --footer-text-align: center;
+  --section-margin: var(--wm-spacing-xl);
+  --section-margin-small: var(--wm-spacing-xs);
+  --headings-font-weight: unset;
+  --headings-font-variation-settings: var(--wm-font-weight-bold);
+  --content-code-background: var(--wm-color-nebelgrau-light);
+  --content-code-border: 1px solid var(--wm-color-nebelgrau);
+  --content-code-border-radius: 4px;
+  --content-code-font-size: var(--wm-font-size-s);
+  --content-code-padding: 0.7rem 1rem 0.6rem;
+  --content-text-max-width: 66ch;
+  --content-quote-color: var(--wm-color-nebelgrau);
+  --content-hr: 1px solid var(--wm-color-nebelgrau);
+  --table-tr-border-width: 0 0 1px 0;
+  --table-td-border-width: 0;
+  --table-th-border-width: 0;
+  --table-tr-border-color: var(--wm-color-fastschwarz);
+  --text-abbr-border: 0.1em dotted var(--wm-color-fastschwarz);
+  --text-em-font-style: normal;
+  --text-mark-background: var(--wm-color-wasserblau-light);
+  --text-code-font-size: 0.9em;
+  --link-color-link: var(--wm-color-ui-link);
+  --link-color-visited: var(--wm-color-ui-link-visited);
+  --media-figcaption-background: var(--wm-color-nebelgrau-light);
+  --media-figcaption-padding: var(--wm-spacing-xxs) var(--wm-spacing-xs);
+  --input-background: var(--wm-color-nebelgrau-light);
+  --input-border-color: var(--wm-color-nebelgrau);
+  --input-min-height: 2.75rem;
+  --input-padding: 0.5rem 0.9375rem;
+  --input-accent-color: var(--wm-color-ui-interactive);
+  --input-checkbox-icon: url(../icons/check-light.svg);
+  --select-appearance: none;
+  --select-icon: url(../icons/chevron-down.svg);
+  --select-padding: 0.4rem 2.5rem 0.4rem 0.9375rem;
+  --summary-icon: url(../icons/chevron-down.svg);
+  --table-caption-background: var(--wm-color-nebelgrau-light);
+  --button-primary: var(--wm-color-ui-interactive);
+  --button-secondary: var(--wm-color-weiss);
+  --button-background: var(--button-primary);
+  --button-background-hover: var(--button-secondary);
+  --button-border-color: var(--button-primary);
+  --button-color: var(--button-secondary);
+  --button-color-hover: var(--button-primary);
+}
+.wm-e-h1,
+h1 {
+  --headings-font-variation-settings: var(--wm-font-weight-extra-bold);
+}
+h2 {
+  --headings-font-variation-settings: var(--wm-font-weight-normal);
+}
+.wm-e-h3 {
+  --headings-font-variation-settings: var(--wm-font-weight-bold);
+}
+thead {
+  --table-tr-background: transparent;
+}
+tfoot {
+  --table-tr-border-width: 3px 0 0 0;
+}
+:is(dt, th, strong, label, button, .wm-e-button, tfoot td) {
+  --content-font-weight: unset;
+  --content-font-variation-settings: var(--wm-font-weight-bold);
+}
+:is(:lang(fa), :lang(ar), :lang(bg), :lang(ru), :lang(sr)) > * {
+  --wm-body-font-family: var(--wm-font-stack-fallback);
+}
+:is(:lang(pa), :lang(hi), :lang(zh)) > * {
+  --wm-body-font-family: var(--wm-font-stack-sans-serif);
+}
+iframe[src*="wien.gv.at/video/embed"] {
+  aspect-ratio: 648/425;
+}
+iframe[src*="wien.gv.at/viennaviz"] {
+  aspect-ratio: 648/499;
+}
+:is(wm-highlight, wm-section[highlight]) :is(select, input, textarea) {
+  --select-background: var(--wm-color-weiss);
+  --input-background: var(--wm-color-weiss);
+}
+wm-section wm-card {
+  --card-shadow: 0;
+}
+.wm-has-stage :is(body > header, [role="banner"]) {
+  margin-block-end: 0;
+}
+:is(body > header, #root > header, [role="banner"])
+  > div:not([slot="actions"]) {
+  padding-inline: var(--site-wrapper-padding);
+  width: 100%;
+}
+@media (min-width: 48em) {
+  html {
+    --site-wrapper-padding: 3.125rem;
+    --header-margin-block-end: var(--wm-spacing-xl);
+  }
+}
+@media (min-width: 64em) {
+  html {
+    --header-title-font-size: 1.5625rem;
+    --header-height-dynamic: var(--header-height-large);
+  }
+}
+:root {
+  --wm-color-abendstimmung: #49274b;
+  --wm-color-abendstimmung-light: #d4c8d4;
+  --wm-color-fastschwarz: #292929;
+  --wm-color-fastschwarz-light: rgba(41, 41, 41, 0.16);
+  --wm-color-flieder: #aaaafa;
+  --wm-color-flieder-light: #e6e5fe;
+  --wm-color-frischgruen: #82d282;
+  --wm-color-frischgruen-light: #cdedcd;
+  --wm-color-goldgelb: #e6c828;
+  --wm-color-goldgelb-light: #f8efbd;
+  --wm-color-morgenrot: #ff5a64;
+  --wm-color-morgenrot-light: #ffced1;
+  --wm-color-nebelgrau: #d6d1ca;
+  --wm-color-nebelgrau-light: #f3f1ef;
+  --wm-color-ui-error: #910000;
+  --wm-color-ui-interactive: #4b4b82;
+  --wm-color-ui-link: #1f4baf;
+  --wm-color-ui-link-visited: #a91eaf;
+  --wm-color-ui-success: #005738;
+  --wm-color-wasserblau: #73cee5;
+  --wm-color-wasserblau-light: #d2f0ff;
+  --wm-color-weiss: #fff;
+  --wm-color-wien: red;
+  --wm-font-size-default: 1.0625rem;
+  --wm-font-size-l: 1.66015625rem;
+  --wm-font-size-m: 1.328125rem;
+  --wm-font-size-s: 1rem;
+  --wm-font-size-xl: 2.0751953125rem;
+  --wm-font-stack-default: WienerMelange, Lucida Sans Unicode, Lucida Grande,
+    Lucida Sans, sans-serif;
+  --wm-font-stack-fallback: Lucida Sans Unicode, Lucida Grande, Lucida Sans,
+    sans-serif;
+  --wm-font-stack-monospace: monospace;
+  --wm-font-stack-sans-serif: sans-serif;
+  --wm-font-weight-bold: "wght" 600;
+  --wm-font-weight-extra-bold: "wght" 740;
+  --wm-font-weight-normal: "wght" 400;
+  --wm-size-wrapper-padding-default: 0.9375rem;
+  --wm-size-wrapper-padding-large: 3.125rem;
+  --wm-size-wrapper-width: 75rem;
+  --wm-spacing-xxs: 0.3125rem;
+  --wm-spacing-xs: 0.625rem;
+  --wm-spacing-s: 0.9375rem;
+  --wm-spacing: 1.5625rem;
+  --wm-spacing-m: 1.25rem;
+  --wm-spacing-l: 1.875rem;
+  --wm-spacing-xl: 3.125rem;
+  --wm-spacing-xxl: 5rem;
+}
+.wm-u-fg1 {
+  flex-grow: 1;
+}
+.wm-u-tar {
+  text-align: right;
+}
+.wm-u-df {
+  display: flex;
+}
+.wm-u-jce {
+  justify-content: end;
+}
+.wm-h-row {
+  max-width: 66ch;
+}
+.wm-h-btn-clean {
+  all: unset;
+  font: inherit;
+}
+.wm-h-btn-clean:focus {
+  outline: 3px solid var(--wm-color-ui-interactive);
+  outline-offset: 2px;
+}
+.wm-h-link-clean:is(:link, :visited) {
+  color: var(--wm-color-fastschwarz);
+  text-decoration: none;
+}
+.wm-h-vh {
+  clip: rect(0 0 0 0);
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

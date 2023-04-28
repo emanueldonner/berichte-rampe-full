@@ -2,9 +2,12 @@ import { ClerkProvider } from "@clerk/nextjs/app-beta"
 import { deDe } from "@clerk/localizations"
 
 import "@/styles/globals.css"
-import "../public/wiener-melange/css/critical.min.css"
-import "../public/wiener-melange/css/main.min.css"
-import "../public/wiener-melange/css/main.scss"
+import "../public/wiener-melange/assets/css/critical.min.css"
+import "../public/wiener-melange/assets/css/main.min.css"
+import "../public/wiener-melange/assets/css/main.scss"
+import "../public/wiener-melange/assets/css/base.min.css"
+import "../public/wiener-melange/assets/css/base-tokens.min.css"
+import "../public/wiener-melange/assets/css/wiener-melange.min.css"
 
 import Header from "./components/Header/Header"
 

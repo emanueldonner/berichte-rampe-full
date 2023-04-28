@@ -1,0 +1,2 @@
+/* @copyright Stadt Wien - Wiener Melange v2 */
+const e={pagination:{type:String},skeleton:{type:String},itemsPerPage:{type:Number},itemsPerSet:{type:Number},_results:{type:Array},fetchUrl:{type:String},fetchSource:{type:String},fetchTarget:{type:String},fetchType:{type:String},fetchLoading:{type:String}},t={tag:"wm-filter",properties:[{title:"Filter hervorheben",key:"bg",component_properties:e.bg,description:"Filter mit oder ohne Hintergrund.",options:[]}]};export{t as meta,e as properties};

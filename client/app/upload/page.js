@@ -5,7 +5,9 @@ import { useDropzone } from "react-dropzone"
 import axios from "axios"
 import useWebSocket from "react-use-websocket"
 
-import { logMsgs } from "../../assets/logMsgs"
+import "../../public/wiener-melange/assets/js/components/Button/Button"
+
+import { logMsgs } from "../../public/wiener-melange/assets/logMsgs"
 
 function ReportSettingsForm({ path, filename, onParseClick }) {
   const [siteLang, setSiteLang] = useState("de")
@@ -34,8 +36,11 @@ function ReportSettingsForm({ path, filename, onParseClick }) {
     isValidForm()
   }, [siteTitle, siteDescription, stageTitle])
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event, mode) => {
     event.preventDefault()
+
+    console.log("hier: ", mode)
+
     const reportSettings = {
       site_lang: siteLang,
       site_title: siteTitle,
@@ -49,18 +54,19 @@ function ReportSettingsForm({ path, filename, onParseClick }) {
       site_path: sitePath,
       path: path,
       filename: filename,
+      mode: mode,
     }
     console.log("reportSettings: ", reportSettings)
     onParseClick(reportSettings)
 
-    // axios
-    //   .post("/api/report-settings", reportSettings)
-    //   .then((response) => {
-    //     console.log(response.data)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
+    axios
+      .post("/api/report-settings", reportSettings)
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   return (
@@ -312,13 +318,28 @@ function ReportSettingsForm({ path, filename, onParseClick }) {
       </fieldset>
       <div className="wm-form__grid-md">
         <div className="wm-u-mtm">
-          <button
-            className="js-generate wm-btn--block"
-            disabled={!isValid}
-            onClick={handleSubmit}
-          >
-            Bericht generieren
-          </button>
+          <wm-button color="abendstimmung">
+            <button
+              className="wm-btn--block"
+              disabled={!isValid}
+              onClick={(event) => handleSubmit(event, "preview")}
+            >
+              Vorschau generieren
+            </button>
+          </wm-button>
+        </div>
+      </div>
+      <div className="wm-form__grid-md">
+        <div className="wm-u-mtm">
+          <wm-button color="frischgruen">
+            <button
+              className="wm-btn--block"
+              disabled={!isValid}
+              onClick={handleSubmit}
+            >
+              Bericht generieren
+            </button>
+          </wm-button>
         </div>
       </div>
     </form>
