@@ -1,45 +1,49 @@
 const fp = require("fastify-plugin")
 const path = require("path")
 const fs = require("fs")
-const mime = require("mime-types")
+const { exec } = require("child_process")
+const mime = require("mime")
 
 async function previewRoute(fastify, options) {
   const { PROJECT_DIR } = options
 
-  // Define the API endpoint
   fastify.get("/preview/:report/*", async (request, reply) => {
     try {
       const report = request.params.report
       const filePath = request.params["*"] || "index.html"
-      const reportPath = path.join(
-        PROJECT_DIR,
-        report,
-        "preview",
-        "_site",
-        filePath
-      )
+      const reportPath = path.join(PROJECT_DIR, report, "preview", "_site")
 
       console.log(`Serving file: ${reportPath}`) // Debug: log the file path
 
       // Check if the file exists
       try {
         await fs.promises.access(reportPath)
+
+        await exec(
+          `npx @11ty/eleventy-dev-server --dir=${reportPath} --port=8080`,
+          (error, stdout, stderr) => {
+            if (error) {
+              console.log(`error: ${error.message}`)
+              return
+            }
+            if (stderr) {
+              console.log(`stderr: ${stderr}`)
+              return
+            }
+            console.log(`stdout: ${stdout}`)
+          }
+        )
+
+        // Serve the static file with the correct MIME type
+        const fullPath = path.join(reportPath, filePath)
+        const fileContent = await fs.promises.readFile(fullPath)
+        const mimeType = mime.getType(fullPath) || "text/plain"
+        reply.type(mimeType).send(fileContent)
       } catch (error) {
         console.error(`File not found: ${reportPath}`)
         reply.code(404).send({ error: "File not found" })
         return
       }
-
-      // Serve the file from the specified path
-      const contentType = mime.lookup(filePath) || "application/octet-stream"
-      const fileStream = fs.createReadStream(reportPath)
-
-      fileStream.on("data", (chunk) => {
-        console.log(`Received ${chunk.length} bytes of data.`) // Debug: log the received data
-      })
-
-      reply.type(contentType)
-      fileStream.pipe(reply.raw) // Pipe the file stream to the response
     } catch (error) {
       // Handle errors if any
       console.error(error)

@@ -7,31 +7,31 @@ var project = {
   description: SITE_DESC,
   skipFirstChapter: SKIP_FIRST_CHAPTER,
   theme_color: SITE_COLOR,
-  url: 'https://www.wien.gv.at',
+  url: "https://www.wien.gv.at",
   build_time: new Date(),
   environment: process.env.ELEVENTY_ENV,
-  version: '1.0.0',
-  css_version: '1.3.1',
-	asset_root: '',
-  copyright: 'Stadt Wien, Rathaus, A-1010 Wien',
+  version: "1.0.0",
+  css_version: "1.3.1",
+  asset_root: "",
+  copyright: "Stadt Wien, Rathaus, A-1010 Wien",
   navbar: {
-    title: 'Hauptmenü',
-    button_label: 'Menü',
-    nojslink: '/nojs.html',
-    type: 'microsite',
+    title: "Hauptmenü",
+    button_label: "Menü",
+    nojslink: "/nojs.html",
+    type: "microsite",
     color: SITE_COLOR,
     hide_linktext: true,
     burger: true,
     desktop: true,
     actions: [],
     search: SITE_SEARCH, // true, false, oder 'hidden'
-    menu: HEADER_MENU
+    menu: HEADER_MENU,
   },
   indexcards: true,
   footer: {
     items: [
       {
-        text: "Impressum",  
+        text: "Impressum",
         url: "https://www.wien.gv.at/info/impressum.html",
       },
       {
@@ -41,24 +41,20 @@ var project = {
       {
         text: "Barrierefreiheit",
         url: "https://www.wien.gv.at/info/barrierefreiheit.html",
-      }
+      },
     ],
-    layout: 'pipe-lg',
+    layout: "pipe-lg",
     attributes: {
-      class: 'wm-h-links--noline wm-site-footer__links'
-    }
+      class: "wm-h-links--noline wm-site-footer__links",
+    },
   },
-  siteimprove: true
+  siteimprove: SITE_IMPROVE,
 }
 
-project.version_folder = project.css_version.replaceAll('.', '')
+project.version_folder = project.css_version.replaceAll(".", "")
 
 if (project.navbar.menu) {
-  project.navbar.lists = [
-    [
-      'partials/nav.njk', 'include'
-    ]
-  ]
+  project.navbar.lists = [["partials/nav.njk", "include"]]
 }
 
 module.exports = project

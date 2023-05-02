@@ -111,7 +111,9 @@ async function parseRoute(fastify, options) {
           }
           if (buildDir === "preview") {
             result = result.replace(/SITE_PATH/g, `"preview/${buildName}/"`)
+            result = result.replace(/SITE_IMPROVE/g, "false")
           } else {
+            result = result.replace(/SITE_IMPROVE/g, "true")
             if (body.site_path) {
               result = result.replace(/SITE_PATH/g, `"${body.site_path}"`)
             } else {
