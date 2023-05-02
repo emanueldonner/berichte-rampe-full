@@ -90,7 +90,8 @@ async function parseRoute(fastify, options) {
         - var result = result.replace(/XXX_XXX/g, `"${body.xxx_xxx}"`); muss ebenfalls erweitert werden!
         -- ACHTUNG: result kann "string" oder boolean Werte haben
         */
-          let result = data.replace(/SITE_TITLE/g, `"${body.site_title}"`)
+          let result = data
+
           result = result.replace(/STAGE_TITLE/g, `"${body.stage_title}"`)
           result = result.replace(/STAGE_DESC/g, `"${body.stage_description}"`)
           result = result.replace(/SITE_COLOR/g, `"${body.site_color}"`)
@@ -110,9 +111,14 @@ async function parseRoute(fastify, options) {
             result = result.replace(/SITE_SEARCH/g, `${body.site_search}`)
           }
           if (buildDir === "preview") {
+            result = result.replace(
+              /SITE_TITLE/g,
+              `"${body.site_title} [Vorschau]"`
+            )
             result = result.replace(/SITE_PATH/g, `"preview/${buildName}/"`)
             result = result.replace(/SITE_IMPROVE/g, "false")
           } else {
+            result = result.replace(/SITE_TITLE/g, `"${body.site_title}"`)
             result = result.replace(/SITE_IMPROVE/g, "true")
             if (body.site_path) {
               result = result.replace(/SITE_PATH/g, `"${body.site_path}"`)
