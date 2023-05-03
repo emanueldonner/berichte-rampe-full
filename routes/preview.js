@@ -10,7 +10,11 @@ async function previewRoute(fastify, options) {
   fastify.get("/preview/:report/*", async (request, reply) => {
     try {
       const report = request.params.report
-      const filePath = request.params["*"] || "index.html"
+      const subPath = request.params["*"]
+        ? path.extname(request.params["*"]) === ""
+          ? path.join(request.params["*"], "index.html")
+          : request.params["*"]
+        : "index.html"
       const reportPath = path.join(PROJECT_DIR, report, "preview", "_site")
 
       console.log(`Serving file: ${reportPath}`) // Debug: log the file path
@@ -35,7 +39,7 @@ async function previewRoute(fastify, options) {
         )
 
         // Serve the static file with the correct MIME type
-        const fullPath = path.join(reportPath, filePath)
+        const fullPath = path.join(reportPath, subPath)
         const fileContent = await fs.promises.readFile(fullPath)
         const mimeType = mime.getType(fullPath) || "text/plain"
         reply.type(mimeType).send(fileContent)

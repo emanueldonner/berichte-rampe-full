@@ -52,21 +52,21 @@ function ReportSettingsForm({ path, filename, onParseClick }) {
       stage_title: stageTitle,
       stage_description: stageDescription,
       site_path: sitePath,
-      path: path,
+      dirPath: path,
       filename: filename,
       mode: mode,
     }
     console.log("reportSettings: ", reportSettings)
-    onParseClick(reportSettings)
+    onParseClick(reportSettings, mode)
 
-    axios
-      .post("/api/report-settings", reportSettings)
-      .then((response) => {
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post("/api/report-settings", reportSettings)
+    //   .then((response) => {
+    //     console.log("parse response", response.data)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
   }
 
   return (
@@ -329,6 +329,7 @@ function ReportSettingsForm({ path, filename, onParseClick }) {
           </wm-button>
         </div>
       </div>
+
       <div className="wm-form__grid-md">
         <div className="wm-u-mtm">
           <wm-button color="frischgruen">
@@ -356,6 +357,7 @@ function UploadPage() {
   const [zipFilePath, setZipFilePath] = useState("")
   const [zipDownloadUrl, setZipDownloadUrl] = useState("")
   const [logStatus, setLogStatus] = useState("")
+  const [previewPathName, setPreviewPathName] = useState("")
   const scroller = useRef(null)
   const addToMessage = (msg) => {
     setMessage((prev) => [...prev, msg])
@@ -390,9 +392,7 @@ function UploadPage() {
           if (msg.ref === body.ref) {
             header = msg.message
             content = msg.explanation
-            console.log("found match", header)
           } else {
-            console.log("no match")
           }
         })
         const msg = `${body.level}: ${header} | ${content}`
@@ -434,7 +434,7 @@ function UploadPage() {
     }
   }, [])
 
-  const onParseClick = async (data) => {
+  const onParseClick = async (data, mode) => {
     try {
       setLogStatus("loading")
       const res = await axios.post("/api/parse", {
@@ -442,9 +442,16 @@ function UploadPage() {
       })
 
       addToMessage(res.data.message)
-      res.data.status === "success" && setReadyForZip(true)
-      setZipFilePath(res.data.path)
-      setLogStatus("")
+      if (res.data.status === "success") {
+        if (mode === "preview") {
+          console.log("preview parse", res.data)
+          setPreviewPathName(res.data.pathName)
+        } else {
+          setReadyForZip(true)
+          setZipFilePath(res.data.path)
+        }
+        setLogStatus("")
+      }
     } catch (error) {
       addToMessage(error)
     }
@@ -488,6 +495,21 @@ function UploadPage() {
               filename={filename}
               onParseClick={onParseClick}
             />
+          )}
+          {previewPathName !== "" && (
+            <div className="wm-form__grid-md">
+              <div className="wm-u-mtm">
+                <wm-button color="goldgelb">
+                  <a
+                    className="wm-btn--block"
+                    href={`http://localhost:5000/preview/${previewPathName}/`} // TODO: change to production url
+                    target="_blank"
+                  >
+                    Vorschau-Seite
+                  </a>
+                </wm-button>
+              </div>
+            </div>
           )}
           {readyForZip && (
             <div className="wm-form__grid-md">

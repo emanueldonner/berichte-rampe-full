@@ -11,22 +11,24 @@ async function parseRoute(fastify, options) {
         msg: "Dokument wird verarbeitet...",
       })
       const buildDir = request.body.mode === "preview" ? "preview" : "build"
-      const { filename, path } = request.body
-      if (!fs.existsSync(`${path}/${buildDir}`)) {
-        fs.mkdirSync(`${path}/${buildDir}`, { recursive: true })
-        fs.chmod(`${path}/${buildDir}`, 0o775, (err) => {
+      const { filename, dirPath } = request.body
+      const basePath = path.basename(dirPath)
+      console.log("BASEPATH!!!!!", basePath)
+      if (!fs.existsSync(`${dirPath}/${buildDir}`)) {
+        fs.mkdirSync(`${dirPath}/${buildDir}`, { recursive: true })
+        fs.chmod(`${dirPath}/${buildDir}`, 0o775, (err) => {
           if (err) {
             console.error(err)
           }
         })
       }
-      await exec(`cp -r ./public/template/. ${path}/${buildDir}`)
-      await exec(`npm install --prefix ${path}/${buildDir}`) // Check if needed
+      await exec(`cp -r ./public/template/. ${dirPath}/${buildDir}`) // Copy template files
+      await exec(`npm install --prefix ${dirPath}/${buildDir}`) // Install dependencies
       fastify.connectionStore.broadcastMessage({
         msg: "Files aus dem Template kopiert...",
       })
       await exec(
-        `./server/office-parser/parse.mjs -n ${path}/${buildDir}/src ${path}/${filename}`,
+        `./server/office-parser/parse.mjs -n ${dirPath}/${buildDir}/src ${dirPath}/${filename}`,
         (error, stdout, stderr) => {
           if (error) {
             console.log(`error: ${error.message}`)
@@ -59,13 +61,14 @@ async function parseRoute(fastify, options) {
             })
             // client.send(JSON.stringify(stdout))
           })
-          buildSite(path, request.body, buildDir)
+          buildSite(dirPath, request.body, buildDir)
         }
       )
       reply.status(200).send({
         message: "Dokument erfolgreich verarbeitet.",
         status: "success",
-        path: path,
+        path: dirPath,
+        pathName: basePath,
       })
     } catch (error) {
       reply.status(500).send({ message: error.message })
@@ -74,7 +77,7 @@ async function parseRoute(fastify, options) {
 
   const replaceSettings = async (body, buildDir, buildName) => {
     try {
-      const folder = body.path
+      const folder = body.dirPath
       fs.readFile(
         `${folder}/${buildDir}/src/_data/project.js`,
         "utf8",
@@ -176,15 +179,27 @@ async function parseRoute(fastify, options) {
       //   quietMode: false,
       //   configPath: eleventyConfigPath,
       // })
-      exec(
-        `npx @11ty/eleventy --input=${srcFolder} --output=${siteFolder} --config=${eleventyConfigPath}`
-      )
+
       console.log("Eleventy build started...")
-      // await elev.write()
-      console.log("Eleventy build completed successfully.")
-      fastify.connectionStore.broadcastMessage({
-        msg: "Eleventy Build erfolgreich abgeschlossen.",
+      const eleventyCmd = `npx @11ty/eleventy --input=${srcFolder} --output=${siteFolder} --config=${eleventyConfigPath}`
+
+      exec(eleventyCmd, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error executing Eleventy: ${error.message}`)
+          return
+        }
+
+        console.log(stdout)
+        console.log("Eleventy build completed successfully.")
+        fastify.connectionStore.broadcastMessage({
+          previewPath: buildName,
+          msg: "Eleventy Build erfolgreich abgeschlossen.",
+        })
+        if (stderr) {
+          console.error(stderr)
+        }
       })
+      // await elev.write()
     } catch (error) {
       return "Failed to build Eleventy site: " + error.message
     }
