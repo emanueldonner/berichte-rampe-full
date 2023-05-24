@@ -33,6 +33,7 @@ if (!fs.existsSync(PUBLIC_DIR)) {
 //   done()
 // })
 fastify.register(require("./server/connectionStore"))
+fastify.register(require("./routes/test"))
 fastify.register(require("./routes/upload"), { PUBLIC_DIR })
 fastify.register(require("./routes/parse"), { PUBLIC_DIR })
 fastify.register(require("./routes/compress"))

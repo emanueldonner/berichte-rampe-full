@@ -58,11 +58,13 @@ async function compressRoute(fastify, options) {
   }
 
   fastify.get("/download", async (request, reply) => {
+    console.log("raw zip location: ", request.query.zipLocation)
     try {
-      const zipLocation = Buffer.from(
-        request.query.zipLocation,
-        "base64"
-      ).toString("utf-8")
+      const zipLocation = request.query.zipLocation
+      // Buffer.from(
+      //   request.query.zipLocation,
+      //   "base64"
+      // ).toString("utf-8")
       console.log("zipLocation:", zipLocation)
 
       if (!fs.existsSync(zipLocation)) {
