@@ -68,12 +68,6 @@ module.exports = function (fastify, ops, next) {
 	next()
 }
 
-// fastify.register(require("@fastify/http-proxy"), {
-//   upstream: "http://127.0.0.1:8081",
-//   prefix: "/preview",
-//   http2: false,
-// })
-
 // Middleware für den Upload von Dateien und WebSockets
 fastify.register(require("@fastify/multipart"), {
 	// attachFieldsToBody: true,
