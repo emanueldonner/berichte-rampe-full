@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: Berichte-Framework API
+  version: "0.3"
+servers:
+  - url: http://localhost:5500
+paths:
+  /upload:
+    post:
+      summary: Dokument hochladen
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Dokument erfolgreich hochgeladen
+        "500":
+          description: Fehler beim Hochladen
+
+  /parse:
+    post:
+      summary: Dokument parsen und verarbeiten
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mode:
+                  type: string
+                  enum: [preview, build]
+                filename:
+                  type: string
+                dirPath:
+                  type: string
+      responses:
+        "200":
+          description: Dokument erfolgreich verarbeitet
+        "500":
+          description: Fehler bei der Verarbeitung
+
+  /preview/{report}/*:
+    get:
+      summary: Spezifischen Bericht vorschauen
+      parameters:
+        - in: path
+          name: report
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: "*"
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Erfolgreiche Vorschau des Berichts
+        "404":
+          description: Bericht oder spezifizierte Datei nicht gefunden
+        "500":
+          description: Fehler bei der Verarbeitung der Anfrage
+
+  /compress:
+    post:
+      summary: Verzeichnisse komprimieren
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                path:
+                  type: string
+      responses:
+        "200":
+          description: ZIP-Komprimierung erfolgreich
+        "500":
+          description: Fehler bei der Komprimierung
+
+  /download:
+    get:
+      summary: Erstellte ZIP-Datei herunterladen
+      parameters:
+        - in: query
+          name: zipLocation
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Startet den Download der ZIP-Datei
+        "404":
+          description: ZIP-Datei nicht gefunden
+        "500":
+          description: Fehler beim Download
