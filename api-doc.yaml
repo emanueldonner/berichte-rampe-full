@@ -5,6 +5,70 @@ info:
 servers:
   - url: http://localhost:5500
 paths:
+  /login:
+    post:
+      summary: Benutzeranmeldung
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Anmeldung erfolgreich
+        "401":
+          description: Anmeldung fehlgeschlagen
+  /projects:
+    get:
+      summary: Projekte abrufen
+      responses:
+        "200":
+          description: Erfolgreich Projekte abgerufen
+        "500":
+          description: Fehler beim Abrufen der Projekte
+  /project/{projectId}:
+    get:
+      summary: Projekt abrufen
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Erfolgreich Projekt abgerufen
+        "404":
+          description: Projekt nicht gefunden
+        "500":
+          description: Fehler beim Abrufen des Projekts
+  /project:
+    post:
+      summary: Projekt erstellen
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectName:
+                  type: string
+      responses:
+        "200":
+          description: Erfolgreich Projekt erstellt
+        "500":
+          description: Fehler beim Erstellen des Projekts
   /upload:
     post:
       summary: Dokument hochladen
@@ -100,3 +164,41 @@ paths:
           description: ZIP-Datei nicht gefunden
         "500":
           description: Fehler beim Download
+  /log:
+    get:
+      summary: WebSocket-Route für Logs
+      description: |
+        Diese Route etabliert eine WebSocket-Verbindung, um Log-Nachrichten zu empfangen. Nach der Verbindung können Clients Nachrichten an den Server senden und in Echtzeit Log-Informationen erhalten.
+
+        **WebSocket-Details:**
+        - **Verbindung**: Clients sollten eine WebSocket-Verbindung zu `ws://localhost:5500/log` aufbauen.
+        - **Nachrichten an den Server**: Nach der Verbindung können Clients Nachrichten an den Server senden. Der Server protokolliert eingehende Nachrichten.
+        - **Nachrichten vom Server**: Der Server sendet eine Willkommensnachricht nach der Verbindung. Es können zusätzliche Log-Informationen gesendet werden, sobald diese verfügbar sind.
+      responses:
+        "101":
+          description: Protokolle wechseln - zeigt an, dass eine WebSocket-Verbindung initiiert wird.
+        default:
+          description: Nicht-WebSocket-Antwort.
+components:
+  x-websocket:
+    /log:
+      summary: Log WebSocket Verbindungsdetails
+      description: |
+        Stellt eine WebSocket-Verbindung für Log-Nachrichten her.
+      connect:
+        summary: WebSocket-Verbindung herstellen
+        description: Client verbindet sich mit dem WebSocket, um Log-Nachrichten zu starten.
+      disconnect:
+        summary: WebSocket-Verbindung trennen
+        description: Client trennt die Verbindung zum WebSocket.
+      messages:
+        send:
+          summary: Nachricht an den Server senden
+          description: |
+            Clients können Nachrichten an den Server senden. Verwenden Sie das JSON-Format für Nachrichten:
+            ```json
+            { "msg": "Hallo, Server!" }
+            ```
+        receive:
+          summary: Nachrichten vom Server empfangen
+          description: Der Server sendet Nachrichten, einschließlich einer Willkommensnachricht und laufender Log-Informationen.
