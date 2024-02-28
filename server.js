@@ -2,6 +2,7 @@
 const fs = require("fs-extra")
 const path = require("path")
 const serveHandler = require("serve-handler")
+
 const envToLogger = {
 	development: {
 		transport: {
@@ -18,6 +19,23 @@ const envToLogger = {
 const fastify = require("fastify")({
 	logger: envToLogger["development"] ?? true,
 })
+
+// Register fastify-swagger
+// fastify.register(require("@fastify/swagger"), {
+// 	routePrefix: "/documentation",
+// 	swagger: {
+// 		info: {
+// 			title: "Test API",
+// 			description: "API documentation",
+// 			version: "0.1.0",
+// 		},
+// 		host: "localhost",
+// 		schemes: ["http"],
+// 		consumes: ["application/json"],
+// 		produces: ["application/json"],
+// 	},
+// 	exposeRoute: true,
+// })
 
 // Konfiguration der öffentlichen und Projektverzeichnisse
 const PUBLIC_DIR = path.join(__dirname, "public")
@@ -104,7 +122,7 @@ fastify.all("/*", async (request, reply) => {
 
 // Run the server!
 // if (process.env.NODE_ENV === "production") {
-fastify.listen({ port: process.env.PORT || 5000 }, function (err, address) {
+fastify.listen({ port: process.env.PORT || 5500 }, function (err, address) {
 	if (err) {
 		fastify.log.error(err)
 		process.exit(1)

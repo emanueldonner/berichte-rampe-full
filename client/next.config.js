@@ -9,11 +9,11 @@ const nextConfig = {
 		return [
 			{
 				source: "/api/:path*",
-				destination: `http://${process.env.NEXT_PUBLIC_BASE_URL}:5000/:path*`, // Proxy to Backend
+				destination: `http://${process.env.NEXT_PUBLIC_BASE_URL}/:path*`, // Proxy to Backend
 			},
 			// {
 			//   source: "/preview/:path*",
-			//   destination: "http://localhost:5000/preview/:path*", // Proxy to Backend
+			//   destination: "http://localhost:5500/preview/:path*", // Proxy to Backend
 			// },
 		]
 	},

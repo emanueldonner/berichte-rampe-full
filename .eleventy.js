@@ -1,7 +1,7 @@
 module.exports = (eleventyConfig) => {
-  eleventyConfig.setBrowserSyncConfig({
-    proxy: "http://localhost:5000",
-  })
+	eleventyConfig.setBrowserSyncConfig({
+		proxy: "http://localhost:5500",
+	})
 
-  // Add your other Eleventy configuration here
+	// Add your other Eleventy configuration here
 }
