@@ -1,34 +1,78 @@
 import { useState, useEffect } from "react"
 
-export default function ReportSettingsForm({ path, filename, onParseClick }) {
-	const [domainUrl, setDomainUrl] = useState("")
-	const [directoryPath, setDirectoryPath] = useState("")
-	const [copyright, setCopyright] = useState("")
-	const [showSearch, setShowSearch] = useState(false)
-	const [showDropdownNavigation, setShowDropdownNavigation] = useState(false)
-	const [showLanguageSelection, setShowLanguageSelection] = useState(false)
-	const [languages, setLanguages] = useState([{ text: "", link: "" }])
-	const [chapterColors, setChapterColors] = useState([
-		{ chapterNumber: 1, color: "morgenrot" },
-	])
-	const [footerInfoTitle, setFooterInfoTitle] = useState("")
-	const [footerDepartment, setFooterDepartment] = useState("")
-	const [footerArea, setFooterArea] = useState("")
-	const [footerEmailText, setFooterEmailText] = useState("")
-	const [footerEmail, setFooterEmail] = useState("")
-	const [footerPhoneText, setFooterPhoneText] = useState("")
-	const [footerPhone, setFooterPhone] = useState("")
-	const [footerImprintText, setFooterImprintText] = useState("")
-	const [footerImprintUrl, setFooterImprintUrl] = useState("")
-	const [footerPrivacyText, setFooterPrivacyText] = useState("")
-	const [footerPrivacyUrl, setFooterPrivacyUrl] = useState("")
-	const [footerAccessibilityText, setFooterAccessibilityText] = useState("")
-	const [footerAccessibilityUrl, setFooterAccessibilityUrl] = useState("")
-	const [homeDesign, setHomeDesign] = useState("cards")
-	const [excludeFirstChapter, setExcludeFirstChapter] = useState(false)
-	const [useWordCoverImage, setUseWordCoverImage] = useState(true)
-	const [coverImage, setCoverImage] = useState(null)
-	const [coverImageAltText, setCoverImageAltText] = useState("")
+export default function ReportSettingsForm({
+	path,
+	filename,
+	onParseClick,
+	bericht,
+}) {
+	// Initialize state with default values from 'bericht' if it exists
+	const [domainUrl, setDomainUrl] = useState(bericht?.domainURL ?? "")
+	const [directoryPath, setDirectoryPath] = useState(
+		bericht?.directoryPath ?? ""
+	)
+	const [copyright, setCopyright] = useState(bericht?.copyrightText ?? "")
+	const [showSearch, setShowSearch] = useState(
+		bericht?.navigationElements.search ?? false
+	)
+	const [showDropdownNavigation, setShowDropdownNavigation] = useState(
+		bericht?.navigationElements.dropdown ?? false
+	)
+	const [showLanguageSelection, setShowLanguageSelection] = useState(
+		bericht?.navigationElements.languageSelection ?? false
+	)
+	const [languages, setLanguages] = useState(
+		bericht?.languages ?? [{ text: "", link: "" }]
+	)
+	const [chapterColors, setChapterColors] = useState(
+		bericht?.chapterColors ?? [{ chapterNumber: 1, color: "morgenrot" }]
+	)
+	const [footerInfoTitle, setFooterInfoTitle] = useState(
+		bericht?.footer.title ?? ""
+	)
+	const [footerDepartment, setFooterDepartment] = useState(
+		bericht?.footer.department ?? ""
+	)
+	const [footerArea, setFooterArea] = useState(bericht?.footer.division ?? "")
+	const [footerEmailText, setFooterEmailText] = useState(
+		bericht?.footer.emailText ?? ""
+	)
+	const [footerEmail, setFooterEmail] = useState(bericht?.footer.email ?? "")
+	const [footerPhoneText, setFooterPhoneText] = useState(
+		bericht?.footer.phoneText ?? ""
+	)
+	const [footerPhone, setFooterPhone] = useState(bericht?.footer.phone ?? "")
+	const [footerImprintText, setFooterImprintText] = useState(
+		bericht?.footer.imprintText ?? ""
+	)
+	const [footerImprintUrl, setFooterImprintUrl] = useState(
+		bericht?.footer.imprintURL ?? ""
+	)
+	const [footerPrivacyText, setFooterPrivacyText] = useState(
+		bericht?.footer.privacyText ?? ""
+	)
+	const [footerPrivacyUrl, setFooterPrivacyUrl] = useState(
+		bericht?.footer.privacyURL ?? ""
+	)
+	const [footerAccessibilityText, setFooterAccessibilityText] = useState(
+		bericht?.footer.accessibilityText ?? ""
+	)
+	const [footerAccessibilityUrl, setFooterAccessibilityUrl] = useState(
+		bericht?.footer.accessibilityURL ?? ""
+	)
+	const [homeDesign, setHomeDesign] = useState(bericht?.siteColor ?? "cards")
+	const [excludeFirstChapter, setExcludeFirstChapter] = useState(
+		bericht?.skipFirstChapter ?? false
+	)
+	const [useWordCoverImage, setUseWordCoverImage] = useState(
+		bericht?.coverImageOption === "default"
+	)
+	const [coverImage, setCoverImage] = useState(
+		bericht?.coverImageUpload ?? null
+	)
+	const [coverImageAltText, setCoverImageAltText] = useState(
+		bericht?.coverImageAltText ?? ""
+	)
 	const [isValid, setIsValid] = useState(false)
 
 	useEffect(() => {

@@ -17,7 +17,7 @@ const HeaderComponent = () => {
 			<div className={styles["header-nav"]}>
 				<div className={styles["header-nav-inner"]}>
 					<ul>
-						{user ? (
+						{user || user === null ? (
 							<>
 								<li>
 									<Link href="/berichte">Alle Berichte</Link>
@@ -25,18 +25,6 @@ const HeaderComponent = () => {
 								{/* <li>
 									<Link href="/upload">Upload</Link>
 								</li> */}
-								<li>
-									<button onClick={logout}>Logout</button>
-								</li>
-							</>
-						) : user === null ? (
-							<>
-								<li>
-									<a href="/berichte">Berichte</a>
-								</li>
-								<li>
-									<a href="#">Settings</a>
-								</li>
 								<li>
 									<button onClick={logout}>Logout</button>
 								</li>
