@@ -1,3 +1,5 @@
+// Detailseite eines Berichts
+
 "use client"
 
 import React from "react"

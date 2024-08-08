@@ -8,7 +8,7 @@ import useWebSocket from "react-use-websocket"
 import dynamic from "next/dynamic"
 
 const ReportSettingsForm = dynamic(
-	() => import("../components/ConfigForm/ConfigFormNew"),
+	() => import("../components/ConfigForm/ConfigForm"),
 	{
 		ssr: false,
 	}

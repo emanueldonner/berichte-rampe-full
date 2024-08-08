@@ -1,9 +1,10 @@
+// Überblickseite für alle Berichte
+
 "use client"
 
 import React from "react"
 import { mockupBerichte } from "../utils/mockupBerichte"
 import Link from "next/link"
-
 const BerichtePage = () => {
 	return (
 		<div>
@@ -16,6 +17,10 @@ const BerichtePage = () => {
 						</li>
 					))}
 				</ul>
+				<br />
+				<Link href="/upload">
+					<button>Neuer Bericht</button>
+				</Link>
 			</div>
 		</div>
 	)
